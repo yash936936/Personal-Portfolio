@@ -1,0 +1,134 @@
+.project-hero {
+  padding: calc(var(--nav-height) + 56px) 0 40px;
+}
+
+.project-hero__back {
+  display: inline-flex;
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-bottom: 28px;
+  transition: color 0.3s;
+}
+
+.project-hero__back:hover {
+  color: var(--color-primary);
+}
+
+.project-hero__eyebrow {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.project-hero__title {
+  font-size: clamp(38px, 7vw, 84px);
+  letter-spacing: -1.5px;
+  line-height: 1.02;
+  max-width: 900px;
+}
+
+.project-cover {
+  padding-bottom: 64px;
+}
+
+.project-cover__media {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-xl);
+}
+
+.project-meta {
+  padding-bottom: 64px;
+}
+
+.project-meta__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--color-hairline);
+  margin-bottom: 40px;
+}
+
+.project-meta__label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-muted-soft);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.project-meta__value {
+  font-size: 15px;
+  color: var(--color-ink);
+}
+
+.project-meta__copy {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--color-body);
+  max-width: 720px;
+}
+
+.project-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-bottom: var(--space-section);
+}
+
+.project-gallery__media {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+}
+
+.project-next {
+  padding-bottom: var(--space-section);
+}
+
+.project-next__heading {
+  font-size: clamp(26px, 3.4vw, 38px);
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
+}
+
+.project-next__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.project-next__card {
+  display: block;
+}
+
+.project-next__media {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+  transition: transform 0.4s var(--ease-out-quart);
+}
+
+.project-next__card:hover .project-next__media {
+  transform: translateY(-6px);
+}
+
+.project-next__title {
+  font-size: 14px;
+  color: var(--color-body);
+}
+
+@media (max-width: 980px) {
+  .project-gallery {
+    grid-template-columns: 1fr;
+  }
+  .project-meta__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .project-next__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

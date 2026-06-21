@@ -1,0 +1,22 @@
+.page-header {
+  padding: calc(var(--nav-height) + 64px) 0 56px;
+}
+
+.page-header__eyebrow {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.page-header__title {
+  font-size: clamp(36px, 6vw, 72px);
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  max-width: 880px;
+}
+
+.page-header__sub {
+  margin-top: 22px;
+  font-size: 17px;
+  color: var(--color-muted);
+  max-width: 560px;
+}

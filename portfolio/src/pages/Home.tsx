@@ -1,0 +1,31 @@
+import Hero from "../components/sections/Hero";
+import LogoMarquee from "../components/sections/LogoMarquee";
+import Showcase from "../components/sections/Showcase";
+import SectorsIntro from "../components/sections/SectorsIntro";
+import Offers from "../components/sections/Offers";
+import ApproachStrip from "../components/sections/ApproachStrip";
+import Faq from "../components/sections/Faq";
+import Testimonials from "../components/sections/Testimonials";
+import Stats from "../components/sections/Stats";
+import CtaBand from "../components/sections/CtaBand";
+import Press from "../components/sections/Press";
+import ContactBand from "../components/sections/ContactBand";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <LogoMarquee />
+      <Showcase />
+      <SectorsIntro />
+      <Offers />
+      <ApproachStrip />
+      <Faq />
+      <Testimonials />
+      <Stats />
+      <CtaBand />
+      <Press />
+      <ContactBand />
+    </>
+  );
+}

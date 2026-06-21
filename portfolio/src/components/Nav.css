@@ -1,0 +1,300 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background-color 0.5s var(--ease-out-quart), height 0.4s var(--ease-out-quart), border-color 0.4s;
+  border-bottom: 1px solid transparent;
+}
+
+.nav--scrolled {
+  height: 72px;
+  background: rgba(250, 249, 245, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-size: 21px;
+  color: var(--color-ink);
+  z-index: 1100;
+  position: relative;
+}
+
+.nav__logo-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.nav__logo-word {
+  letter-spacing: -0.3px;
+}
+
+.nav__primary {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav__primary-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  color: var(--color-body);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav__primary-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-ink);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out-quart);
+}
+
+.nav__primary-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav__cta {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  transition: background-color 0.3s, transform 0.3s var(--ease-out-quart);
+}
+
+.nav__cta:hover {
+  background: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.nav__trigger {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  z-index: 1100;
+  position: relative;
+  color: var(--color-ink);
+}
+
+.nav__trigger-label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+}
+
+.nav__trigger-icon {
+  width: 24px;
+  height: 16px;
+  position: relative;
+}
+
+.nav__trigger-icon span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-ink);
+  transition: transform 0.35s var(--ease-out-quart), top 0.35s var(--ease-out-quart), opacity 0.2s;
+}
+
+.nav__trigger-icon span:first-child {
+  top: 0;
+}
+.nav__trigger-icon span:last-child {
+  top: 14px;
+}
+
+.nav__trigger--open .nav__trigger-icon span:first-child {
+  top: 7px;
+  transform: rotate(45deg);
+}
+.nav__trigger--open .nav__trigger-icon span:last-child {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+/* Overlay menu */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: var(--color-canvas);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-in-out-quart), visibility 0s linear 0.5s;
+  display: flex;
+  align-items: center;
+}
+
+.nav-overlay--open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s var(--ease-in-out-quart);
+}
+
+.nav-overlay__inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 64px;
+  padding-top: var(--nav-height);
+}
+
+.nav-overlay__eyebrow {
+  display: block;
+  margin-bottom: 28px;
+}
+
+.nav-overlay__offers {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-overlay__offer-item {
+  border-top: 1px solid var(--color-hairline);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+}
+
+.nav-overlay--open .nav-overlay__offer-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-overlay__offer-item:last-child {
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.nav-overlay__offer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 4px;
+}
+
+.nav-overlay__offer-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 36px);
+  letter-spacing: -0.5px;
+  color: var(--color-ink);
+  transition: color 0.3s, transform 0.3s var(--ease-out-quart);
+}
+
+.nav-overlay__offer:hover .nav-overlay__offer-title {
+  color: var(--color-primary);
+  transform: translateX(8px);
+}
+
+.nav-overlay__offer-desc {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.nav-overlay__links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.nav-overlay__link-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+}
+
+.nav-overlay--open .nav-overlay__link-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-overlay__link {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-body);
+}
+
+.nav-overlay__link:hover {
+  color: var(--color-primary);
+}
+
+.nav-overlay__contact {
+  border-top: 1px solid var(--color-hairline);
+  padding-top: 24px;
+}
+
+.nav-overlay__contact-label {
+  font-size: 12px;
+  color: var(--color-muted-soft);
+  margin-bottom: 6px;
+}
+
+.nav-overlay__contact-email {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+}
+
+@media (max-width: 860px) {
+  .nav__primary {
+    display: none;
+  }
+  .nav__trigger {
+    display: inline-flex;
+  }
+  .nav-overlay__inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-top: calc(var(--nav-height) + 8px);
+    overflow-y: auto;
+    max-height: 100vh;
+    padding-bottom: 40px;
+  }
+  .nav-overlay__offer-title {
+    font-size: 28px;
+  }
+}
