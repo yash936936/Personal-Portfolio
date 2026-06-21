@@ -2,7 +2,6 @@
   background: var(--color-surface-dark);
   color: var(--color-on-dark-soft);
   padding: var(--space-section) 0 var(--space-xl);
-  margin-top: var(--space-section);
 }
 
 .footer__line {

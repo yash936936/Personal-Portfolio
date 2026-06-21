@@ -106,21 +106,6 @@ export default function Hero() {
               </Link>
             </div>
           </div>
-
-          <div className="hero__progress" role="tablist" aria-label="Headline selector">
-            {heroLines.map((line, lineIndex) => (
-              <div
-                key={line.title}
-                role="tab"
-                aria-selected={lineIndex === index}
-                aria-label={`Statement ${lineIndex + 1}`}
-                className={`hero__progress-item ${lineIndex === index ? "hero__progress-item--active" : ""}`}
-              >
-                <span>{String(lineIndex + 1).padStart(2, "0")}</span>
-                <i />
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

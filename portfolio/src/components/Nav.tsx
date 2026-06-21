@@ -65,8 +65,13 @@ export default function Nav() {
               ))}
               <span className="nav__divider" aria-hidden="true" />
               <Link to="/contact" className="nav__pill nav__pill--cta">
-                <span>Contact</span>
-                <span className="nav__pill-arrow" aria-hidden="true">
+                <span className="nav__pill-arrow nav__pill-arrow--left" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" focusable="false">
+                    <path d="M4 10h11M11 6l4 4-4 4" />
+                  </svg>
+                </span>
+                <span className="nav__pill-cta-label">Contact</span>
+                <span className="nav__pill-arrow nav__pill-arrow--right" aria-hidden="true">
                   <svg viewBox="0 0 20 20" focusable="false">
                     <path d="M4 10h11M11 6l4 4-4 4" />
                   </svg>
