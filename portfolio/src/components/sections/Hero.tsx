@@ -1,39 +1,52 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { heroLines, heroTag } from "../../data/content";
 import "./Hero.css";
 
-const INTERVAL = 4200;
-
 export default function Hero() {
   const [index, setIndex] = useState(0);
   const [entered, setEntered] = useState(false);
+  const [tilt, setTilt] = useState<"top" | "bottom">("top");
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setEntered(true), 80);
+    lastScrollY.current = window.scrollY;
     return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    const id = window.setInterval(() => {
-      setIndex((current) => (current + 1) % heroLines.length);
-    }, INTERVAL);
-    return () => window.clearInterval(id);
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      window.requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY.current;
+
+        // Ignore tiny jitters; only react to a deliberate scroll move.
+        if (Math.abs(delta) > 4) {
+          setTilt(delta > 0 ? "bottom" : "top");
+          lastScrollY.current = currentY;
+        }
+
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const selectSlide = (nextIndex: number) => setIndex(nextIndex);
-  const advanceSlide = () => setIndex((current) => (current + 1) % heroLines.length);
 
   return (
     <section className={`hero ${entered ? "hero--entered" : ""}`}>
       <div className="container hero__inner">
         <div className="hero__visual">
-          <button
-            className={`hero__switch hero__switch--${index}`}
-            type="button"
-            onClick={advanceSlide}
-            aria-label="Show next hero statement"
-          >
+          <div className={`hero__switch hero__switch--${tilt}`}>
             <div className="hero__switch-surface">
               <span className="hero__switch-control" aria-hidden="true">
                 <svg viewBox="0 0 64 64" focusable="false">
@@ -41,8 +54,8 @@ export default function Hero() {
                 </svg>
               </span>
             </div>
-          </button>
-          <span className="hero__visual-hint">Click to explore</span>
+          </div>
+          <span className="hero__visual-hint">Scroll to explore</span>
         </div>
 
         <div className="hero__content">

@@ -10,13 +10,9 @@ export const heroLines = [
     title: "Activate your\nideas",
     sub: "From a trained model to a production endpoint to a UI someone can actually click on.",
   },
-  {
-    title: "Engineer your\nadvantage",
-    sub: "I design, train, ship, and deploy — so the whole pipeline stays coherent end to end.",
-  },
 ];
 
-export const heroTag = "AI engineering · Full-stack · Cloud deployment";
+export const heroTag = "AI engineering · Full-stack";
 
 export const logos = [
   "Vercel", "Railway", "Supabase", "Cloudflare", "TensorFlow", "FastAPI", "Next.js", "PostgreSQL",

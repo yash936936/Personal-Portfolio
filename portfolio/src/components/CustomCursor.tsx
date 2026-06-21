@@ -33,25 +33,8 @@ export default function CustomCursor() {
     };
     raf = requestAnimationFrame(tick);
 
-    const onEnter = (e: Event) => {
-      const el = e.target as HTMLElement;
-      if (el.closest("a, button, [data-cursor='link']")) {
-        dotRef.current?.classList.add("cursor-dot--active");
-      }
-    };
-    const onLeave = (e: Event) => {
-      const el = e.target as HTMLElement;
-      if (el.closest("a, button, [data-cursor='link']")) {
-        dotRef.current?.classList.remove("cursor-dot--active");
-      }
-    };
-    document.addEventListener("mouseover", onEnter);
-    document.addEventListener("mouseout", onLeave);
-
     return () => {
       window.removeEventListener("mousemove", move);
-      document.removeEventListener("mouseover", onEnter);
-      document.removeEventListener("mouseout", onLeave);
       cancelAnimationFrame(raf);
     };
   }, []);

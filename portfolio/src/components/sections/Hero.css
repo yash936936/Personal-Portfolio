@@ -34,7 +34,7 @@
 }
 
 .hero__switch {
-  width: clamp(250px, 30vw, 420px);
+  width: clamp(180px, 21vw, 290px);
   aspect-ratio: 0.52;
   position: relative;
   padding: 0;
@@ -49,12 +49,12 @@
   transform: rotate(-43deg) scale(1);
 }
 
-.hero--entered .hero__switch--1 {
-  transform: rotate(42deg) scale(0.9);
+.hero--entered .hero__switch--top {
+  transform: rotate(-43deg) scale(1);
 }
 
-.hero--entered .hero__switch--2 {
-  transform: rotate(-8deg) scale(1.04);
+.hero--entered .hero__switch--bottom {
+  transform: rotate(42deg) scale(0.9);
 }
 
 .hero__switch-surface {
@@ -109,14 +109,9 @@
   transition: top 1.25s var(--ease-in-out-quart), transform 1.25s var(--ease-in-out-quart), background-color 0.3s;
 }
 
-.hero__switch--1 .hero__switch-control {
+.hero__switch--bottom .hero__switch-control {
   top: 82%;
   transform: translate(-50%, -50%) rotate(-42deg);
-}
-
-.hero__switch--2 .hero__switch-control {
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(8deg);
 }
 
 .hero__switch-control svg {
@@ -284,7 +279,7 @@
 
 .hero__progress {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
@@ -323,11 +318,8 @@
 }
 
 .hero__progress-item--active i::after {
-  animation: hero-progress 4.2s linear forwards;
-}
-
-@keyframes hero-progress {
-  to { transform: scaleX(1); }
+  transform: scaleX(1);
+  transition: transform 0.5s var(--ease-out-expo);
 }
 
 @media (max-width: 980px) {
@@ -341,7 +333,7 @@
   }
 
   .hero__switch {
-    width: clamp(210px, 30vw, 300px);
+    width: clamp(160px, 21vw, 210px);
   }
 
   .hero__headline {
@@ -377,7 +369,7 @@
   }
 
   .hero__switch {
-    width: min(46vw, 220px);
+    width: min(32vw, 160px);
   }
 
   .hero__visual-hint {
@@ -409,12 +401,5 @@
 
   .hero__sub {
     max-width: 92%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__progress-item--active i::after {
-    animation: none;
-    transform: scaleX(1);
   }
 }

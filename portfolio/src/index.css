@@ -192,10 +192,3 @@ button:focus-visible,
 @media (hover: none) {
   .cursor-dot { display: none; }
 }
-
-.cursor-dot--active {
-  width: 44px;
-  height: 44px;
-  background: var(--color-primary);
-  mix-blend-mode: normal;
-}
