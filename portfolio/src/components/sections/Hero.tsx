@@ -3,11 +3,17 @@ import { Link } from "react-router-dom";
 import { heroLines, heroTag } from "../../data/content";
 import "./Hero.css";
 
+type Tilt = "top" | "bottom";
+
 export default function Hero() {
-  const [index, setIndex] = useState(0);
   const [entered, setEntered] = useState(false);
-  const [tilt, setTilt] = useState<"top" | "bottom">("top");
+  const [tilt, setTilt] = useState<Tilt>("top");
   const lastScrollY = useRef(0);
+
+  // The pill has two resting positions (top / bottom), and the headline
+  // has two slides — they're driven by the same scroll-derived state so
+  // they always change together.
+  const index = tilt === "top" ? 0 : 1;
 
   useEffect(() => {
     const timer = window.setTimeout(() => setEntered(true), 80);
@@ -39,8 +45,6 @@ export default function Hero() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const selectSlide = (nextIndex: number) => setIndex(nextIndex);
 
   return (
     <section className={`hero ${entered ? "hero--entered" : ""}`}>
@@ -105,18 +109,16 @@ export default function Hero() {
 
           <div className="hero__progress" role="tablist" aria-label="Headline selector">
             {heroLines.map((line, lineIndex) => (
-              <button
+              <div
                 key={line.title}
-                type="button"
                 role="tab"
                 aria-selected={lineIndex === index}
-                aria-label={`Show statement ${lineIndex + 1}`}
+                aria-label={`Statement ${lineIndex + 1}`}
                 className={`hero__progress-item ${lineIndex === index ? "hero__progress-item--active" : ""}`}
-                onClick={() => selectSlide(lineIndex)}
               >
                 <span>{String(lineIndex + 1).padStart(2, "0")}</span>
                 <i />
-              </button>
+              </div>
             ))}
           </div>
         </div>
