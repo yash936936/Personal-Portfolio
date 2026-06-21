@@ -1,0 +1,25 @@
+.work-page {
+  --color-bg: #0c0c0a;
+  --color-surface-dark: #050504;
+  --color-surface-card: #18181480;
+  --color-ink: #f4f1ec;
+  --color-body: #cfcac0;
+  --color-muted: #a39d92;
+  --color-muted-soft: #726c61;
+  --color-hairline: rgba(255, 255, 255, 0.1);
+  --color-primary: #8fd9a8;
+
+  background: var(--color-bg);
+  background-image: radial-gradient(
+    circle at 8% 0%,
+    rgba(143, 217, 168, 0.12),
+    transparent 45%
+  );
+}
+
+.work-page .project-row-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 8px;
+}

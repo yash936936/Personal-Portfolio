@@ -3,10 +3,11 @@ import ProjectRow from "../components/ProjectRow";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
 import { projects } from "../data/content";
+import "./Work.css";
 
 export default function Work() {
   return (
-    <>
+    <div className="work-page">
       <PageHeader
         eyebrow="Selected work"
         title="Models, pipelines, products."
@@ -23,6 +24,7 @@ export default function Work() {
                 category={p.category}
                 color={p.color}
                 href={`/work/${p.slug}`}
+                github={p.github}
               />
             </Reveal>
           ))}
@@ -30,6 +32,6 @@ export default function Work() {
       </section>
 
       <ContactBand />
-    </>
+    </div>
   );
 }
