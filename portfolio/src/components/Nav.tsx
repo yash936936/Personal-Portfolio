@@ -9,6 +9,7 @@ const offerLinks = [
 ];
 
 const primaryLinks = [
+  { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
   { label: "Notes", href: "/blog" },
 ];
@@ -56,14 +57,22 @@ export default function Nav() {
           </button>
 
           <nav className="nav__primary" aria-label="Primary">
-            {primaryLinks.map((l) => (
-              <Link key={l.href} to={l.href} className="nav__primary-link">
-                {l.label.toUpperCase()}
+            <div className="nav__track">
+              {primaryLinks.map((l) => (
+                <Link key={l.href} to={l.href} className="nav__pill">
+                  {l.label}
+                </Link>
+              ))}
+              <span className="nav__divider" aria-hidden="true" />
+              <Link to="/contact" className="nav__pill nav__pill--cta">
+                <span>Contact</span>
+                <span className="nav__pill-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" focusable="false">
+                    <path d="M4 10h11M11 6l4 4-4 4" />
+                  </svg>
+                </span>
               </Link>
-            ))}
-            <Link to="/contact" className="nav__cta">
-              Contact
-            </Link>
+            </div>
           </nav>
         </div>
       </header>
@@ -92,6 +101,7 @@ export default function Nav() {
             <span className="eyebrow nav-overlay__eyebrow">Explore</span>
             <ul className="nav-overlay__links">
               {[
+                { label: "Home", href: "/" },
                 { label: "Work", href: "/work" },
                 { label: "Notes", href: "/blog" },
                 { label: "Contact", href: "/contact" },

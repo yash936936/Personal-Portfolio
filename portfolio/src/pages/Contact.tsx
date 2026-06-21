@@ -12,7 +12,7 @@ export default function Contact() {
   }
 
   return (
-    <>
+    <div className="contact-dark">
       <PageHeader
         eyebrow="Contact"
         title="Let's build something worth shipping."
@@ -69,6 +69,6 @@ export default function Contact() {
           )}
         </Reveal>
       </section>
-    </>
+    </div>
   );
 }
