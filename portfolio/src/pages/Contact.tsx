@@ -15,7 +15,7 @@ export default function Contact() {
     <div className="contact-dark">
       <PageHeader
         eyebrow="Contact"
-        title="Let's build something worth shipping."
+        title="Let's build a product people actually care about."
         sub="Tell me what you're working on — I read every message myself."
       />
 
@@ -24,19 +24,19 @@ export default function Contact() {
           <div className="contact-info">
             <div className="contact-info__block">
               <span className="contact-info__label">Email</span>
-              <a href="mailto:hello@example.com" className="contact-info__value">
-                hello@example.com
+              <a href="mailto:yashsunilmalik@gmail.com" className="contact-info__value">
+                yashsunilmalik@gmail.com
               </a>
             </div>
             <div className="contact-info__block">
               <span className="contact-info__label">Based in</span>
-              <p className="contact-info__value">Gurugram, India</p>
+              <p className="contact-info__value">Delhi NCR, India</p>
             </div>
             <div className="contact-info__block">
               <span className="contact-info__label">Elsewhere</span>
               <div className="contact-info__links">
-                <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href="https://github.com/yash936936" target="_blank" rel="noreferrer">GitHub</a>
+                <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer">LinkedIn</a>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@ export default function Contact() {
               </label>
               <label className="contact-form__field">
                 <span>Email</span>
-                <input type="email" name="email" required placeholder="you@company.com" />
+                <input type="email" name="email" required placeholder="you@example.com" />
               </label>
               <label className="contact-form__field">
                 <span>What are you building?</span>

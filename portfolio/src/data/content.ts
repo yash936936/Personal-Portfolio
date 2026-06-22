@@ -12,7 +12,7 @@ export const heroLines = [
 export const heroTag = "AI Engineering · Full-stack";
 
 export const logos = [
-  "Agentic AI", "LLM Orchestration", "MongoDB", "Express.js", "RAG Systems", "Document AI", "Machine Learning", "Microservices", "Computer Vision", "Headless Scraping", "Edge Computing", "Data Pipelines", "Cybersecurity", "RESTful APIs", "MERN Stack", "Workflow Automation"
+  "Agentic AI", "LLM Orchestration", "MongoDB", "Express.js", "RAG Systems", "Machine Learning", "Microservices", "Computer Vision", "Headless Scraping", "Data Pipelines", "Cybersecurity", "RESTful APIs", "MERN Stack", "Workflow Automation"
 ];
 
 export const sectors = [

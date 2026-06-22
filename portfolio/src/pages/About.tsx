@@ -12,27 +12,6 @@ const SKILLS = [
   { name: "UI/UX Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
 ];
 
-const EXPERIENCE = [
-  {
-    role: "MERN Stack Developer Intern",
-    company: "Codec Technologies",
-    date: "Aug 2025 - Oct 2025",
-    desc: "Developed full-stack web solutions utilizing the MERN stack framework throughout an intensive 3-month technical internship. Collaborated with cross-functional teams to design data-driven solutions."
-  },
-  {
-    role: "AI Azure Intern",
-    company: "AICTE | Microsoft | Edunet Foundation",
-    date: "Jun 2025 - Jul 2025",
-    desc: "Built and deployed AI/ML mini-projects using Azure services, focusing on automation, model deployment, and cloud integration."
-  },
-  {
-    role: "President",
-    company: "Phoenix Club, Noida International University",
-    date: "Aug 2024 - Present",
-    desc: "Contributed to real-world technical projects and led execution cycles, steadily taking on larger responsibilities. Managed cross-functional teams to ensure seamless event delivery."
-  }
-];
-
 export default function About() {
   const [activeSection, setActiveSection] = useState("overview");
   const contentRef = useRef<HTMLDivElement>(null);
@@ -85,7 +64,7 @@ export default function About() {
           <div className="about__sticky-nav">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
-              {["overview", "experience", "skills", "certifications", "connect"].map((id) => (
+              {["overview", "skills", "certifications", "connect"].map((id) => (
                 <li key={id}>
                   <button
                     className={`about__nav-btn ${activeSection === id ? "active" : ""}`}
@@ -114,23 +93,6 @@ export default function About() {
             </Reveal>
           </section>
 
-          <section id="experience" className="about__section">
-            <Reveal>
-              <h2 className="about__h2">Experience</h2>
-              <div className="about__timeline">
-                {EXPERIENCE.map((exp, i) => (
-                  <div className="about__timeline-item" key={i}>
-                    <div className="about__timeline-meta">
-                      <span className="about__timeline-date">{exp.date}</span>
-                      <h3 className="about__timeline-role">{exp.role}</h3>
-                      <span className="about__timeline-company">{exp.company}</span>
-                    </div>
-                    <p className="about__timeline-desc">{exp.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </section>
 
           <section id="skills" className="about__section">
             <Reveal>
@@ -167,7 +129,7 @@ export default function About() {
               <h2 className="about__h2">Connect</h2>
               <div className="about__reveal-cards">
                 
-                <a href="https://github.com" target="_blank" rel="noreferrer" className="reveal-card">
+                <a href="https://github.com/yash936936" target="_blank" rel="noreferrer" className="reveal-card">
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">GitHub</span>
                   </div>
@@ -176,7 +138,7 @@ export default function About() {
                   </div>
                 </a>
 
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as any}>
+                <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as any}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">LinkedIn</span>
                   </div>
@@ -185,7 +147,7 @@ export default function About() {
                   </div>
                 </a>
 
-                <a href="/contact" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as any}>
+                <a href="https://drive.google.com/drive/folders/1WbTv2it532uzHZKQUG1vCmQvzvgJxFt8?usp=drive_link" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as any}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">Certifications</span>
                   </div>
