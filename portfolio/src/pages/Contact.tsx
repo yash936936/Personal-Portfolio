@@ -4,12 +4,32 @@ import Reveal from "../components/Reveal";
 import "./Contact.css";
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-  }
+    setStatus("loading");
+
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch("https://contact-backend.yashm15082005.workers.dev", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok");
+      
+      setStatus("success");
+      e.currentTarget.reset();
+
+    } catch (error) {
+      console.error("Submission failed:", error);
+      setStatus("error");
+    }
+  };
 
   return (
     <div className="contact-dark">
@@ -43,7 +63,7 @@ export default function Contact() {
         </Reveal>
 
         <Reveal delay={100}>
-          {submitted ? (
+          {status === "success" ? (
             <div className="contact-success">
               <h3>Message sent.</h3>
               <p>Thanks for reaching out — I'll get back to you within a couple of days.</p>
@@ -62,9 +82,10 @@ export default function Contact() {
                 <span>What are you building?</span>
                 <textarea name="message" rows={5} required placeholder="A few lines about the project..." />
               </label>
-              <button type="submit" className="contact-form__submit">
-                Send message
+              <button type="submit" className="contact-form__submit" disabled={status === "loading"}>
+                {status === "loading" ? "Sending..." : "Send Message"}
               </button>
+              {status === "error" && <p className="text-red-500 mt-4">Something went wrong. Please try again.</p>}
             </form>
           )}
         </Reveal>

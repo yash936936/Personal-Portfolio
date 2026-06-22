@@ -16,6 +16,8 @@ export default function ServiceWeb() {
         { label: "Model design & training", href: "/services/ai" },
         { label: "Deployment & infra", href: "/services/infrastructure" },
       ]}
+      accent="#4f6f8a"
+      onAccent="#fdfaf5"
     />
   );
 }

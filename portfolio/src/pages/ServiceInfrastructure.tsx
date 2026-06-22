@@ -16,6 +16,8 @@ export default function ServiceInfrastructure() {
         { label: "Model design & training", href: "/services/ai" },
         { label: "Full-stack web apps", href: "/services/web" },
       ]}
+      accent="var(--color-accent-teal)"
+      onAccent="var(--color-ink)"
     />
   );
 }

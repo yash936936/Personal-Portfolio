@@ -29,19 +29,55 @@
 .about__nav-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
+  position: relative;
+  padding-left: 14px;
+}
+
+.about__nav-list::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: var(--color-hairline);
 }
 
 .about__nav-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
   background: none;
   border: none;
-  padding: 0;
+  padding: 10px 0;
   text-align: left;
   font-family: var(--font-body);
   font-size: 15px;
   color: var(--color-muted-soft);
   cursor: pointer;
   transition: color 0.3s, transform 0.3s;
+}
+
+.about__nav-dot {
+  position: absolute;
+  left: -14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-hairline);
+  flex-shrink: 0;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.about__nav-index {
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--color-muted-soft);
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
 }
 
 .about__nav-btn:hover {
@@ -52,6 +88,16 @@
   color: var(--color-primary);
   font-weight: 500;
   transform: translateX(8px);
+}
+
+.about__nav-btn.active .about__nav-dot {
+  background: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
+  transform: scale(1.2);
+}
+
+.about__nav-btn.active .about__nav-index {
+  color: var(--color-primary);
 }
 
 /* --- Content --- */
@@ -131,30 +177,51 @@
 /* --- Skills Grid --- */
 .about__skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
   margin-top: 32px;
 }
 
 .about__skill-card {
+  --skill-accent: var(--color-primary);
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 16px;
+  padding: 18px;
   background: var(--color-surface-card);
   border: 1px solid var(--color-hairline);
   border-radius: var(--radius-md);
-  transition: border-color 0.3s, transform 0.3s;
+  transition: border-color 0.35s var(--ease-out-quart), transform 0.35s var(--ease-out-quart),
+    box-shadow 0.35s var(--ease-out-quart), background-color 0.35s var(--ease-out-quart);
 }
 
 .about__skill-card:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--skill-accent) 55%, var(--color-hairline) 45%);
+  background: var(--color-canvas);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -24px rgba(20, 20, 19, 0.35);
+}
+
+.about__skill-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--skill-accent) 14%, var(--color-canvas) 86%);
+  transition: background-color 0.35s var(--ease-out-quart), transform 0.35s var(--ease-out-quart);
+}
+
+.about__skill-card:hover .about__skill-badge {
+  background: color-mix(in srgb, var(--skill-accent) 24%, var(--color-canvas) 76%);
+  transform: scale(1.06);
 }
 
 .about__skill-icon {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
 }
 
 .about__skill-name {
@@ -163,7 +230,65 @@
   color: var(--color-ink);
 }
 
-/* --- Lists --- */
+/* --- Certifications --- */
+.about__cert-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+}
+
+.about__cert-card {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 4px;
+  border-top: 1px solid var(--color-hairline);
+  transition: background-color 0.3s, padding-left 0.3s var(--ease-out-quart);
+}
+
+.about__cert-list > .about__cert-card:last-child {
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.about__cert-card:hover {
+  background: var(--color-surface-soft);
+  padding-left: 14px;
+}
+
+.about__cert-index {
+  font-family: var(--font-code);
+  font-size: 13px;
+  color: var(--color-primary);
+  letter-spacing: 0.5px;
+}
+
+.about__cert-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--color-ink);
+  margin-bottom: 4px;
+}
+
+.about__cert-issuer {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.about__cert-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+/* --- Lists (legacy, kept for other pages reusing this class) --- */
 .about__list {
   display: flex;
   flex-direction: column;
@@ -200,12 +325,17 @@
 .reveal-card {
   --hover-color: #181715; /* Default GitHub dark */
   position: relative;
-  height: 140px;
+  height: 150px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   text-decoration: none;
   background: var(--hover-color);
   isolation: isolate;
+  transition: transform 0.4s var(--ease-out-quart);
+}
+
+.reveal-card:hover {
+  transform: translateY(-2px);
 }
 
 .reveal-card__cover {
@@ -217,9 +347,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   z-index: 2;
   transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
   transform-origin: top;
+}
+
+.reveal-card__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--hover-color);
 }
 
 .reveal-card__title {
@@ -277,8 +415,18 @@
   .about__skills-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .about__reveal-cards {
     grid-template-columns: 1fr;
+  }
+
+  .about__cert-card {
+    grid-template-columns: 28px 1fr;
+  }
+
+  .about__cert-tag {
+    grid-column: 2;
+    width: fit-content;
+    margin-top: 6px;
   }
 }

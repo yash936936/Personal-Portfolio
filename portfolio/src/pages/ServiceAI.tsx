@@ -16,6 +16,8 @@ export default function ServiceAI() {
         { label: "Full-stack web apps", href: "/services/web" },
         { label: "Deployment & infra", href: "/services/infrastructure" },
       ]}
+      accent="var(--color-primary)"
+      onAccent="var(--color-on-primary)"
     />
   );
 }

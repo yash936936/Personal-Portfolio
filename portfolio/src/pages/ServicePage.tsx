@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
@@ -17,19 +18,35 @@ interface ServicePageProps {
   sub: string;
   steps: ServiceStep[];
   related: { label: string; href: string }[];
+  /** Accent color tying this service to its homepage pill (e.g. var(--color-primary)) */
+  accent?: string;
+  /** Text color that sits well on top of `accent` */
+  onAccent?: string;
 }
 
-export default function ServicePage({ eyebrow, title, sub, steps, related }: ServicePageProps) {
+export default function ServicePage({
+  eyebrow,
+  title,
+  sub,
+  steps,
+  related,
+  accent = "var(--color-primary)",
+  onAccent = "var(--color-on-primary)",
+}: ServicePageProps) {
   return (
-    <>
+    <div
+      className="service-page"
+      style={{ "--service-accent": accent, "--service-on-accent": onAccent } as CSSProperties}
+    >
       <PageHeader eyebrow={eyebrow} title={title} sub={sub} />
 
       <section className="container service-steps">
         {steps.map((s, i) => (
           <Reveal key={s.step} delay={i * 80}>
             <div className="service-step">
+              <span className="service-step__ghost" aria-hidden="true">{s.step}</span>
               <span className="service-step__num">{s.step}</span>
-              <div>
+              <div className="service-step__body">
                 <h3 className="service-step__title">{s.title}</h3>
                 <p className="service-step__desc">{s.desc}</p>
               </div>
@@ -46,6 +63,7 @@ export default function ServicePage({ eyebrow, title, sub, steps, related }: Ser
           {related.map((r, i) => (
             <Reveal key={r.href} delay={i * 70}>
               <Link to={r.href} className="service-related__item" data-cursor="link">
+                <span className="service-related__dot" aria-hidden="true" />
                 {r.label}
                 <span className="service-related__arrow" aria-hidden="true">
                   <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
@@ -66,6 +84,6 @@ export default function ServicePage({ eyebrow, title, sub, steps, related }: Ser
 
       <Faq />
       <ContactBand />
-    </>
+    </div>
   );
 }

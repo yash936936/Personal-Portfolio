@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
 import "./About.css";
 
 const SKILLS = [
-  { name: "LangChain & RAG", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Agentic Architecture", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "MERN Stack", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "PostgreSQL & Redis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-  { name: "Cloud Integration", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
-  { name: "UI/UX Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+  { name: "LangChain & RAG", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", accent: "var(--color-primary)" },
+  { name: "Agentic Architecture", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", accent: "var(--color-accent-teal)" },
+  { name: "MERN Stack", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", accent: "#4f6f8a" },
+  { name: "PostgreSQL & Redis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", accent: "var(--color-accent-violet)" },
+  { name: "Cloud Integration", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg", accent: "var(--color-accent-amber)" },
+  { name: "UI/UX Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", accent: "var(--color-primary)" },
 ];
 
 export default function About() {
@@ -54,8 +55,8 @@ export default function About() {
     <main className="about-page">
       <PageHeader
         eyebrow="About Me"
-        title="Engineering, Management & Deployable Intelligence."
-        sub="A technical student skilled in MERN stack development and AI/ML workflows, passionate about leveraging robust backend systems to solve complex engineering problems."
+        title="Engineering, Strategy & Autonomous Systems."
+        sub="Architecting intelligent workflows and modern web platforms to turn complex engineering problems into deployable solutions."
       />
 
       <div className="container about__container">
@@ -64,12 +65,14 @@ export default function About() {
           <div className="about__sticky-nav">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
-              {["overview", "skills", "certifications", "connect"].map((id) => (
+              {["overview", "skills", "connect"].map((id, i) => (
                 <li key={id}>
                   <button
                     className={`about__nav-btn ${activeSection === id ? "active" : ""}`}
                     onClick={() => scrollToSection(id)}
                   >
+                    <span className="about__nav-dot" aria-hidden="true" />
+                    <span className="about__nav-index">{String(i + 1).padStart(2, "0")}</span>
                     {id.charAt(0).toUpperCase() + id.slice(1)}
                   </button>
                 </li>
@@ -85,10 +88,10 @@ export default function About() {
             <Reveal>
               <h2 className="about__h2">Overview</h2>
               <p className="about__text">
-                I am Yash Malik, currently pursuing a Bachelor of Computer Applications at Noida International University. My goal is to bring a balanced tech-plus-management mindset that drives results in fast-moving organizations. 
+                I am Yash Malik. I build intelligent systems and robust full-stack applications.
               </p>
               <p className="about__text">
-                I have executed projects end-to-end, contributed to research-driven work, and collaborated effectively across teams. I pair strong communication skills with technical depth, enabling me to handle both execution and stakeholder alignment.
+                By combining technical depth in AI and modern backend architectures with a strong management mindset, I ensure engineering efforts translate into real-world value. Whether developing Agentic AI solutions or structuring complex databases, my goal remains the same: bridge the gap between execution and strategy to build products worth shipping.
               </p>
             </Reveal>
           </section>
@@ -102,8 +105,10 @@ export default function About() {
               </p>
               <div className="about__skills-grid">
                 {SKILLS.map((skill) => (
-                  <div className="about__skill-card" key={skill.name}>
-                    <img src={skill.icon} alt={skill.name} className="about__skill-icon" />
+                  <div className="about__skill-card" key={skill.name} style={{ "--skill-accent": skill.accent } as CSSProperties}>
+                    <span className="about__skill-badge">
+                      <img src={skill.icon} alt={skill.name} className="about__skill-icon" />
+                    </span>
                     <span className="about__skill-name">{skill.name}</span>
                   </div>
                 ))}
@@ -111,24 +116,11 @@ export default function About() {
             </Reveal>
           </section>
 
-          <section id="certifications" className="about__section">
-            <Reveal>
-              <h2 className="about__h2">Certifications & Achievements</h2>
-              <ul className="about__list">
-                <li><strong>Agentic AI</strong> from GeeksforGeeks</li>
-                <li><strong>AI/ML Certificate</strong> from ISRO</li>
-                <li><strong>Digital Skills: Digital Marketing</strong> from Accenture</li>
-                <li><strong>Student Coordinator</strong> - India AI Impact Summit Buildathon (HCL GUVI)</li>
-                <li><strong>Campus Ambassador</strong> for HCL GUVI, InternShala and others</li>
-              </ul>
-            </Reveal>
-          </section>
-
           <section id="connect" className="about__section">
             <Reveal>
               <h2 className="about__h2">Connect</h2>
               <div className="about__reveal-cards">
-                
+
                 <a href="https://github.com/yash936936" target="_blank" rel="noreferrer" className="reveal-card">
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">GitHub</span>
@@ -138,7 +130,7 @@ export default function About() {
                   </div>
                 </a>
 
-                <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as any}>
+                <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as CSSProperties}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">LinkedIn</span>
                   </div>
@@ -147,7 +139,7 @@ export default function About() {
                   </div>
                 </a>
 
-                <a href="https://drive.google.com/drive/folders/1WbTv2it532uzHZKQUG1vCmQvzvgJxFt8?usp=drive_link" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as any}>
+                <a href="https://drive.google.com/drive/folders/1WbTv2it532uzHZKQUG1vCmQvzvgJxFt8?usp=drive_link" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as CSSProperties}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">Certifications</span>
                   </div>
