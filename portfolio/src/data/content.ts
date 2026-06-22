@@ -64,9 +64,9 @@ export const press = [
 export const projects = [
   { 
     slug: "ai-document-analysis", 
-    title: "AI Document Analysis & Extraction", 
+    title: "AI Document Analysis", 
     year: "2026", 
-    category: "AI Orchestration / Python", 
+    category: "AI Orchestration", 
     color: "#f59e0b", // Amber-500 alignment
     github: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction" 
   },
