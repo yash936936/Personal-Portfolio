@@ -1,8 +1,7 @@
 import Hero from "../components/sections/Hero";
 import LogoMarquee from "../components/sections/LogoMarquee";
-import Showcase from "../components/sections/Showcase";
 import SkillsRotator from "../components/sections/SkillsRotator";
-import Offers from "../components/sections/Offers";
+import Services from "../components/sections/Services";
 import ApproachStrip from "../components/sections/ApproachStrip";
 import Faq from "../components/sections/Faq";
 import CtaBand from "../components/sections/CtaBand";
@@ -14,9 +13,8 @@ export default function Home() {
     <>
       <Hero />
       <LogoMarquee />
-      <Showcase />
+      <Services />
       <SkillsRotator />
-      <Offers />
       <ApproachStrip />
       <Faq />
       <CtaBand />

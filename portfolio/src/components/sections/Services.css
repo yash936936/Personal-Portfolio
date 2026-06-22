@@ -1,0 +1,334 @@
+.services {
+  padding: var(--space-section) 0;
+}
+
+/* ---------- Intro ---------- */
+.services__intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+
+.services__eyebrow {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-primary);
+  margin-bottom: 14px;
+}
+
+.services__heading {
+  font-size: clamp(30px, 4.4vw, 52px);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  max-width: 560px;
+}
+
+.services__intro-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.services__sub {
+  font-size: 16px;
+  color: var(--color-muted);
+  max-width: 320px;
+  margin-bottom: 20px;
+}
+
+.services__cta {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-hairline);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.services__cta:hover {
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  border-color: var(--color-ink);
+}
+
+/* ---------- Stage ---------- */
+.services__stage {
+  position: relative;
+  min-height: 460px;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-hairline);
+  overflow: hidden;
+}
+
+.services__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--color-hairline);
+  pointer-events: none;
+}
+
+.services__ring--a {
+  width: 360px;
+  height: 360px;
+  top: -120px;
+  right: 8%;
+}
+
+.services__ring--b {
+  width: 260px;
+  height: 260px;
+  bottom: -140px;
+  left: 14%;
+}
+
+/* ---------- Pill items ---------- */
+.services__item {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+}
+
+.services__item--0 {
+  top: 48px;
+  left: 5%;
+}
+
+.services__item--1 {
+  top: 200px;
+  right: 6%;
+}
+
+.services__item--2 {
+  top: 360px;
+  left: 3%;
+}
+
+.services__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 64px;
+  padding: 6px 28px 6px 6px;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px -12px rgba(20, 20, 19, 0.18);
+  transition: opacity 0.25s var(--ease-out-quart), transform 0.25s var(--ease-out-quart);
+}
+
+.services__item--active .services__pill {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+}
+
+.services__pill-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-surface-dark);
+  color: var(--color-on-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.services__pill-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Expanded card ---------- */
+.services__card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(380px, calc(100vw - 80px));
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: 0 24px 60px -20px rgba(20, 20, 19, 0.25);
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-out-quart), transform 0.3s var(--ease-out-quart);
+}
+
+.services__item--active .services__card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.services__close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-surface-dark);
+  color: var(--color-on-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.services__close:hover {
+  background: var(--color-primary);
+}
+
+.services__close svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.services__card-kicker {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.services__card-title {
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+  margin: 16px 0 18px;
+  padding-right: 36px;
+}
+
+.services__card-title-row {
+  display: block;
+}
+
+.services__card-link {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-hairline);
+  font-size: 14px;
+  color: var(--color-muted);
+  transition: color 0.3s;
+}
+
+.services__card-link:hover {
+  color: var(--color-ink);
+}
+
+.services__card-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-surface-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.3s, color 0.3s, transform 0.4s var(--ease-out-quart);
+}
+
+.services__card-link:hover .services__card-arrow {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: rotate(45deg);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .services__stage {
+    min-height: 380px;
+  }
+
+  .services__pill {
+    height: 56px;
+    font-size: 19px;
+  }
+
+  .services__pill-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .services__item--1 {
+    right: 4%;
+  }
+}
+
+@media (max-width: 640px) {
+  .services__stage {
+    min-height: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .services__ring {
+    display: none;
+  }
+
+  .services__item,
+  .services__item--0,
+  .services__item--1,
+  .services__item--2 {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+  }
+
+  .services__pill {
+    width: 100%;
+    justify-content: flex-start;
+    box-shadow: none;
+  }
+
+  .services__item--active .services__pill {
+    display: none;
+  }
+
+  .services__card {
+    position: relative;
+    width: 100%;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    display: none;
+  }
+
+  .services__item--active .services__card {
+    display: block;
+  }
+}

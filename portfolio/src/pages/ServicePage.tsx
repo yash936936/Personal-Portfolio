@@ -47,7 +47,17 @@ export default function ServicePage({ eyebrow, title, sub, steps, related }: Ser
             <Reveal key={r.href} delay={i * 70}>
               <Link to={r.href} className="service-related__item" data-cursor="link">
                 {r.label}
-                <span aria-hidden="true">→</span>
+                <span className="service-related__arrow" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+                    <path
+                      d="M4 14L14 4M14 4H6M14 4V12"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
               </Link>
             </Reveal>
           ))}

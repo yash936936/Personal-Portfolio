@@ -1,7 +1,7 @@
 export const heroLines = [
   {
     title: "Awaken your\nthinking partner",
-    sub: "An independent engineering studio focused on intelligent systems: orchestrating AI models, crafting bold web interfaces, and building the automation in between.",
+    sub: "A solo engineering studio of one: machine learning, full-stack web, and the systems that connect them.",
   },
   {
     title: "Activate your\nideas",
@@ -9,49 +9,10 @@ export const heroLines = [
   },
 ];
 
-export const heroTag = "AI engineering · Full-stack";
+export const heroTag = "AI Engineering · Full-stack";
 
 export const logos = [
   "Agentic AI", "LLM Orchestration", "MongoDB", "Express.js", "RAG Systems", "Document AI", "Machine Learning", "Microservices", "Computer Vision", "Headless Scraping", "Edge Computing", "Data Pipelines", "Cybersecurity", "RESTful APIs", "MERN Stack", "Workflow Automation"
-];
-
-export const showcase = [
-  {
-    label: "Be precise",
-    title: "Turn a vague idea into a shipped system",
-    href: "/work",
-    color: "#cc785c",
-  },
-  {
-    label: "Be fast",
-    title: "Prototype, train, deploy — same week",
-    href: "/work",
-    color: "#181715",
-  },
-  {
-    label: "Be bold",
-    title: "Architectures other engineers won't touch",
-    href: "/work",
-    color: "#5db8a6",
-  },
-  {
-    label: "Be precise",
-    title: "Document pipelines that actually recover",
-    href: "/work",
-    color: "#e8a55a",
-  },
-  {
-    label: "Be fast",
-    title: "From notebook to FastAPI in days",
-    href: "/work",
-    color: "#a9583e",
-  },
-  {
-    label: "Be bold",
-    title: "Models that ship, not just models that train",
-    href: "/work",
-    color: "#252320",
-  },
 ];
 
 export const sectors = [
@@ -63,36 +24,36 @@ export const sectors = [
 export const offers = [
   {
     kicker: "Service",
-    title: "Model design\n& training",
-    desc: "For a model that actually solves the problem, not just the benchmark.",
-    href: "/services/branding",
+    title: "Model Training,\nFine-Tuning & Agentic AI",
+    desc: "Orchestrating autonomous agents and fine-tuning models to deliver intelligent systems that solve real-world problems, not just benchmarks.",
+    href: "/services/ai",
   },
   {
     kicker: "Service",
     title: "Full-stack\nweb apps",
-    desc: "A product experience that puts the model in front of real users.",
+    desc: "Bold, high-performance product experiences powered by scalable databases, putting complex models seamlessly in front of real users.",
     href: "/services/web",
   },
   {
     kicker: "Service",
     title: "Deployment\n& infra",
-    desc: "The right cloud setup for the people who'll actually use it.",
-    href: "/services/campaigns",
+    desc: "Robust cloud architecture and secure data pipelines built for speed, reliability, and the people who will actually rely on them.",
+    href: "/services/infrastructure",
   },
 ];
 
 export const faqs = [
   {
     q: "What kind of projects do you take on?",
-    a: "Mostly applied ML wrapped in a real product — document processing pipelines, computer vision, generative systems — taken from a Jupyter notebook all the way to a deployed, monitored endpoint.",
+    a: "I specialize in building intelligent systems from the ground up—whether that’s orchestrating autonomous AI agents, developing full-stack web platforms, or building complex data extraction and automation pipelines.",
   },
   {
     q: "What makes your approach different?",
-    a: "No hand-off between 'the ML person' and 'the product person.' One engineer owns the model, the API, the frontend, and the infrastructure, so nothing gets lost in translation.",
+    a: "There is no disconnect between the backend AI logic and the frontend user experience. I handle the entire architecture—from integrating robust LLMs and building the database infrastructure to designing bold, intuitive interfaces—ensuring nothing gets lost in translation.",
   },
   {
-    q: "Why the name?",
-    a: "It's a placeholder question, much like this whole section — replace it with whatever you actually get asked most.",
+    q: "What does your typical tech stack look like?",
+    a: "For AI orchestration, I rely on frameworks like LangChain and LangGraph integrated with top-tier LLM APIs. For full-stack development, I build highly responsive frontends backed by Firebase and Supabase to guarantee scalable, real-time performance.",
   },
 ];
 
