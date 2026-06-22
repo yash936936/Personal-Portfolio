@@ -31,7 +31,6 @@ export default function CtaBand() {
 
             {/* Center content */}
             <div className="cta-band__overlay">
-              <p className="cta-band__eyebrow">Selected Projects</p>
               <h2 className="cta-band__title">See the work</h2>
               <span className="cta-band__arrow">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
