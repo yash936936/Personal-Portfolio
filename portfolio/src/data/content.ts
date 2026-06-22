@@ -1,10 +1,7 @@
-// Placeholder content — swap with real copy any time.
-// Structure mirrors 13g.fr's information architecture.
-
 export const heroLines = [
   {
     title: "Awaken your\nthinking partner",
-    sub: "A solo engineering studio of one: machine learning, full-stack web, and the systems that connect them.",
+    sub: "An independent engineering studio focused on intelligent systems: orchestrating AI models, crafting bold web interfaces, and building the automation in between.",
   },
   {
     title: "Activate your\nideas",
@@ -15,7 +12,7 @@ export const heroLines = [
 export const heroTag = "AI engineering · Full-stack";
 
 export const logos = [
-  "Vercel", "Railway", "Supabase", "Cloudflare", "TensorFlow", "FastAPI", "Next.js", "PostgreSQL",
+  "Agentic AI", "LLM Orchestration", "MongoDB", "Express.js", "RAG Systems", "Document AI", "Machine Learning", "Microservices", "Computer Vision", "Headless Scraping", "Edge Computing", "Data Pipelines", "Cybersecurity", "RESTful APIs", "MERN Stack", "Workflow Automation"
 ];
 
 export const showcase = [
@@ -97,45 +94,6 @@ export const faqs = [
     q: "Why the name?",
     a: "It's a placeholder question, much like this whole section — replace it with whatever you actually get asked most.",
   },
-];
-
-export const testimonials = [
-  {
-    name: "Person One",
-    role: "Founder, Example Co",
-    quote: "Clear communication, ambitious technical choices, and a real understanding of what we needed.",
-    rating: 5,
-  },
-  {
-    name: "Person Two",
-    role: "Product Lead, Sample Inc",
-    quote: "Took a messy notebook and turned it into something we could actually ship and trust in production.",
-    rating: 5,
-  },
-  {
-    name: "Person Three",
-    role: "CTO, Placeholder Labs",
-    quote: "Rigorous, available, and genuinely creative about the technical constraints we were facing.",
-    rating: 5,
-  },
-  {
-    name: "Person Four",
-    role: "Head of Eng, Demo Systems",
-    quote: "Understood our requirements quickly and translated them into a working pipeline ahead of schedule.",
-    rating: 5,
-  },
-  {
-    name: "Person Five",
-    role: "Co-founder, Test Ventures",
-    quote: "The kind of engineer who explains trade-offs instead of just picking one and hoping.",
-    rating: 5,
-  },
-];
-
-export const stats = [
-  { value: 30, suffix: "+", label: "Models trained & shipped" },
-  { value: 12, suffix: "", label: "Production deployments" },
-  { value: 2, suffix: "+", label: "Years building" },
 ];
 
 export const press = [

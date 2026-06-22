@@ -80,13 +80,13 @@ export default function SkillsRotator() {
         <div className="skills-rotator__top">
           <Reveal>
             <h2 className="skills-rotator__heading">
-              Engineering at the service of real products
+              Engineering Intelligent, Real-World Solutions
             </h2>
           </Reveal>
 
           <div className="skills-rotator__right">
             <Reveal delay={80}>
-              <p className="skills-rotator__copy" style={{ whiteSpace: "normal", maxWidth: "920px" }}>
+              <p className="skills-rotator__copy" style={{ whiteSpace: "normal", maxWidth: "1200px" }}>
                A working model needs a working interface. My expertise lies in bridging that gap—fusing AI orchestration with robust full-stack development so that every project I ship is both intelligent under the hood and striking on the screen.
               </p>
             </Reveal>
