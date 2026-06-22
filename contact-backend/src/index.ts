@@ -101,38 +101,6 @@ export default {
         throw new Error(`Resend API Error: ${errorText}`);
       }
 
-	  // 4. Send confirmation email to the visitor (requires a verified domain)
-    const notifyVisitor = await fetch("https://api.resend.com/emails", {
-       method: "POST",
-       headers: {
-            Authorization: `Bearer ${env.RESEND_API_KEY}`,
-             "Content-Type": "application/json",
-             },
-        body: JSON.stringify({
-        from: "Yash Malik <hello@yourdomain.com>", // must be on your verified domain
-        to: email, // the visitor's address from the form
-        subject: "Thanks for reaching out — I got your message",
-        html: `
-           <div style="font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; background: #0f1115; color: #e6e6e6; border-radius: 12px;">
-           <h2 style="margin: 0 0 16px; font-size: 20px; color: #ffffff;">Hey ${name}, thanks for reaching out!</h2>
-           <p style="font-size: 14px; line-height: 1.6; color: #cfd2d8;">
-          I've received your message and will get back to you within a couple of days.
-        </p>
-        <div style="background: #181b21; border-radius: 8px; padding: 16px 18px; margin: 20px 0;">
-          <p style="margin: 0 0 6px; font-size: 13px; color: #8b8f9a;">Your message</p>
-          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #e6e6e6; white-space: pre-wrap;">${message}</p>
-        </div>
-        <p style="margin: 24px 0 0; font-size: 13px; color: #5b5f6a;">— Yash</p>
-      </div>
-        `,
-       }),
-      });
-   // Don't throw if this one fails — the admin notification already succeeded,
-     // and you don't want the visitor to see an error just because their confirmation email failed.
-      if (!notifyVisitor.ok) {
-       console.error("Visitor confirmation email failed:", await notifyVisitor.text());
-     }
-
       return new Response(JSON.stringify({ success: true }), {
         status: 200,
         headers: jsonHeaders,
