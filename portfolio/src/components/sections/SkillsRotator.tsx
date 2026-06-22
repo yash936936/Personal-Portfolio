@@ -4,7 +4,7 @@ import "./SkillsRotator.css";
 
 const CATEGORIES = [
   {
-    label: "AI & Machine Learning",
+    label: "AI & ML",
     skills: [
       "LLM Orchestration", "Agentic Architecture", "OpenAI & Claude APIs",
       "LangChain / LangGraph", "Computer Vision", "Document AI",
@@ -20,7 +20,7 @@ const CATEGORIES = [
     ],
   },
   {
-    label: "Data, Automation & Security",
+    label: "Automation & Sec",
     skills: [
       "n8n Workflows", "Selenium / Playwright", "Headless Scraping",
       "Business Process Automation", "Lead Generation Pipelines",
@@ -28,7 +28,7 @@ const CATEGORIES = [
     ],
   },
   {
-    label: "Business & Operations",
+    label: "Business & Ops",
     skills: [
       "Startup Leadership", "Technical Product Strategy", "Hackathon Organization",
       "Campus Ambassadorship", "Sponsorship Outreach", "Financial Markets",

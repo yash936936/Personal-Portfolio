@@ -1,6 +1,6 @@
 import ServicePage from "./ServicePage";
 
-export default function ServiceCampaigns() {
+export default function ServiceInfrastructure() {
   return (
     <ServicePage
       eyebrow="Service · 03"
@@ -13,7 +13,7 @@ export default function ServiceCampaigns() {
         { step: "04", title: "Handover docs", desc: "Clear runbooks so the system stays maintainable without me in the room." },
       ]}
       related={[
-        { label: "Model design & training", href: "/services/branding" },
+        { label: "Model design & training", href: "/services/ai" },
         { label: "Full-stack web apps", href: "/services/web" },
       ]}
     />

@@ -1,11 +1,11 @@
 import ServicePage from "./ServicePage";
 
-export default function ServiceBranding() {
+export default function ServiceAI() {
   return (
     <ServicePage
       eyebrow="Service · 01"
-      title="Model design & training"
-      sub="For a model that actually solves the problem, not just the benchmark."
+      title="Model Training, Fine-Tuning & Agentic AI"
+      sub="Orchestrating autonomous agents and fine-tuning models to deliver intelligent systems that solve real-world problems, not just benchmarks."
       steps={[
         { step: "01", title: "Problem framing", desc: "Defining the task, the data, and what 'good enough' actually means before any training starts." },
         { step: "02", title: "Data & pipeline", desc: "Cleaning, splitting, and structuring data so the model sees what it'll see in production." },
@@ -14,7 +14,7 @@ export default function ServiceBranding() {
       ]}
       related={[
         { label: "Full-stack web apps", href: "/services/web" },
-        { label: "Deployment & infra", href: "/services/campaigns" },
+        { label: "Deployment & infra", href: "/services/infrastructure" },
       ]}
     />
   );

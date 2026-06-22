@@ -8,9 +8,9 @@ import { useScrollToTop } from "./hooks/useScrollToTop";
 import Home from "./pages/Home";
 import Work from "./pages/Work";
 import ProjectDetail from "./pages/ProjectDetail";
-import ServiceBranding from "./pages/ServiceBranding";
+import ServiceAI from "./pages/ServiceAI";
 import ServiceWeb from "./pages/ServiceWeb";
-import ServiceCampaigns from "./pages/ServiceCampaigns";
+import ServiceInfrastructure from "./pages/ServiceInfrastructure";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import LegalNotice from "./pages/LegalNotice";
@@ -22,9 +22,9 @@ function Shell() {
       <Route path="/" element={<Home />} />
       <Route path="/work" element={<Work />} />
       <Route path="/work/:slug" element={<ProjectDetail />} />
-      <Route path="/services/branding" element={<ServiceBranding />} />
+      <Route path="/services/ai" element={<ServiceAI />} />
       <Route path="/services/web" element={<ServiceWeb />} />
-      <Route path="/services/campaigns" element={<ServiceCampaigns />} />
+      <Route path="/services/infrastructure" element={<ServiceInfrastructure />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/mentions-legales" element={<LegalNotice />} />
@@ -34,7 +34,6 @@ function Shell() {
 
 export default function App() {
   useSmoothScroll();
-
   return (
     <>
       <CustomCursor />

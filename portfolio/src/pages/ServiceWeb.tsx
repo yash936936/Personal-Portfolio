@@ -13,8 +13,8 @@ export default function ServiceWeb() {
         { step: "04", title: "QA & polish", desc: "Cross-device testing, performance passes, and the small details that make it feel finished." },
       ]}
       related={[
-        { label: "Model design & training", href: "/services/branding" },
-        { label: "Deployment & infra", href: "/services/campaigns" },
+        { label: "Model design & training", href: "/services/ai" },
+        { label: "Deployment & infra", href: "/services/infrastructure" },
       ]}
     />
   );

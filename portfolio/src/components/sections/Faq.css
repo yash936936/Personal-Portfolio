@@ -103,11 +103,16 @@
 .faq-item__answer {
   min-height: 0;
   overflow: hidden;
-  padding-bottom: 28px;
+  padding-bottom: 0;
   font-size: 15px;
   line-height: 1.6;
   color: var(--color-muted);
   max-width: 620px;
+  transition: padding-bottom 0.5s var(--ease-in-out-quart);
+}
+
+.faq-item--open .faq-item__answer {
+  padding-bottom: 28px;
 }
 
 @media (max-width: 860px) {

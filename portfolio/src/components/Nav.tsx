@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import "./Nav.css";
 
 const offerLinks = [
-  { title: "Model design & training", desc: "For a model that actually solves the problem", href: "/services/branding" },
+  { title: "Model design & training", desc: "For a model that actually solves the problem", href: "/services/ai" },
   { title: "Full-stack web apps", desc: "A product experience worth shipping", href: "/services/web" },
-  { title: "Deployment & infra", desc: "The right cloud setup, end to end", href: "/services/campaigns" },
+  { title: "Deployment & infra", desc: "The right cloud setup, end to end", href: "/services/infrastructure" },
 ];
 
 const primaryLinks = [

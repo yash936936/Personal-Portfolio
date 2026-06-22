@@ -5,7 +5,7 @@ import "./Faq.css";
 import { useState } from "react";
 
 export default function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null); 
 
   return (
     <section className="faq">

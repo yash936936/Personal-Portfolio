@@ -1,16 +1,9 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { offers } from "../../data/content";
 import Reveal from "../Reveal";
 import "./Services.css";
 
-// Short pill label + accent color + stage position for each offer.
-// side: which edge the pill hugs (controls which way the card opens)
-// vAnchor: "top" | "bottom" — controls whether the card drops down or pops up,
-//   so it never runs into the stage edge.
-// depth: how far this pill drifts with the cursor (px) — varying it per
-//   item is what gives the parallax its sense of layering.
-// floatDelay: offsets each pill's idle bob so they don't move in sync.
 const META = [
   {
     label: "AI & Agentic Systems",
@@ -47,23 +40,31 @@ const META = [
 export default function Services() {
   const [active, setActive] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => { if (closeTimerRef.current) clearTimeout(closeTimerRef.current); };
+  }, []);
 
   function open(i: number) {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     setActive(i);
   }
 
   function close() {
-    setActive(null);
+    closeTimerRef.current = setTimeout(() => setActive(null), 300);
   }
 
   function toggle(i: number) {
-    // touch/keyboard fallback — hover handles desktop
-    setActive((cur) => (cur === i ? null : i));
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    if (active === i) {
+      navigate(offers[i].href);
+    } else {
+      setActive(i);
+    }
   }
 
-  // Tracks the cursor inside the stage and exposes it as CSS variables
-  // (--mx / --my, both -0.5..0.5) so each pill can drift toward/away from
-  // the cursor at its own depth, purely in CSS — no per-frame re-renders.
   function handleStageMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = stageRef.current;
     if (!el) return;
