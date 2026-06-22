@@ -401,3 +401,16 @@
     gap: 0;
   }
 }
+
+/* Light trigger for dark-background pages (Work, Contact) */
+.nav--dark-page .nav__trigger {
+  color: var(--color-on-dark);
+}
+
+.nav--dark-page .nav__trigger-icon span {
+  background: var(--color-on-dark);
+}
+
+.nav--dark-page .nav__logo {
+  color: var(--color-on-dark);
+}
