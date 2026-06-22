@@ -7,7 +7,6 @@ import { useScrollToTop } from "./hooks/useScrollToTop";
 
 import Home from "./pages/Home";
 import Work from "./pages/Work";
-import ProjectDetail from "./pages/ProjectDetail";
 import ServiceAI from "./pages/ServiceAI";
 import ServiceWeb from "./pages/ServiceWeb";
 import ServiceInfrastructure from "./pages/ServiceInfrastructure";
@@ -21,7 +20,6 @@ function Shell() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/work" element={<Work />} />
-      <Route path="/work/:slug" element={<ProjectDetail />} />
       <Route path="/services/ai" element={<ServiceAI />} />
       <Route path="/services/web" element={<ServiceWeb />} />
       <Route path="/services/infrastructure" element={<ServiceInfrastructure />} />
