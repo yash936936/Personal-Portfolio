@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./ProjectRow.css";
 
 interface ProjectRowProps {
@@ -48,16 +47,21 @@ export default function ProjectRow({
   year,
   category,
   color,
-  href,
   github,
 }: ProjectRowProps) {
   return (
     <div className="project-pill" style={{ "--row-color": color } as React.CSSProperties}>
       <span className="project-pill__fill" aria-hidden="true" />
 
-      <Link to={href} className="project-pill__link" data-cursor="link">
+      <a
+        href={github ?? "#"}
+        target="_blank"
+        rel="noreferrer"
+        className="project-pill__link"
+        data-cursor="link"
+      >
         <span className="project-pill__badge" aria-hidden="true">
-            <ArrowIcon />
+          <ArrowIcon />
         </span>
         <span className="project-pill__text">
           <span className="project-pill__title">{title}</span>
@@ -65,7 +69,7 @@ export default function ProjectRow({
             {category} · {year}
           </span>
         </span>
-      </Link>
+      </a>
 
       {github && (
         <a
@@ -75,7 +79,6 @@ export default function ProjectRow({
           className="project-pill__cta"
           aria-label={`View ${title} on GitHub`}
           data-cursor="link"
-          onClick={(e) => e.stopPropagation()}
         >
           <GithubMark />
           <ArrowIcon />
