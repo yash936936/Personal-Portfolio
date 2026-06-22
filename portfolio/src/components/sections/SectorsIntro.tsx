@@ -1,5 +1,5 @@
-import { sectors } from "../../data/content";
 import Reveal from "../Reveal";
+import SkillCapsules from "./SkillCapsules";
 import "./SectorsIntro.css";
 
 export default function SectorsIntro() {
@@ -22,17 +22,16 @@ export default function SectorsIntro() {
           </Reveal>
 
           <Reveal delay={160}>
-            <p className="sectors__label">Where I've worked</p>
-            <div className="sectors__tags">
-              {sectors.map((s) => (
-                <span className="sectors__tag" key={s}>
-                  {s}
-                </span>
-              ))}
-            </div>
+            <p className="sectors__label">Where I've worked — drag a capsule up:</p>
           </Reveal>
         </div>
       </div>
+
+      <Reveal delay={200}>
+        <div className="container">
+          <SkillCapsules theme="light" />
+        </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import Hero from "../components/sections/Hero";
 import LogoMarquee from "../components/sections/LogoMarquee";
 import Showcase from "../components/sections/Showcase";
-import SectorsIntro from "../components/sections/SectorsIntro";
+import SkillsRotator from "../components/sections/SkillsRotator";
 import Offers from "../components/sections/Offers";
 import ApproachStrip from "../components/sections/ApproachStrip";
 import Faq from "../components/sections/Faq";
@@ -15,7 +15,7 @@ export default function Home() {
       <Hero />
       <LogoMarquee />
       <Showcase />
-      <SectorsIntro />
+      <SkillsRotator />
       <Offers />
       <ApproachStrip />
       <Faq />

@@ -1,0 +1,192 @@
+.skills-rotator {
+  padding: var(--space-section) 0;
+  background: var(--color-canvas);
+}
+
+.skills-rotator__top {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.skills-rotator__heading {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+  color: var(--color-ink);
+}
+
+.skills-rotator__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.skills-rotator__copy {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-body);
+  margin-bottom: 28px;
+}
+
+/* Strip */
+.skills-rotator__strip-wrap {
+  position: relative;
+  border-top: 1px solid var(--color-hairline);
+  border-bottom: 1px solid var(--color-hairline);
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.skills-rotator__strip-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.skills-rotator__strip-fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--color-canvas) 20%, transparent);
+}
+
+.skills-rotator__strip-fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--color-canvas) 20%, transparent);
+}
+
+.skills-rotator__strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.skills-rotator__strip-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: var(--color-muted-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.25s, opacity 0.25s;
+  opacity: 0.5;
+}
+
+.skills-rotator__strip-item:hover {
+  opacity: 0.8;
+  color: var(--color-ink);
+}
+
+.skills-rotator__strip-item--far {
+  opacity: 0.2;
+}
+
+/* Active = the category label IS the orange capsule */
+.skills-rotator__strip-item--active {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 600;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  padding: 8px 18px;
+  margin: 8px 14px;
+  opacity: 1;
+}
+
+.skills-rotator__strip-item--active:hover {
+  opacity: 1;
+  color: var(--color-on-primary);
+}
+
+/* Pills */
+.skills-rotator__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 14px;
+}
+
+.skills-rotator__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 90px;
+}
+
+.skills-rotator__pills--enter {
+  animation: pills-in 0.32s var(--ease-out-quart) both;
+}
+
+.skills-rotator__pills--exit {
+  animation: pills-out 0.22s var(--ease-out-quart) both;
+  pointer-events: none;
+}
+
+@keyframes pills-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+@keyframes pills-out {
+  from { opacity: 1; transform: translateY(0);    }
+  to   { opacity: 0; transform: translateY(-6px); }
+}
+
+.skills-rotator__pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--color-body);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  padding: 7px 18px;
+  text-align: center;
+  transition: background 0.22s, border-color 0.22s, color 0.22s;
+}
+
+.skills-rotator__pill:hover {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface-card));
+  border-color: var(--color-primary);
+  color: var(--color-ink);
+}
+
+@media (max-width: 860px) {
+  .skills-rotator__top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .skills-rotator__strip-item {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .skills-rotator__strip-item--active {
+    margin: 6px 10px;
+    padding: 7px 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .skills-rotator__strip-item--far {
+    display: none;
+  }
+}
