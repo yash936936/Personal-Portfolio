@@ -62,14 +62,54 @@ export const press = [
 ];
 
 export const projects = [
-  { slug: "document-denoiser", title: "Document Denoiser", year: "2026", category: "Computer Vision", color: "#cc785c", github: "https://github.com/yash936936/document-denoiser" },
-  { slug: "fragment-reassembly", title: "Fragment Reassembly", year: "2025", category: "Deep Learning", color: "#5db8a6", github: "https://github.com/yash936936/fragment-reassembly" },
-  { slug: "asdas", title: "AI System Design Assistant", year: "2026", category: "Full-Stack / LLM", color: "#e8a55a", github: "https://github.com/yash936936/ai-system-design-assistant" },
-  { slug: "forgery-detection", title: "Forgery Detection", year: "2025", category: "Computer Vision", color: "#a9583e", github: "https://github.com/yash936936/forgery-detection" },
-  { slug: "burnt-text-inpainting", title: "Burnt Text Inpainting", year: "2025", category: "Generative", color: "#181715", github: "https://github.com/yash936936/burnt-text-inpainting" },
-  { slug: "degraded-text-triage", title: "Degraded Text Triage", year: "2025", category: "Classification", color: "#cc785c", github: "https://github.com/yash936936/degraded-text-triage" },
-  { slug: "ai-service-pipeline", title: "AI Service Pipeline", year: "2026", category: "MLOps", color: "#5db8a6", github: "https://github.com/yash936936/ai-service-pipeline" },
-  { slug: "react-vite-dashboard", title: "Ops Dashboard", year: "2025", category: "Frontend", color: "#e8a55a", github: "https://github.com/yash936936/ops-dashboard" },
+  { 
+    slug: "ai-document-analysis", 
+    title: "AI Document Analysis & Extraction", 
+    year: "2026", 
+    category: "AI Orchestration / Python", 
+    color: "#f59e0b", // Amber-500 alignment
+    github: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction" 
+  },
+  { 
+    slug: "mern-ecommerce", 
+    title: "MERN eCommerce", 
+    year: "2025", 
+    category: "Full-Stack Web", 
+    color: "#cc785c", 
+    github: "https://github.com/yash936936/MERN_ECOMMERCEE" 
+  },
+  { 
+    slug: "consultancy-website", 
+    title: "Consultancy UI Platform", 
+    year: "2025", 
+    category: "Frontend UI/UX", 
+    color: "#ea580c", // Deep orange accent
+    github: "https://github.com/yash936936/Consultancy_Website" 
+  },
+  { 
+    slug: "stock-price-prediction", 
+    title: "Time-Series Stock Predictor", 
+    year: "2025", 
+    category: "Machine Learning", 
+    color: "#e8a55a", 
+    github: "https://github.com/yash936936/Stock-Price-Prediction-Using-Time-Series-Regression" 
+  },
+  { 
+    slug: "shopping-trends-analysis", 
+    title: "Shopping Trends Analysis", 
+    year: "2025", 
+    category: "Data Pipeline", 
+    color: "#5db8a6", 
+    github: "https://github.com/yash936936/identifying-shopping-trends-using-data-analysis" 
+  },
+  { 
+    slug: "prodigy-ml-03", 
+    title: "ML Pipeline", 
+    year: "2025", 
+    category: "Applied ML", 
+    color: "#181715", 
+    github: "https://github.com/yash936936/PRODIGY_ML_03" 
+  }
 ];
 
 export const founders = [
