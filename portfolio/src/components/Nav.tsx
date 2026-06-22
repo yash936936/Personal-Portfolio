@@ -11,7 +11,7 @@ const offerLinks = [
 const primaryLinks = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
-  { label: "Notes", href: "/blog" },
+  { label: "About", href: "/about" },
 ];
 
 export default function Nav() {
@@ -108,7 +108,7 @@ export default function Nav() {
               {[
                 { label: "Home", href: "/" },
                 { label: "Work", href: "/work" },
-                { label: "Notes", href: "/blog" },
+                { label: "About", href: "/about" },
                 { label: "Contact", href: "/contact" },
               ].map((l, i) => (
                 <li
@@ -125,8 +125,8 @@ export default function Nav() {
 
             <div className="nav-overlay__contact">
               <p className="nav-overlay__contact-label">Say hello</p>
-              <a href="mailto:hello@example.com" className="nav-overlay__contact-email">
-                hello@example.com
+              <a href="mailto:yashsunilmalik@gmail.com" className="nav-overlay__contact-email">
+                yashsunilmalik@gmail.com
               </a>
             </div>
           </div>

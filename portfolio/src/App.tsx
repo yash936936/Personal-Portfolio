@@ -12,7 +12,7 @@ import ServiceAI from "./pages/ServiceAI";
 import ServiceWeb from "./pages/ServiceWeb";
 import ServiceInfrastructure from "./pages/ServiceInfrastructure";
 import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
+import About from "./pages/About";
 import LegalNotice from "./pages/LegalNotice";
 
 function Shell() {
@@ -25,7 +25,7 @@ function Shell() {
       <Route path="/services/ai" element={<ServiceAI />} />
       <Route path="/services/web" element={<ServiceWeb />} />
       <Route path="/services/infrastructure" element={<ServiceInfrastructure />} />
-      <Route path="/blog" element={<Blog />} />
+      <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/mentions-legales" element={<LegalNotice />} />
     </Routes>

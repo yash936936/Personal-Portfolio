@@ -86,7 +86,7 @@ export default function SkillsRotator() {
 
           <div className="skills-rotator__right">
             <Reveal delay={80}>
-              <p className="skills-rotator__copy" style={{ whiteSpace: "normal", maxWidth: "1200px" }}>
+              <p className="skills-rotator__copy">
                A working model needs a working interface. My expertise lies in bridging that gap—fusing AI orchestration with robust full-stack development so that every project I ship is both intelligent under the hood and striking on the screen.
               </p>
             </Reveal>
@@ -103,10 +103,10 @@ export default function SkillsRotator() {
                         "skills-rotator__strip-item",
                         offset === 0 ? "skills-rotator__strip-item--active" : "",
                         Math.abs(offset) === 2 ? "skills-rotator__strip-item--far" : "",
-                      ].join(" ")}
+                      ].filter(Boolean).join(" ")}
                       onClick={() => { advance(idx); startTimer(idx); }}
                     >
-                      {cat.label}
+                      <span className="skills-rotator__strip-text">{cat.label}</span>
                     </button>
                   ))}
                 </div>

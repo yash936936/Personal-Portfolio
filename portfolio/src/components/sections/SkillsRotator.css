@@ -1,6 +1,7 @@
 .skills-rotator {
   padding: var(--space-section) 0;
   background: var(--color-canvas);
+  overflow: hidden; /* Prevents edge-fade scrollbar issues */
 }
 
 .skills-rotator__top {
@@ -29,22 +30,23 @@
   line-height: 1.75;
   color: var(--color-body);
   margin-bottom: 28px;
+  max-width: 1200px;
 }
 
-/* Strip */
+/* --- Strip Layout --- */
 .skills-rotator__strip-wrap {
   position: relative;
   border-top: 1px solid var(--color-hairline);
   border-bottom: 1px solid var(--color-hairline);
-  margin-bottom: 28px;
-  overflow: hidden;
+  margin-bottom: 48px;
+  width: 100%;
 }
 
 .skills-rotator__strip-fade {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 60px;
+  width: 40px;
   pointer-events: none;
   z-index: 2;
 }
@@ -60,31 +62,36 @@
 }
 
 .skills-rotator__strip {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);  /* was repeat(5, minmax(230px, 1fr)) */
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-}
-
-.skills-rotator__strip-item {
-  display: flex;
+  display: flex; /* Flex handles dynamic text sizing better than rigid grid columns */
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-width: 0;
-  padding: 14px 10px;
+  height: 64px;
+}
+
+.skills-rotator__strip-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 16px);
+  padding: 0 12px;
+  margin: 8px 4px;
   font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(13px, 1.2vw, 16px);
   color: var(--color-muted-soft);
-  background: none;
+  background: transparent;
   border: none;
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.25s, opacity 0.25s;
   opacity: 0.5;
-   min-width: 0;
+  transition: flex 0.4s var(--ease-out-quart), color 0.3s, background 0.3s, opacity 0.3s;
+  min-width: 0; /* CRITICAL: Allows flex child to shrink past content size for ellipsis */
+}
+
+.skills-rotator__strip-text {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -98,18 +105,15 @@
   opacity: 0.2;
 }
 
-/* Active = the category label IS the orange capsule */
+/* Active State Capsule */
 .skills-rotator__strip-item--active {
+  flex: 1.5; /* Gives the active item more horizontal space */
   font-family: var(--font-body);
   font-style: normal;
   font-size: clamp(12px, 1.1vw, 14px);
   font-weight: 600;
   color: var(--color-on-primary);
   background: var(--color-primary);
-  border-radius: var(--radius-pill);
-  padding: 8px 18px;
-  margin: 8px 0;
-  width: calc(100% - 8px);
   opacity: 1;
 }
 
@@ -118,7 +122,7 @@
   color: var(--color-on-primary);
 }
 
-/* Pills */
+/* --- Below The Strip (Pills) --- */
 .skills-rotator__eyebrow {
   font-size: 11px;
   font-weight: 600;
@@ -146,24 +150,24 @@
 
 @keyframes pills-in {
   from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0);   }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pills-out {
-  from { opacity: 1; transform: translateY(0);    }
-  to   { opacity: 0; transform: translateY(-6px); }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-6px); }
 }
 
 .skills-rotator__pill {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;          /* was 13px */
+  font-size: 12px;
   color: var(--color-body);
   background: var(--color-surface-card);
   border: 1px solid var(--color-hairline);
   border-radius: var(--radius-pill);
-  padding: 12px 24px;       /* was 7px 18px */
+  padding: 10px 20px;
   text-align: center;
   transition: background 0.22s, border-color 0.22s, color 0.22s;
 }
@@ -174,37 +178,38 @@
   color: var(--color-ink);
 }
 
+/* -----------------------------------
+   Mobile Formatting
+----------------------------------- */
 @media (max-width: 860px) {
   .skills-rotator__top {
     grid-template-columns: 1fr;
     gap: 28px;
   }
+}
 
-  .skills-rotator__strip {
-  grid-template-columns: repeat(3, 1fr);  /* was repeat(3, minmax(170px, 1fr)) */
+@media (max-width: 600px) {
+  .skills-rotator__strip-wrap {
+    margin-bottom: 36px;
+  }
+  
+  .skills-rotator__strip-item--far {
+    display: none; /* Hide edge items on mobile to keep 3 items in view */
+  }
+
+  .skills-rotator__strip-item {
+    font-size: 12px;
+    padding: 0 6px;
+    margin: 8px 2px;
   }
 
   .skills-rotator__strip-item--active {
-  font-family: var(--font-body);
-  font-style: normal;
-  font-size: clamp(12px, 1.1vw, 14px);
-  font-weight: 600;
-  color: var(--color-on-primary);
-  background: var(--color-primary);
-  border-radius: var(--radius-pill);
-  padding: 12px 28px;
-  margin: 8px 0;
-  width: calc(100% - 8px);
-  opacity: 1;
-  }
-}
-
-@media (max-width: 520px) {
-  .skills-rotator__strip {
-    grid-template-columns: repeat(3, minmax(170px, 1fr));
+    flex: 1.8; /* Gives the active item heavily prioritized space on small screens */
+    font-size: 12px;
   }
 
-  .skills-rotator__strip-item--far {
-    display: none;
+  .skills-rotator__pill {
+    padding: 8px 16px; /* Reduced bulkiness for mobile devices */
+    font-size: 11px;
   }
 }

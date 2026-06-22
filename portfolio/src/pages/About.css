@@ -1,0 +1,284 @@
+.about-page {
+  background: var(--color-canvas);
+  min-height: 100svh;
+  padding-bottom: 96px;
+}
+
+.about__container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* --- Sidebar --- */
+.about__sidebar {
+  position: relative;
+  height: 100%;
+}
+
+.about__sticky-nav {
+  position: sticky;
+  top: 140px; /* Sits below the main nav */
+}
+
+.about__sticky-nav .eyebrow {
+  margin-bottom: 24px;
+}
+
+.about__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about__nav-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--color-muted-soft);
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.about__nav-btn:hover {
+  color: var(--color-ink);
+}
+
+.about__nav-btn.active {
+  color: var(--color-primary);
+  font-weight: 500;
+  transform: translateX(8px);
+}
+
+/* --- Content --- */
+.about__content {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  max-width: 800px;
+}
+
+.about__section {
+  scroll-margin-top: 120px;
+}
+
+.about__h2 {
+  font-size: clamp(28px, 3vw, 36px);
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+  color: var(--color-ink);
+}
+
+.about__text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-body);
+  margin-bottom: 16px;
+}
+
+/* --- Timeline --- */
+.about__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.about__timeline-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.about__timeline-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.about__timeline-date {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.about__timeline-role {
+  font-family: var(--font-display);
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.about__timeline-company {
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+.about__timeline-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-body);
+  margin-top: 12px;
+}
+
+/* --- Skills Grid --- */
+.about__skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.about__skill-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.about__skill-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.about__skill-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.about__skill-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+/* --- Lists --- */
+.about__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 20px;
+}
+
+.about__list li {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-body);
+  position: relative;
+}
+
+.about__list li::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* --- Reveal Cards (Connect) --- */
+.about__reveal-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.reveal-card {
+  --hover-color: #181715; /* Default GitHub dark */
+  position: relative;
+  height: 140px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  background: var(--hover-color);
+  isolation: isolate;
+}
+
+.reveal-card__cover {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-hairline);
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+  transform-origin: top;
+}
+
+.reveal-card__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--color-ink);
+}
+
+.reveal-card__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.reveal-card__content p {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s 0.2s, transform 0.4s 0.2s;
+}
+
+/* The Reveal Animation */
+.reveal-card:hover .reveal-card__cover {
+  transform: scaleY(0); /* Curtains pull up */
+}
+
+.reveal-card:hover .reveal-card__content p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 980px) {
+  .about__container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about__sidebar {
+    display: none; /* Hide sidebar on mobile/tablets */
+  }
+
+  .about__timeline-item {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .about__skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .about__reveal-cards {
+    grid-template-columns: 1fr;
+  }
+}
