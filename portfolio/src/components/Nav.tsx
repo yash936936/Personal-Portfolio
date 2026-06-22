@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Nav.css";
 
 const offerLinks = [
@@ -14,11 +14,17 @@ const primaryLinks = [
   { label: "About", href: "/about" },
 ];
 
+// Pages with dark backgrounds where nav trigger needs to be light
+const DARK_BG_ROUTES = ["/work", "/contact"];
+
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   const closeMenu = () => setOpen(false);
+
+  const isDarkPage = DARK_BG_ROUTES.includes(location.pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -34,9 +40,14 @@ export default function Nav() {
     };
   }, [open]);
 
+  // Close menu on route change
+  useEffect(() => {
+    closeMenu();
+  }, [location.pathname]);
+
   return (
     <>
-      <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
+      <header className={`nav ${scrolled ? "nav--scrolled" : ""} ${isDarkPage ? "nav--dark-page" : ""}`}>
         <div className="nav__inner container">
           <Link to="/" className="nav__logo" aria-label="Home" onClick={closeMenu}>
             <span className="nav__logo-mark">Y</span>
