@@ -71,36 +71,36 @@ export const projects = [
     github: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction" 
   },
   { 
+    slug: "legal-ai", 
+    title: "Legal AI Assistant", 
+    year: "2026", 
+    category: "AI Orchestration", 
+    color: "#cc785c", 
+    github: "https://github.com/yash936936/LegalAI" 
+  },
+  { 
+    slug: "handwritten-digit-recognition", 
+    title: "Handwritten Digit Recognition", 
+    year: "2026", 
+    category: "Applied ML", 
+    color: "#ea580c", // Deep orange accent
+    github: "https://github.com/yash936936/handwritten_digit_recognition" 
+  },
+  { 
     slug: "mern-ecommerce", 
-    title: "MERN eCommerce", 
+    title: "MERN E-Commerce Platform", 
     year: "2025", 
     category: "Full-Stack Web", 
-    color: "#cc785c", 
+    color: "#e8a55a", 
     github: "https://github.com/yash936936/MERN_ECOMMERCEE" 
   },
   { 
-    slug: "consultancy-website", 
-    title: "Consultancy UI Platform", 
+    slug: "mern-chat-application", 
+    title: "MERN Chat Application", 
     year: "2025", 
-    category: "Frontend UI/UX", 
-    color: "#ea580c", // Deep orange accent
-    github: "https://github.com/yash936936/Consultancy_Website" 
-  },
-  { 
-    slug: "stock-price-prediction", 
-    title: "Time-Series Stock Predictor", 
-    year: "2025", 
-    category: "Machine Learning", 
-    color: "#e8a55a", 
-    github: "https://github.com/yash936936/Stock-Price-Prediction-Using-Time-Series-Regression" 
-  },
-  { 
-    slug: "shopping-trends-analysis", 
-    title: "Shopping Trends Analysis", 
-    year: "2025", 
-    category: "Data Pipeline", 
+    category: "Full-Stack Web", 
     color: "#5db8a6", 
-    github: "https://github.com/yash936936/identifying-shopping-trends-using-data-analysis" 
+    github: "https://github.com/yash936936/ChatAPP" 
   },
   { 
     slug: "prodigy-ml-03", 
