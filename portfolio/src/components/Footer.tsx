@@ -12,9 +12,9 @@ export default function Footer() {
         <div className="footer__grid">
           <div className="footer__col">
             <span className="footer__col-title">Services</span>
-            <Link to="/services/branding">Agentic Systems &amp; Model Training</Link>
+            <Link to="/services/ai">Agentic Systems &amp; Model Training</Link>
             <Link to="/services/web">Full-Stack Web Apps</Link>
-            <Link to="/services/campaigns">Deployment &amp; Infrastructure</Link>
+            <Link to="/services/infrastructure">Deployment &amp; Infrastructure</Link>
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Studio</span>
