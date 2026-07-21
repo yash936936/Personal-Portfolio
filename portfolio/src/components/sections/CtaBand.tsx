@@ -1,49 +1,64 @@
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import Reveal from "../Reveal";
 import "./CtaBand.css";
 
-const tags = [
-  "Full-Stack", "AI/ML", "React", "Node.js",
-  "System Design", "FastAPI", "TypeScript", "Cloudflare",
-];
-
 export default function CtaBand() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let startTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const clearStartTimer = () => {
+      if (startTimer) {
+        clearTimeout(startTimer);
+        startTimer = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          // Wait 2s after the section becomes visible before playing
+          startTimer = setTimeout(() => {
+            video.play().catch(() => {});
+          }, 2000);
+        } else {
+          // Left the viewport: cancel any pending start and stop playback
+          clearStartTimer();
+          video.pause();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      clearStartTimer();
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <section className="cta-band">
       <div className="container">
         <Reveal>
-          <Link to="/work" className="cta-band__card" data-cursor="link">
-            {/* Warm cream background with subtle texture */}
-            <div className="cta-band__media" aria-hidden="true" />
-
-            {/* Floating tag pills */}
-            <div className="cta-band__tags" aria-hidden="true">
-              {tags.map((tag, i) => (
-                <span
-                  key={tag}
-                  className="cta-band__tag"
-                  style={{ "--i": i } as React.CSSProperties}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Center content */}
-            <div className="cta-band__overlay">
-              <h2 className="cta-band__title">See the work</h2>
-              <span className="cta-band__arrow">
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                  <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                View all projects
-              </span>
-            </div>
-
-            {/* Terracotta glow orbs */}
-            <div className="cta-band__orb cta-band__orb--a" aria-hidden="true" />
-            <div className="cta-band__orb cta-band__orb--b" aria-hidden="true" />
-          </Link>
+          <div className="cta-band__card">
+            <video
+              ref={videoRef}
+              className="cta-band__video"
+              src="/videos/portfolio-showcase.mp4"
+              poster="/poster-showcase.jpg"
+              loop
+              muted
+              playsInline
+              preload="metadata"
+            />
+          </div>
         </Reveal>
       </div>
     </section>

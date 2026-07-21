@@ -38,8 +38,62 @@
   transform: translateY(-2px);
 }
 
+/* ── Row holding both CTAs ── */
+.approach__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ── "See the work" pill, distinct from the plain contact pill ── */
+.approach__cta--work {
+  height: auto;
+  padding: 10px 12px 10px 22px;
+  gap: 14px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.approach__cta--work:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.approach__cta-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--color-on-primary);
+  letter-spacing: -0.2px;
+}
+
+.approach__cta-arrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  background: var(--color-canvas);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+}
+
 @media (max-width: 640px) {
   .approach__card {
     padding: var(--space-xl);
+  }
+
+  .approach__row {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .approach__cta,
+  .approach__cta--work {
+    width: 100%;
+    justify-content: center;
   }
 }
