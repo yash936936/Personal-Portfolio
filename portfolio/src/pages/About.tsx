@@ -56,7 +56,7 @@ export default function About() {
       <PageHeader
         eyebrow="About Me"
         title="Engineering, Strategy & Autonomous Systems."
-        sub="Architecting intelligent workflows and modern web platforms to turn complex engineering problems into deployable solutions."
+        sub="Architecting intelligent AI workflows and modern web platforms, turning complex engineering challenges into scalable, deployable solutions."
       />
 
       <div className="container about__container">
@@ -88,10 +88,10 @@ export default function About() {
             <Reveal>
               <h2 className="about__h2">Overview</h2>
               <p className="about__text">
-                I am Yash Malik. I build intelligent systems and robust full-stack applications.
+                I’m Yash Malik, an AI-focused technical builder working across agentic AI, intelligent systems, and scalable application architecture. I use AI as a core part of my daily workflow to design AI agents, multi-agent systems, intelligent workflows, and AI-driven applications.
               </p>
               <p className="about__text">
-                By combining technical depth in AI and modern backend architectures with a strong management mindset, I ensure engineering efforts translate into real-world value. Whether developing Agentic AI solutions or structuring complex databases, my goal remains the same: bridge the gap between execution and strategy to build products worth shipping.
+                Rather than focusing on traditional manual coding, I specialize in system architecture, AI orchestration, scalable workflows, and turning complex ideas into working products. I combine technical thinking with a management mindset to bridge AI, engineering, and real-world product development.
               </p>
             </Reveal>
           </section>
@@ -101,7 +101,7 @@ export default function About() {
             <Reveal>
               <h2 className="about__h2">Technical Arsenal</h2>
               <p className="about__text">
-                A robust technical foundation focused on Artificial Intelligence, Cybersecurity, and Web Development.
+                A strong technical foundation spanning Artificial Intelligence, Cybersecurity, and modern Web Development.
               </p>
               <div className="about__skills-grid">
                 {SKILLS.map((skill) => (
@@ -139,7 +139,7 @@ export default function About() {
                   </div>
                 </a>
 
-                <a href="https://drive.google.com/drive/folders/1WbTv2it532uzHZKQUG1vCmQvzvgJxFt8?usp=drive_link" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as CSSProperties}>
+                <a href="https://drive.google.com/drive/folders/1as0o0p7JRGXrWlpTwC9ZlgsXRN7WeX2F?usp=sharing" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as CSSProperties}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">Certifications</span>
                   </div>
