@@ -63,12 +63,12 @@ export const press = [
 
 export const projects = [
   { 
-    slug: "ai-document-analysis", 
-    title: "AI Document Analysis", 
+    slug: "Harness", 
+    title: "Coding Harness", 
     year: "2026", 
-    category: "AI Orchestration", 
-    color: "#f59e0b", // Amber-500 alignment
-    github: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction" 
+    category: "Harness Engineering", 
+    color: "#5db8a6", 
+    github: "https://github.com/yash936936/Harness" 
   },
   { 
     slug: "legal-ai", 
@@ -79,36 +79,36 @@ export const projects = [
     github: "https://github.com/yash936936/LegalAI" 
   },
   { 
-    slug: "handwritten-digit-recognition", 
-    title: "Handwritten Digit Recognition", 
+    slug: "AI Researcher", 
+    title: "Local CLI Researcher", 
+    year: "2026", 
+    category: "Research Agent", 
+    color: "#ea580c", // Deep orange accent
+    github: "https://github.com/yash936936/Fathom" 
+  },
+  { 
+    slug: "ai-document-analysis", 
+    title: "AI Document Analysis", 
+    year: "2026", 
+    category: "AI Orchestration", 
+    color: "#f59e0b", // Amber-500 alignment
+    github: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction" 
+  },
+  { 
+    slug: "LoRA", 
+    title: "LoRA", 
     year: "2026", 
     category: "Applied ML", 
-    color: "#ea580c", // Deep orange accent
-    github: "https://github.com/yash936936/handwritten_digit_recognition" 
+    color: "#e8a55a", 
+    github: "https://github.com/yash936936/LoRA" 
   },
   { 
     slug: "mern-ecommerce", 
     title: "MERN E-Commerce Platform", 
     year: "2025", 
     category: "Full-Stack Web", 
-    color: "#e8a55a", 
-    github: "https://github.com/yash936936/MERN_ECOMMERCEE" 
-  },
-  { 
-    slug: "mern-chat-application", 
-    title: "MERN Chat Application", 
-    year: "2025", 
-    category: "Full-Stack Web", 
-    color: "#5db8a6", 
-    github: "https://github.com/yash936936/ChatAPP" 
-  },
-  { 
-    slug: "prodigy-ml-03", 
-    title: "ML Pipeline", 
-    year: "2025", 
-    category: "Applied ML", 
     color: "#181715", 
-    github: "https://github.com/yash936936/PRODIGY_ML_03" 
+    github: "https://github.com/yash936936/MERN_ECOMMERCEE" 
   }
 ];
 
