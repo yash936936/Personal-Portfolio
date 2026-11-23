@@ -1,23 +1,26 @@
 import Hero from "../components/sections/Hero";
-import {
-  FocusAreas,
-  FeaturedProjects,
-  ResearchPreview,
-  Capabilities,
-  WritingPreview,
-  HomeContact,
-} from "../components/sections/HomeSections";
+import LogoMarquee from "../components/sections/LogoMarquee";
+import Services from "../components/sections/Services";
+import SkillsRotator from "../components/sections/SkillsRotator";
+import ApproachStrip from "../components/sections/ApproachStrip";
+import Faq from "../components/sections/Faq";
+import Press from "../components/sections/Press";
+import ContactBand from "../components/sections/ContactBand";
+import { FeaturedProjects, ResearchAndBlog } from "../components/sections/HomeSections";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <FocusAreas />
+      <LogoMarquee />
       <FeaturedProjects />
-      <ResearchPreview />
-      <Capabilities />
-      <WritingPreview />
-      <HomeContact />
+      <Services />
+      <SkillsRotator />
+      <ApproachStrip />
+      <ResearchAndBlog />
+      <Faq />
+      <Press />
+      <ContactBand />
     </>
   );
 }

@@ -2,7 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/work</loc></url>
-  <url><loc>https://personal-portfolio-yashmalik.vercel.app/research</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/work/agm</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/work/sysdesign-ai</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/work/coding-harness</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/work/legal-ai</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/work/fathom</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/work/document-analysis</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/work/lora-pipeline</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/blog</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/blog/designing-bounded-agent-workflows</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/blog/evaluating-rag-beyond-retrieval</loc></url>
