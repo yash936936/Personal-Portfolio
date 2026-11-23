@@ -95,10 +95,10 @@ export default function SkillsRotator() {
           <div className="skills-rotator__right">
             <Reveal delay={80}>
               <p className="skills-rotator__copy">
-                A working model needs a working interface. My expertise lies in
-                bridging that gap—fusing AI orchestration with robust full-stack
-                development so that every project I ship is both intelligent under
-                the hood and striking on the screen.
+                My primary focus is AI engineering: designing agentic workflows,
+                integrating models, and evaluating their behavior. I also develop
+                and test dependable software that turns those capabilities into
+                usable products.
               </p>
             </Reveal>
 
