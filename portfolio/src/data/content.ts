@@ -200,3 +200,5 @@ export const projects: Project[] = [
 export const founders = [
   { name: "Yash", role: "Software Engineer", linkedin: "https://linkedin.com/in/yashmalik-/" },
 ];
+
+export const press = ["GitHub", "LinkedIn", "X", "Reddit"];
