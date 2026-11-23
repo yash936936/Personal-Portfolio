@@ -1,7 +1,7 @@
 export const heroLines = [
   {
     title: "Awaken your\nthinking partner",
-    sub: "A solo engineering studio of one: machine learning, full-stack web, and the systems that connect them.",
+    sub: "An independent AI engineering practice focused on agentic systems, applied machine learning, and intelligent software.",
   },
   {
     title: "Activate your\nideas",
@@ -9,7 +9,7 @@ export const heroLines = [
   },
 ];
 
-export const heroTag = "AI Engineering · Full-stack";
+export const heroTag = "AI Engineering";
 
 export const logos = [
   "Agentic AI", "LLM Orchestration", "MongoDB", "Express.js", "RAG Systems", "Machine Learning", "Microservices", "Computer Vision", "Headless Scraping", "Data Pipelines", "Cybersecurity", "RESTful APIs", "MERN Stack", "Workflow Automation"
@@ -30,8 +30,8 @@ export const offers = [
   },
   {
     kicker: "Service",
-    title: "Full-stack\nweb apps",
-    desc: "Bold, high-performance product experiences powered by scalable databases, putting complex models seamlessly in front of real users.",
+    title: "Software development\nand testing",
+    desc: "Software development, test automation and quality checks that make applications dependable, maintainable and ready for real users.",
     href: "/services/web",
   },
   {
@@ -45,15 +45,15 @@ export const offers = [
 export const faqs = [
   {
     q: "What kind of projects do you take on?",
-    a: "I specialize in building intelligent systems from the ground up—whether that’s orchestrating autonomous AI agents, developing full-stack web platforms, or building complex data extraction and automation pipelines.",
+    a: "My primary focus is AI: building autonomous agents, multi-agent workflows, model-driven applications and data pipelines. I also develop and test the software needed to deliver those systems reliably.",
   },
   {
     q: "What makes your approach different?",
-    a: "There is no disconnect between the backend AI logic and the frontend user experience. I handle the entire architecture—from integrating robust LLMs and building the database infrastructure to designing bold, intuitive interfaces—ensuring nothing gets lost in translation.",
+    a: "I connect AI system design, data infrastructure, software implementation and testing. Each part is evaluated against the needs of the product, making the system easier to maintain and improve.",
   },
   {
     q: "What does your typical tech stack look like?",
-    a: "For AI orchestration, I rely on frameworks like LangChain and LangGraph integrated with top-tier LLM APIs. For full-stack development, I build highly responsive frontends backed by Firebase and Supabase to guarantee scalable, real-time performance.",
+    a: "For AI orchestration, I use frameworks like LangChain and LangGraph with LLM APIs. For software development and testing, I work with React, TypeScript, backend APIs and automated tests to keep applications reliable.",
   },
 ];
 
