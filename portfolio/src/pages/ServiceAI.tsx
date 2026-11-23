@@ -13,7 +13,7 @@ export default function ServiceAI() {
         { step: "04", title: "Export & handoff", desc: "ONNX / ready-to-serve artifacts, documented and packaged for the next stage." },
       ]}
       related={[
-        { label: "Full-stack web apps", href: "/services/web" },
+        { label: "Software development and testing", href: "/services/web" },
         { label: "Deployment & infra", href: "/services/infrastructure" },
       ]}
       accent="var(--color-primary)"
