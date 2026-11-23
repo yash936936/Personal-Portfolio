@@ -14,7 +14,7 @@ export default function ServiceInfrastructure() {
       ]}
       related={[
         { label: "Model design & training", href: "/services/ai" },
-        { label: "Full-stack web apps", href: "/services/web" },
+        { label: "Software development and testing", href: "/services/web" },
       ]}
       accent="var(--color-accent-teal)"
       onAccent="var(--color-ink)"
