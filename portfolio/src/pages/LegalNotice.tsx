@@ -17,7 +17,7 @@ export default function LegalNotice() {
             <section className="legal__section">
               <h2>1. General Information</h2>
               <p>
-                This website is the personal and professional portfolio of <strong>Yash Malik</strong>. It serves as a digital showcase of projects, services, and research in Artificial Intelligence, Machine Learning, and Full-Stack Web Development.
+                This website is the personal and professional portfolio of <strong>Yash Malik</strong>. It presents selected projects, services and technical writing across AI, machine learning and full-stack software development.
               </p>
               <ul className="legal__list">
                 <li><strong>Owner:</strong> Yash Malik</li>
@@ -31,47 +31,47 @@ export default function LegalNotice() {
             <section className="legal__section">
               <h2>2. Intellectual Property</h2>
               <p>
-                All content on this website, including but not limited to text, graphics, logos, UI designs, and codebase excerpts, is the property of Yash Malik unless otherwise explicitly stated or credited to third-party open-source licenses.
+                Website text, original graphics, logos and visual design are owned by Yash Malik unless a different owner or licence is stated. Third-party logos, libraries and project materials remain subject to their respective owners and licences.
               </p>
               <p>
-                You may not reproduce, distribute, or modify the visual design or proprietary content of this site without prior written consent. Projects linked to public GitHub repositories are subject to their respective repository licenses (e.g., MIT, GPL).
+                Public GitHub repositories are governed by the licence included in each repository. A project link does not grant rights beyond that licence.
               </p>
             </section>
           </Reveal>
 
           <Reveal delay={150}>
             <section className="legal__section">
-              <h2>3. Disclaimer of Liability</h2>
+              <h2>3. Disclaimer</h2>
               <p>
-                The information provided on this website is for general informational purposes only. While I strive to keep the information up to date and correct, I make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, or suitability of the information, products, services, or related graphics contained on the website.
+                The information on this website is provided for general information. Project descriptions reflect the state and evidence available when they were written; prototypes and research projects are identified as such and should not be treated as production guarantees.
               </p>
               <p>
-                Any reliance you place on such information is therefore strictly at your own risk. I will not be liable for any loss or damage arising out of, or in connection with, the use of this website or the deployment of any code snippets provided herein.
+                Technical examples are provided without a warranty that they will suit a particular use. Review code, licences, security and operational requirements before using it in another system.
               </p>
             </section>
           </Reveal>
 
           <Reveal delay={200}>
             <section className="legal__section">
-              <h2>4. Privacy Policy & Data Collection</h2>
+              <h2>4. Privacy and Data Processing</h2>
               <p>
-                I am committed to ensuring that your privacy is protected. This website operates with minimal data collection:
+                The contact form collects the name, email address and message that a visitor submits. The Cloudflare Worker validates the submission and sends it through Resend so that the owner can reply. The inquiry is also retained in the recipient's email mailbox. Do not submit passwords, payment details or other highly sensitive information through this form.
               </p>
               <ul className="legal__list">
-                <li><strong>Contact Forms:</strong> If you use a contact form or email link, the information you provide (name, email, message) is strictly used to respond to your inquiry. It is never sold or distributed to third parties.</li>
-                <li><strong>Analytics:</strong> This site may use basic, anonymized web analytics to monitor traffic and improve performance. This data does not personally identify you.</li>
-                <li><strong>External Links:</strong> This website contains links to external sites (such as GitHub, LinkedIn, and project deployments). I am not responsible for the privacy practices or the content of those external websites.</li>
+                <li><strong>Contact service:</strong> Cloudflare processes the request at the Worker endpoint, and Resend processes the email delivery. Their own privacy and retention terms apply to that processing.</li>
+                <li><strong>Analytics:</strong> Plausible analytics is optional and remains disabled unless a site domain is configured for the deployment. When enabled, it records aggregate page-view and referral measurements without using tracking cookies.</li>
+                <li><strong>External links:</strong> Links to GitHub, LinkedIn and other services take visitors to third-party websites with their own privacy practices.</li>
               </ul>
             </section>
           </Reveal>
 
           <Reveal delay={250}>
             <section className="legal__section">
-              <h2>5. Updates to these Terms</h2>
+              <h2>5. Updates</h2>
               <p>
-                These terms and policies may be updated periodically to reflect changes in services or legal requirements. The latest version will always be available on this page.
+                This notice may be updated when the website's features, service providers or applicable requirements change. The current version is published on this page.
               </p>
-              <p className="legal__last-updated">Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+              <p className="legal__last-updated">Last updated: {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}</p>
             </section>
           </Reveal>
         </div>

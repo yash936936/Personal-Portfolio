@@ -35,6 +35,7 @@ Restart Vite after changing environment variables. When this variable is omitted
 | `npm run build` | Run TypeScript project checks and create the production build |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint |
+| `npm run check:links` | Check internal routes, sitemap destinations, image alt attributes, safe external links and unresolved placeholders |
 
 Build locally with:
 
@@ -104,6 +105,7 @@ Copy `.dev.vars.example` to `.dev.vars` and add the Resend key:
 ```dotenv
 RESEND_API_KEY=your_resend_api_key
 ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+REQUIRE_TURNSTILE=false
 ```
 
 Run the Worker:
@@ -111,6 +113,8 @@ Run the Worker:
 ```bash
 npm run dev
 ```
+
+Turnstile support is included but remains disabled until a real widget is configured. To enable it, create a Cloudflare Turnstile widget for the production hostname, set `VITE_TURNSTILE_SITE_KEY` in the frontend build environment, add the corresponding Worker secret using `npx wrangler secret put TURNSTILE_SECRET_KEY`, then set `REQUIRE_TURNSTILE=true` in the Worker configuration. Deploy the Worker and frontend together. The Worker validates each token through Cloudflare Siteverify and checks the expected hostname and `contact` action. Do not enable the requirement until both keys are present. When enabled, a missing secret or unavailable Siteverify service fails closed.
 
 In another terminal, set `VITE_CONTACT_API_URL=http://127.0.0.1:8787` in `portfolio/.env.local` and run the Vite dev server. The local Worker only accepts origins in its `ALLOWED_ORIGINS` list.
 
@@ -140,6 +144,14 @@ The Worker applies two Cloudflare Rate Limiting bindings: a 20-request-per-60-se
 
 The Origin allowlist constrains browser-origin requests. It is not authentication, because non-browser clients can forge an Origin header. Payload validation and rate limiting remain necessary.
 
+## Optional analytics
+
+Plausible Analytics is disabled unless `VITE_PLAUSIBLE_DOMAIN` is set at frontend build time. Use the exact domain registered in your Plausible site settings. The script loads once from the application shell and supports client-side route changes. No analytics secret is exposed in the frontend. The privacy notice describes this conditional setup.
+
+## Security headers
+
+`vercel.json` applies a Content Security Policy and response headers for HSTS, Referrer Policy, content-type sniffing, framing, browser permissions and cross-origin opener isolation. The policy allows the Google Fonts, contact Worker, Cloudflare Turnstile and optional Plausible resources used by this site. Review it whenever a new external script, font, image or API is added.
+
 ## Vercel deployment
 
 The frontend is a Vite single-page application. The `vercel.json` file rewrites nested browser-history routes to `index.html` so direct visits and refreshes reach React Router. In Vercel, configure:
@@ -166,7 +178,11 @@ Route metadata updates the title, description, canonical URL, Open Graph values 
 
 This is a client-rendered single-page application. Page-specific metadata is updated on navigation after React loads; crawlers that do not execute JavaScript will initially see the static homepage metadata. Consider prerendering or server rendering if full per-route metadata is required for those crawlers.
 
-The navigation supports keyboard dismissal, focus containment and focus return. A skip link and visible focus indicators are provided, and motion-heavy behavior is disabled when the user requests reduced motion.
+The navigation supports keyboard dismissal, focus containment and focus return. A skip link and visible focus indicators are provided, and motion-heavy behavior is disabled when the user requests reduced motion. Unknown routes render a custom 404 page and receive a `noindex` robots directive. Run `npm run check:links` to check internal route references, sitemap paths, image alt attributes and unresolved placeholder markers.
+
+## Automated security and quality checks
+
+GitHub Actions runs the frontend dependency audit, link checker, lint and production build, plus the contact Worker dependency audit and test suite. It also runs Playwright route, responsive-overflow, mobile-navigation and 404 checks. CodeQL performs JavaScript/TypeScript source analysis. Dependabot checks both npm workspaces and GitHub Actions weekly. See [the security review record](../docs/security-review.md) for production activation steps and checks that still require a live environment.
 
 ## Project content policy
 

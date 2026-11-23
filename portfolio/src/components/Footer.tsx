@@ -25,9 +25,8 @@ export default function Footer() {
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Elsewhere</span>
-            <a href="https://github.com/yash936936" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://linkedin.com/in/yashmalik-/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://x.com/yashm15082005" target="_blank" rel="noreferrer">X</a>
+            <a href="https://github.com/yash936936" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/yashmalik-/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Get in touch</span>

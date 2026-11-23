@@ -3,12 +3,14 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
 import RouteMetadata from "./components/RouteMetadata";
+import SiteAnalytics from "./components/SiteAnalytics";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { useScrollToTop } from "./hooks/useScrollToTop";
 
 import Home from "./pages/Home";
 import Work from "./pages/Work";
 import Blog from "./pages/Blog";
+import NotFound from "./pages/NotFound";
 import ServiceAI from "./pages/ServiceAI";
 import ServiceWeb from "./pages/ServiceWeb";
 import ServiceInfrastructure from "./pages/ServiceInfrastructure";
@@ -41,6 +43,7 @@ function Shell() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mentions-legales" element={<LegalNotice />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
@@ -53,6 +56,7 @@ export default function App() {
     <>
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <CustomCursor />
+      <SiteAnalytics />
       <Nav />
       <main id="main-content" tabIndex={-1}>
         <Shell />

@@ -4,7 +4,6 @@ import SkillsRotator from "../components/sections/SkillsRotator";
 import Services from "../components/sections/Services";
 import ApproachStrip from "../components/sections/ApproachStrip";
 import Faq from "../components/sections/Faq";
-import Press from "../components/sections/Press";
 import ContactBand from "../components/sections/ContactBand";
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
       <SkillsRotator />
       <ApproachStrip />
       <Faq />
-      <Press />
       <ContactBand />
     </>
   );

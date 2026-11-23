@@ -1,9 +1,32 @@
 import type { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
 import { projects } from "../data/content";
 import "./Work.css";
+
+const RELATED_LINKS: Record<string, Array<{ label: string; to: string }>> = {
+  "coding-harness": [
+    { label: "Agent workflow design", to: "/blog/designing-bounded-agent-workflows" },
+    { label: "AI and agentic systems", to: "/services/ai" },
+  ],
+  "legal-ai": [
+    { label: "Evaluating RAG systems", to: "/blog/evaluating-rag-beyond-retrieval" },
+    { label: "AI and agentic systems", to: "/services/ai" },
+  ],
+  fathom: [
+    { label: "Building a local research assistant", to: "/blog/building-a-local-research-assistant" },
+    { label: "Evaluating RAG systems", to: "/blog/evaluating-rag-beyond-retrieval" },
+  ],
+  "document-analysis": [
+    { label: "Evaluating RAG systems", to: "/blog/evaluating-rag-beyond-retrieval" },
+    { label: "Full-stack development", to: "/services/web" },
+  ],
+  "lora-pipeline": [
+    { label: "AI and model training", to: "/services/ai" },
+  ],
+};
 
 export default function Work() {
   return (
@@ -27,6 +50,7 @@ export default function Work() {
         {projects.map((project, index) => (
           <Reveal key={project.slug} delay={Math.min(index, 5) * 55}>
             <article
+              id={"project-" + project.slug}
               className="project-card"
               style={{ "--project-accent": project.color } as CSSProperties}
             >
@@ -56,11 +80,20 @@ export default function Work() {
                 {project.stack.map((item) => <span key={item}>{item}</span>)}
               </div>
 
+              <div className="project-card__related">
+                <h3>Explore related work</h3>
+                <div className="project-card__related-links">
+                  {(RELATED_LINKS[project.slug] ?? []).map((item) => (
+                    <Link key={item.to} to={item.to}>{item.label} <span aria-hidden="true">↗</span></Link>
+                  ))}
+                </div>
+              </div>
+
               <a
                 className="project-card__link"
                 href={project.github}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label={"View " + project.title + " source on GitHub"}
               >
                 View repository <span aria-hidden="true">↗</span>

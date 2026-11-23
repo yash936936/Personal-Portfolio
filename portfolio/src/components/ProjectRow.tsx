@@ -5,7 +5,7 @@ interface ProjectRowProps {
   year: string;
   category: string;
   color: string;
-  href: string;
+  href?: string;
   github?: string;
 }
 
@@ -47,35 +47,49 @@ export default function ProjectRow({
   year,
   category,
   color,
+  href,
   github,
 }: ProjectRowProps) {
+  const destination = github ?? href;
+  const isExternal = Boolean(destination?.startsWith("http"));
+
   return (
     <div className="project-pill" style={{ "--row-color": color } as React.CSSProperties}>
       <span className="project-pill__fill" aria-hidden="true" />
 
-      <a
-        href={github ?? "#"}
-        target="_blank"
-        rel="noreferrer"
-        className="project-pill__link"
-        data-cursor="link"
-      >
-        <span className="project-pill__badge" aria-hidden="true">
-          <ArrowIcon />
-        </span>
-        <span className="project-pill__text">
-          <span className="project-pill__title">{title}</span>
-          <span className="project-pill__sub">
-            {category} · {year}
+      {destination ? (
+        <a
+          href={destination}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          className="project-pill__link"
+          data-cursor="link"
+        >
+          <span className="project-pill__badge" aria-hidden="true">
+            <ArrowIcon />
           </span>
-        </span>
-      </a>
+          <span className="project-pill__text">
+            <span className="project-pill__title">{title}</span>
+            <span className="project-pill__sub">{category} · {year}</span>
+          </span>
+        </a>
+      ) : (
+        <div className="project-pill__link" aria-disabled="true">
+          <span className="project-pill__badge" aria-hidden="true">
+            <ArrowIcon />
+          </span>
+          <span className="project-pill__text">
+            <span className="project-pill__title">{title}</span>
+            <span className="project-pill__sub">{category} · {year}</span>
+          </span>
+        </div>
+      )}
 
       {github && (
         <a
           href={github}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="project-pill__cta"
           aria-label={`View ${title} on GitHub`}
           data-cursor="link"

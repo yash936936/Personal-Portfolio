@@ -4,15 +4,30 @@ import Reveal from "../components/Reveal";
 import { blogPosts } from "../data/editorial";
 import "./Blog.css";
 
+const RELATED_PROJECTS: Record<string, Array<{ label: string; slug: string }>> = {
+  "designing-bounded-agent-workflows": [
+    { label: "Coding Harness", slug: "coding-harness" },
+  ],
+  "evaluating-rag-beyond-retrieval": [
+    { label: "Legal AI Assistant", slug: "legal-ai" },
+    { label: "AI Document Analysis API", slug: "document-analysis" },
+  ],
+  "building-a-local-research-assistant": [
+    { label: "Fathom Research Assistant", slug: "fathom" },
+  ],
+};
+
 export default function Blog() {
   const { slug } = useParams();
-  const article = blogPosts.find((note) => note.slug === slug);
+  const article = blogPosts.find((post) => post.slug === slug);
 
   if (slug && !article) {
     return <Navigate to="/blog" replace />;
   }
 
   if (article) {
+    const relatedProjects = RELATED_PROJECTS[article.slug] ?? [];
+
     return (
       <div className="blog-page">
         <PageHeader
@@ -21,9 +36,13 @@ export default function Blog() {
           sub={article.excerpt}
         />
         <article className="container blog-article">
-          <Link to="/blog" className="blog-article__back">
-            <span aria-hidden="true">←</span> All blogs
-          </Link>
+          <nav className="blog-breadcrumbs" aria-label="Breadcrumb">
+            <Link to="/">Home</Link>
+            <span aria-hidden="true">/</span>
+            <Link to="/blog">Blog</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{article.title}</span>
+          </nav>
           <p className="blog-article__label">Blog article · {article.readingTime}</p>
           <p className="blog-article__intro">{article.introduction}</p>
           {article.sections.map((section) => (
@@ -43,6 +62,20 @@ export default function Blog() {
               {article.takeaways.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}
             </ul>
           </aside>
+
+          {relatedProjects.length > 0 && (
+            <section className="blog-article__related" aria-labelledby="related-projects-heading">
+              <h2 id="related-projects-heading">Related projects</h2>
+              <div className="blog-article__related-links">
+                {relatedProjects.map((project) => (
+                  <Link key={project.slug} to={"/work#project-" + project.slug}>
+                    {project.label} <span aria-hidden="true">↗</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
           <Link to="/blog" className="blog-article__back blog-article__back--bottom">
             <span aria-hidden="true">←</span> Back to blogs
           </Link>
@@ -68,16 +101,16 @@ export default function Blog() {
           </Reveal>
         </div>
         <div className="blog-list__grid">
-          {blogPosts.map((note, index) => (
-            <Reveal key={note.slug} delay={index * 60}>
+          {blogPosts.map((post, index) => (
+            <Reveal key={post.slug} delay={index * 60}>
               <article className="blog-card">
                 <div className="blog-card__meta">
-                  <span>{note.category}</span>
-                  <span>{note.readingTime}</span>
+                  <span>{post.category}</span>
+                  <span>{post.readingTime}</span>
                 </div>
-                <h2>{note.title}</h2>
-                <p>{note.excerpt}</p>
-                <Link to={"/blog/" + note.slug}>
+                <h2>{post.title}</h2>
+                <p>{post.excerpt}</p>
+                <Link to={"/blog/" + post.slug}>
                   Read article <span aria-hidden="true">↗</span>
                 </Link>
               </article>

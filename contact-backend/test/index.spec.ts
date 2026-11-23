@@ -4,9 +4,15 @@ import worker, { type Env } from "../src/index";
 const ALLOWED_ORIGIN = "https://personal-portfolio-yashmalik.vercel.app";
 const EXECUTION_CONTEXT = {} as ExecutionContext;
 
-function createEnv(allowSubmission = true, allowIp = true): Env {
+function createEnv(
+  allowSubmission = true,
+  allowIp = true,
+  requireTurnstile = false,
+): Env {
   return {
     RESEND_API_KEY: "test-resend-key",
+    TURNSTILE_SECRET_KEY: "test-turnstile-secret",
+    REQUIRE_TURNSTILE: requireTurnstile ? "true" : "false",
     ALLOWED_ORIGINS: ALLOWED_ORIGIN,
     CONTACT_RATE_LIMITER: {
       limit: vi.fn().mockResolvedValue({ success: allowSubmission }),
@@ -39,16 +45,18 @@ const validPayload = {
   message: "I would like to discuss a project.",
 };
 
+function jsonResponse(payload: unknown, status = 200): Response {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
 describe("contact worker", () => {
   let resendFetch: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    resendFetch = vi.fn().mockResolvedValue(
-      new Response(JSON.stringify({ id: "email-test-id" }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }),
-    );
+    resendFetch = vi.fn().mockResolvedValue(jsonResponse({ id: "email-test-id" }));
     vi.stubGlobal("fetch", resendFetch);
   });
 
@@ -214,6 +222,122 @@ describe("contact worker", () => {
 
     expect(response.status).toBe(429);
     expect(resendFetch).not.toHaveBeenCalled();
+  });
+
+  it("requires a token when Turnstile is enabled", async () => {
+    const response = await worker.fetch(
+      createRequest(JSON.stringify(validPayload), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.15",
+      }),
+      createEnv(true, true, true),
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(400);
+    expect(resendFetch).not.toHaveBeenCalled();
+  });
+
+  it("verifies Turnstile on the server before sending the contact email", async () => {
+    resendFetch
+      .mockResolvedValueOnce(jsonResponse({
+        success: true,
+        hostname: "personal-portfolio-yashmalik.vercel.app",
+        action: "contact",
+      }))
+      .mockResolvedValueOnce(jsonResponse({ id: "email-test-id" }));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify({ ...validPayload, turnstileToken: "single-use-token" }), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.16",
+      }),
+      createEnv(true, true, true),
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(200);
+    expect(resendFetch).toHaveBeenCalledTimes(2);
+    expect(String(resendFetch.mock.calls[0][0])).toContain("/turnstile/v0/siteverify");
+    expect(String(resendFetch.mock.calls[0][1].body)).toContain("single-use-token");
+    expect(String(resendFetch.mock.calls[0][1].body)).toContain("test-turnstile-secret");
+  });
+
+  it("rejects a valid-looking token issued for an unexpected hostname", async () => {
+    resendFetch.mockResolvedValueOnce(jsonResponse({
+      success: true,
+      hostname: "attacker.example",
+      action: "contact",
+    }));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify({ ...validPayload, turnstileToken: "forged-host-token" }), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.17",
+      }),
+      createEnv(true, true, true),
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(403);
+    expect(resendFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("rejects a Turnstile token with an unexpected action", async () => {
+    resendFetch.mockResolvedValueOnce(jsonResponse({
+      success: true,
+      hostname: "personal-portfolio-yashmalik.vercel.app",
+      action: "login",
+    }));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify({ ...validPayload, turnstileToken: "wrong-action-token" }), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.18",
+      }),
+      createEnv(true, true, true),
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(403);
+    expect(resendFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("fails closed if Turnstile is required but the server secret is missing", async () => {
+    const env = createEnv(true, true, true);
+    delete env.TURNSTILE_SECRET_KEY;
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify({ ...validPayload, turnstileToken: "token" }), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+      }),
+      env,
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(503);
+    expect(resendFetch).not.toHaveBeenCalled();
+  });
+
+  it("returns a temporary error if Siteverify is unavailable", async () => {
+    resendFetch.mockResolvedValueOnce(new Response("upstream unavailable", { status: 503 }));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify({ ...validPayload, turnstileToken: "single-use-token" }), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+      }),
+      createEnv(true, true, true),
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(503);
+    expect(resendFetch).toHaveBeenCalledTimes(1);
   });
 
   it("does not expose upstream email-provider errors", async () => {

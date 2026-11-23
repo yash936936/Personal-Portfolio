@@ -63,6 +63,10 @@ function upsertMeta(attribute: "name" | "property", key: string, content: string
   element.content = content;
 }
 
+function removeMeta(attribute: "name" | "property", key: string) {
+  document.head.querySelector('meta[' + attribute + '="' + key + '"]')?.remove();
+}
+
 function setCanonical(url: string) {
   let element = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
   if (!element) {
@@ -73,21 +77,32 @@ function setCanonical(url: string) {
   element.href = url;
 }
 
+function removeCanonical() {
+  document.head.querySelector('link[rel="canonical"]')?.remove();
+}
+
+function getBlogPost(pathname: string) {
+  if (!pathname.startsWith("/blog/")) return undefined;
+  const slug = pathname.split("/").filter(Boolean)[1];
+  return blogPosts.find((post) => post.slug === slug);
+}
+
+function isKnownPath(pathname: string) {
+  return Boolean(PAGE_META[pathname] || getBlogPost(pathname));
+}
+
 function resolvePageMeta(pathname: string): PageMeta {
-  if (pathname.startsWith("/blog/")) {
-    const slug = pathname.split("/").filter(Boolean)[1];
-    const article = blogPosts.find((note) => note.slug === slug);
-    if (article) {
-      return {
-        title: article.title + " | Blog by Yash Malik",
-        description: article.excerpt,
-      };
-    }
+  const article = getBlogPost(pathname);
+  if (article) {
+    return {
+      title: article.title + " | Blog by Yash Malik",
+      description: article.excerpt,
+    };
   }
 
   return PAGE_META[pathname] ?? {
-    title: "Yash Malik | AI Systems Engineer",
-    description: "AI systems engineering, applied research and software development by Yash Malik.",
+    title: "Page not found | Yash Malik",
+    description: "The requested page could not be found. Browse the portfolio, projects or blog.",
   };
 }
 
@@ -96,16 +111,16 @@ export default function RouteMetadata() {
 
   useEffect(() => {
     const meta = resolvePageMeta(pathname);
+    const knownPath = isKnownPath(pathname);
     const canonical = new URL(pathname, SITE_URL).toString();
 
     document.title = meta.title;
     upsertMeta("name", "description", meta.description);
-    upsertMeta("name", "robots", "index, follow");
+    upsertMeta("name", "robots", knownPath ? "index, follow" : "noindex, follow");
     upsertMeta("property", "og:type", "website");
     upsertMeta("property", "og:site_name", "Yash Malik");
     upsertMeta("property", "og:title", meta.title);
     upsertMeta("property", "og:description", meta.description);
-    upsertMeta("property", "og:url", canonical);
     upsertMeta("property", "og:image", SOCIAL_IMAGE);
     upsertMeta("property", "og:image:alt", "Yash Malik — AI systems engineering, research and software architecture");
     upsertMeta("property", "og:image:type", "image/svg+xml");
@@ -115,7 +130,14 @@ export default function RouteMetadata() {
     upsertMeta("name", "twitter:title", meta.title);
     upsertMeta("name", "twitter:description", meta.description);
     upsertMeta("name", "twitter:image", SOCIAL_IMAGE);
-    setCanonical(canonical);
+
+    if (knownPath) {
+      upsertMeta("property", "og:url", canonical);
+      setCanonical(canonical);
+    } else {
+      removeMeta("property", "og:url");
+      removeCanonical();
+    }
   }, [pathname]);
 
   return null;

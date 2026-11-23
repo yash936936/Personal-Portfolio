@@ -9,7 +9,8 @@
   "upload_source_maps": true,
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    "ALLOWED_ORIGINS": "https://personal-portfolio-yashmalik.vercel.app"
+    "ALLOWED_ORIGINS": "https://personal-portfolio-yashmalik.vercel.app",
+    "REQUIRE_TURNSTILE": "false"
   },
   "ratelimits": [
     {

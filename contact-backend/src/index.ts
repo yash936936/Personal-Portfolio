@@ -5,16 +5,22 @@ export interface RateLimitBinding {
 export interface Env {
   RESEND_API_KEY: string;
   ALLOWED_ORIGINS?: string;
+  REQUIRE_TURNSTILE?: string;
+  TURNSTILE_SECRET_KEY?: string;
   CONTACT_RATE_LIMITER: RateLimitBinding;
   CONTACT_IP_RATE_LIMITER: RateLimitBinding;
 }
 
 const DEFAULT_ALLOWED_ORIGIN = "https://personal-portfolio-yashmalik.vercel.app";
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const MAX_BODY_BYTES = 16 * 1024;
 const MAX_NAME_LENGTH = 100;
 const MAX_EMAIL_LENGTH = 254;
 const MAX_MESSAGE_LENGTH = 5_000;
+const MAX_TURNSTILE_TOKEN_LENGTH = 2_048;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+type TurnstileResult = "valid" | "invalid" | "unavailable";
 
 function getAllowedOrigins(env: Env): Set<string> {
   const configured = env.ALLOWED_ORIGINS ?? DEFAULT_ALLOWED_ORIGIN;
@@ -24,6 +30,7 @@ function getAllowedOrigins(env: Env): Set<string> {
 function responseHeaders(origin: string | null, allowed: boolean): Headers {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store",
     "Vary": "Origin",
   });
 
@@ -73,6 +80,62 @@ function hasForbiddenControls(value: string, allowLineBreaks = false): boolean {
   return pattern.test(value);
 }
 
+async function verifyTurnstile(
+  token: string,
+  request: Request,
+  env: Env,
+): Promise<TurnstileResult> {
+  if (!env.TURNSTILE_SECRET_KEY) return "unavailable";
+
+  const allowedHostnames = new Set<string>();
+  for (const origin of getAllowedOrigins(env)) {
+    try {
+      allowedHostnames.add(new URL(origin).hostname);
+    } catch {
+      // Invalid origins are rejected by the origin check before this function.
+    }
+  }
+
+  const body = new URLSearchParams({
+    secret: env.TURNSTILE_SECRET_KEY,
+    response: token,
+  });
+  const remoteIp = request.headers.get("cf-connecting-ip");
+  if (remoteIp) body.set("remoteip", remoteIp);
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5_000);
+
+  try {
+    const response = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+      signal: controller.signal,
+    });
+
+    if (!response.ok) return "unavailable";
+
+    const result = await response.json() as {
+      success?: boolean;
+      hostname?: string;
+      action?: string;
+    };
+
+    const valid =
+      result.success === true &&
+      result.action === "contact" &&
+      typeof result.hostname === "string" &&
+      allowedHostnames.has(result.hostname);
+
+    return valid ? "valid" : "invalid";
+  } catch {
+    return "unavailable";
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 export default {
   async fetch(request: Request, env: Env, _ctx?: ExecutionContext): Promise<Response> {
     const origin = request.headers.get("Origin");
@@ -106,8 +169,8 @@ export default {
       if (!ipLimit.success) {
         return jsonResponse({ error: "Too many submissions. Please try again shortly." }, 429, origin, true);
       }
-    } catch (error) {
-      console.error("Contact IP rate-limit check failed:", error);
+    } catch {
+      console.error("Contact IP rate-limit service unavailable");
       return jsonResponse({ error: "Contact service is temporarily unavailable" }, 503, origin, true);
     }
 
@@ -172,9 +235,30 @@ export default {
       if (!submissionLimit.success) {
         return jsonResponse({ error: "Too many submissions for this contact address. Please try again shortly." }, 429, origin, true);
       }
-    } catch (error) {
-      console.error("Contact submission rate-limit check failed:", error);
+    } catch {
+      console.error("Contact submission rate-limit service unavailable");
       return jsonResponse({ error: "Contact service is temporarily unavailable" }, 503, origin, true);
+    }
+
+    if (env.REQUIRE_TURNSTILE === "true") {
+      if (!env.TURNSTILE_SECRET_KEY) {
+        console.error("Turnstile is required but its server secret is not configured");
+        return jsonResponse({ error: "Contact protection is temporarily unavailable" }, 503, origin, true);
+      }
+
+      const token = payload.turnstileToken;
+      if (typeof token !== "string" || token.length < 1 || token.length > MAX_TURNSTILE_TOKEN_LENGTH) {
+        return jsonResponse({ error: "Please complete the bot check and try again" }, 400, origin, true);
+      }
+
+      const validation = await verifyTurnstile(token, request, env);
+      if (validation === "unavailable") {
+        console.error("Turnstile verification service unavailable");
+        return jsonResponse({ error: "Contact protection is temporarily unavailable" }, 503, origin, true);
+      }
+      if (validation !== "valid") {
+        return jsonResponse({ error: "Bot check failed. Please try again" }, 403, origin, true);
+      }
     }
 
     const safeName = escapeHtml(name);
@@ -220,8 +304,8 @@ export default {
       }
 
       return jsonResponse({ success: true }, 200, origin, true);
-    } catch (error) {
-      console.error("Contact notification request failed:", error);
+    } catch {
+      console.error("Contact notification request failed");
       return jsonResponse({ error: "Unable to send your message right now" }, 502, origin, true);
     }
   },

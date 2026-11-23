@@ -45,6 +45,10 @@ For local end-to-end testing, copy `portfolio/.env.example` to `portfolio/.env.l
 
 See [portfolio/README.md](portfolio/README.md) for frontend architecture, routes, builds, Vercel deployment and contact Worker deployment.
 
+## Security and quality
+
+The repository includes a source-level security review at [docs/security-review.md](docs/security-review.md), a weekly Dependabot schedule for both npm workspaces and GitHub Actions, and GitHub Actions checks for npm audit, Worker tests, frontend build/lint/link validation, browser responsiveness and CodeQL. Turnstile support is implemented but must be enabled with real Cloudflare widget credentials before it protects the public contact form. Plausible analytics is opt-in and remains inactive until its domain is configured.
+
 ## Security notes
 
 - Contact submissions require an exact allowed `Origin`. This is a browser-origin control, not authentication; non-browser clients can forge the header.

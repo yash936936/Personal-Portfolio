@@ -57,10 +57,6 @@ export const faqs = [
   },
 ];
 
-export const press = [
-  "GitHub", "LinkedIn", "X", "Reddit",
-];
-
 export interface Project {
   slug: string;
   title: string;
