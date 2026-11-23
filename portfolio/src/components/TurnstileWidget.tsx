@@ -26,7 +26,7 @@ function loadTurnstile(): Promise<void> {
   if (window.turnstile) return Promise.resolve();
   if (turnstileScriptPromise) return turnstileScriptPromise;
 
-  turnstileScriptPromise = new Promise((resolve, reject) => {
+  const promise = new Promise<void>((resolve, reject) => {
     const existing = document.getElementById("cloudflare-turnstile-script") as HTMLScriptElement | null;
     const script = existing ?? document.createElement("script");
 
@@ -51,7 +51,8 @@ function loadTurnstile(): Promise<void> {
     throw error;
   });
 
-  return turnstileScriptPromise;
+  turnstileScriptPromise = promise;
+  return promise;
 }
 
 interface TurnstileWidgetProps {
