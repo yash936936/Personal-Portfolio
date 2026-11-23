@@ -8,31 +8,36 @@ export default function CustomCursor() {
   const readyRef = useRef(false);
 
   useEffect(() => {
-    if (window.matchMedia("(hover: none)").matches) return;
+    const noHover = window.matchMedia("(hover: none)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const move = (e: MouseEvent) => {
-      target.current.x = e.clientX;
-      target.current.y = e.clientY;
+    if (noHover.matches || reducedMotion.matches) return;
+
+    const move = (event: MouseEvent) => {
+      target.current.x = event.clientX;
+      target.current.y = event.clientY;
       if (!readyRef.current) {
         readyRef.current = true;
-        pos.current.x = e.clientX;
-        pos.current.y = e.clientY;
+        pos.current.x = event.clientX;
+        pos.current.y = event.clientY;
         setReady(true);
       }
     };
+
     window.addEventListener("mousemove", move);
 
-    let raf: number;
+    let raf = 0;
     const tick = () => {
       pos.current.x += (target.current.x - pos.current.x) * 0.2;
       pos.current.y += (target.current.y - pos.current.y) * 0.2;
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${pos.current.x}px, ${pos.current.y}px) translate(-50%, -50%)`;
+        dotRef.current.style.transform =
+          "translate(" + pos.current.x + "px, " + pos.current.y + "px) translate(-50%, -50%)";
       }
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
 
+    raf = requestAnimationFrame(tick);
     return () => {
       window.removeEventListener("mousemove", move);
       cancelAnimationFrame(raf);

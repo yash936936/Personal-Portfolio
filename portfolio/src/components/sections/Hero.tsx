@@ -9,10 +9,6 @@ export default function Hero() {
   const [entered, setEntered] = useState(false);
   const [tilt, setTilt] = useState<Tilt>("top");
   const lastScrollY = useRef(0);
-
-  // The pill has two resting positions (top / bottom), and the headline
-  // has two slides — they're driven by the same scroll-derived state so
-  // they always change together.
   const index = tilt === "top" ? 0 : 1;
 
   useEffect(() => {
@@ -22,8 +18,9 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    let ticking = false;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    let ticking = false;
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
@@ -32,12 +29,10 @@ export default function Hero() {
         const currentY = window.scrollY;
         const delta = currentY - lastScrollY.current;
 
-        // Ignore tiny jitters; only react to a deliberate scroll move.
         if (Math.abs(delta) > 4) {
           setTilt(delta > 0 ? "bottom" : "top");
           lastScrollY.current = currentY;
         }
-
         ticking = false;
       });
     };

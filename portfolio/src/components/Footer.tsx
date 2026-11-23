@@ -17,15 +17,17 @@ export default function Footer() {
             <Link to="/services/infrastructure">Deployment &amp; Infrastructure</Link>
           </div>
           <div className="footer__col">
-            <span className="footer__col-title">Studio</span>
+            <span className="footer__col-title">Explore</span>
             <Link to="/work">Work</Link>
+            <Link to="/research">Research</Link>
+            <Link to="/writing">Writing</Link>
             <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Elsewhere</span>
             <a href="https://github.com/yash936936" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://linkedin.com/in/yashmalik-/" target="_blank" rel="noreferrer">LinkedIn</a>
             <a href="https://x.com/yashm15082005" target="_blank" rel="noreferrer">X</a>
           </div>
           <div className="footer__col">

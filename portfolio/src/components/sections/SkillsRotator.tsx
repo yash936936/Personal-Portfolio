@@ -46,8 +46,14 @@ export default function SkillsRotator() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   function advance(next: number) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setActive(next);
+      setAnimating(false);
+      return;
+    }
+
     setAnimating(true);
-    setTimeout(() => {
+    window.setTimeout(() => {
       setActive(next);
       setAnimating(false);
     }, 220);
@@ -55,20 +61,22 @@ export default function SkillsRotator() {
 
   function startTimer(from: number) {
     if (timerRef.current) clearInterval(timerRef.current);
-    let cur = from;
+    let current = from;
     timerRef.current = setInterval(() => {
-      cur = (cur + 1) % N;
-      advance(cur);
+      current = (current + 1) % N;
+      advance(current);
     }, INTERVAL);
   }
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     startTimer(0);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, []);
 
   const current = CATEGORIES[active];
-
   const strip = [-2, -1, 0, 1, 2].map((offset) => {
     const idx = ((active + offset) % N + N) % N;
     return { idx, offset, cat: CATEGORIES[idx] };
@@ -87,7 +95,10 @@ export default function SkillsRotator() {
           <div className="skills-rotator__right">
             <Reveal delay={80}>
               <p className="skills-rotator__copy">
-               A working model needs a working interface. My expertise lies in bridging that gap—fusing AI orchestration with robust full-stack development so that every project I ship is both intelligent under the hood and striking on the screen.
+                A working model needs a working interface. My expertise lies in
+                bridging that gap—fusing AI orchestration with robust full-stack
+                development so that every project I ship is both intelligent under
+                the hood and striking on the screen.
               </p>
             </Reveal>
 
@@ -98,13 +109,20 @@ export default function SkillsRotator() {
                 <div className="skills-rotator__strip">
                   {strip.map(({ idx, offset, cat }) => (
                     <button
+                      type="button"
                       key={`${idx}-${offset}`}
                       className={[
                         "skills-rotator__strip-item",
                         offset === 0 ? "skills-rotator__strip-item--active" : "",
                         Math.abs(offset) === 2 ? "skills-rotator__strip-item--far" : "",
                       ].filter(Boolean).join(" ")}
-                      onClick={() => { advance(idx); startTimer(idx); }}
+                      onClick={() => {
+                        advance(idx);
+                        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                          startTimer(idx);
+                        }
+                      }}
+                      aria-pressed={offset === 0}
                     >
                       <span className="skills-rotator__strip-text">{cat.label}</span>
                     </button>
@@ -114,7 +132,7 @@ export default function SkillsRotator() {
             </Reveal>
 
             <Reveal delay={140}>
-              <p className="skills-rotator__eyebrow">What I've worked on</p>
+              <p className="skills-rotator__eyebrow">What I&apos;ve worked on</p>
               <div className={`skills-rotator__pills ${animating ? "skills-rotator__pills--exit" : "skills-rotator__pills--enter"}`}>
                 {current.skills.map((skill) => (
                   <span className="skills-rotator__pill" key={skill}>{skill}</span>

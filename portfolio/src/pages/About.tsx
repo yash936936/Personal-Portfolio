@@ -31,28 +31,28 @@ export default function About() {
       setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
-    if (element) {
-      const offset = 100; // Account for fixed nav
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+    if (!element) return;
+    const offset = 100;
+    const bodyRect = document.body.getBoundingClientRect().top;
+    const elementRect = element.getBoundingClientRect().top;
+    const elementPosition = elementRect - bodyRect;
+    const offsetPosition = elementPosition - offset;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: reducedMotion ? "auto" : "smooth",
+    });
   };
 
   return (
-    <main className="about-page">
+    <div className="about-page">
       <PageHeader
         eyebrow="About Me"
         title="Engineering, Strategy & Autonomous Systems."
@@ -60,19 +60,20 @@ export default function About() {
       />
 
       <div className="container about__container">
-        {/* Left Sidebar Menu */}
-        <aside className="about__sidebar">
+        <aside className="about__sidebar" aria-label="About page sections">
           <div className="about__sticky-nav">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
-              {["overview", "skills", "connect"].map((id, i) => (
+              {["overview", "skills", "connect"].map((id, index) => (
                 <li key={id}>
                   <button
+                    type="button"
                     className={`about__nav-btn ${activeSection === id ? "active" : ""}`}
                     onClick={() => scrollToSection(id)}
+                    aria-current={activeSection === id ? "location" : undefined}
                   >
                     <span className="about__nav-dot" aria-hidden="true" />
-                    <span className="about__nav-index">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="about__nav-index">{String(index + 1).padStart(2, "0")}</span>
                     {id.charAt(0).toUpperCase() + id.slice(1)}
                   </button>
                 </li>
@@ -81,33 +82,37 @@ export default function About() {
           </div>
         </aside>
 
-        {/* Right Content Area */}
         <div className="about__content" ref={contentRef}>
-          
           <section id="overview" className="about__section">
             <Reveal>
               <h2 className="about__h2">Overview</h2>
               <p className="about__text">
-                I’m Yash Malik, an AI-focused technical builder working across agentic AI, intelligent systems, and scalable application architecture. I use AI as a core part of my daily workflow to design AI agents, multi-agent systems, intelligent workflows, and AI-driven applications.
+                I’m Yash Malik, an AI-focused technical builder working across agentic AI,
+                intelligent systems, and scalable application architecture. I use AI as a
+                core part of my daily workflow to design AI agents, multi-agent systems,
+                intelligent workflows, and AI-driven applications.
               </p>
               <p className="about__text">
-                Rather than focusing on traditional manual coding, I specialize in system architecture, AI orchestration, scalable workflows, and turning complex ideas into working products. I combine technical thinking with a management mindset to bridge AI, engineering, and real-world product development.
+                Rather than focusing on traditional manual coding, I specialize in system
+                architecture, AI orchestration, scalable workflows, and turning complex
+                ideas into working products. I combine technical thinking with a management
+                mindset to bridge AI, engineering, and real-world product development.
               </p>
             </Reveal>
           </section>
-
 
           <section id="skills" className="about__section">
             <Reveal>
               <h2 className="about__h2">Technical Arsenal</h2>
               <p className="about__text">
-                A strong technical foundation spanning Artificial Intelligence, Cybersecurity, and modern Web Development.
+                A technical foundation spanning artificial intelligence, cybersecurity,
+                data analysis and modern web development.
               </p>
               <div className="about__skills-grid">
                 {SKILLS.map((skill) => (
                   <div className="about__skill-card" key={skill.name} style={{ "--skill-accent": skill.accent } as CSSProperties}>
                     <span className="about__skill-badge">
-                      <img src={skill.icon} alt={skill.name} className="about__skill-icon" />
+                      <img src={skill.icon} alt="" className="about__skill-icon" />
                     </span>
                     <span className="about__skill-name">{skill.name}</span>
                   </div>
@@ -120,40 +125,29 @@ export default function About() {
             <Reveal>
               <h2 className="about__h2">Connect</h2>
               <div className="about__reveal-cards">
-
                 <a href="https://github.com/yash936936" target="_blank" rel="noreferrer" className="reveal-card">
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">GitHub</span>
                   </div>
-                  <div className="reveal-card__content">
-                    <p>View Repositories ➔</p>
-                  </div>
+                  <div className="reveal-card__content"><p>View Repositories ➔</p></div>
                 </a>
-
-                <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as CSSProperties}>
+                <a href="https://linkedin.com/in/yashmalik-/" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as CSSProperties}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">LinkedIn</span>
                   </div>
-                  <div className="reveal-card__content">
-                    <p>Connect Professionally ➔</p>
-                  </div>
+                  <div className="reveal-card__content"><p>Connect Professionally ➔</p></div>
                 </a>
-
                 <a href="https://drive.google.com/drive/folders/1as0o0p7JRGXrWlpTwC9ZlgsXRN7WeX2F?usp=sharing" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as CSSProperties}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">Certifications</span>
                   </div>
-                  <div className="reveal-card__content">
-                    <p>View Credentials ➔</p>
-                  </div>
+                  <div className="reveal-card__content"><p>View Credentials ➔</p></div>
                 </a>
-
               </div>
             </Reveal>
           </section>
-
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -78,6 +78,7 @@
 html {
   background: var(--color-canvas);
   scroll-behavior: auto;
+  scroll-padding-top: calc(var(--nav-height) + 18px);
 }
 
 html.lenis,
@@ -163,6 +164,26 @@ button:focus-visible,
   color: var(--color-muted);
 }
 
+/* Skip link: visible on keyboard focus */
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 2000;
+  padding: 10px 14px;
+  transform: translateY(-160%);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-dark);
+  color: var(--color-on-dark);
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -190,6 +211,6 @@ button:focus-visible,
   transition: width 0.3s var(--ease-out-quart), height 0.3s var(--ease-out-quart), background-color 0.3s, opacity 0.4s ease;
 }
 
-@media (hover: none) {
+@media (hover: none), (prefers-reduced-motion: reduce) {
   .cursor-dot { display: none; }
 }
