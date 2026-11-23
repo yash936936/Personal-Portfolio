@@ -21,7 +21,7 @@ const RELATED_LINKS: Record<string, Array<{ label: string; to: string }>> = {
   ],
   "document-analysis": [
     { label: "Evaluating RAG systems", to: "/blog/evaluating-rag-beyond-retrieval" },
-    { label: "Full-stack development", to: "/services/web" },
+    { label: "Software development and testing", to: "/services/web" },
   ],
   "lora-pipeline": [
     { label: "AI and model training", to: "/services/ai" },
