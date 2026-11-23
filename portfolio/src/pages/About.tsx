@@ -56,7 +56,7 @@ export default function About() {
       <PageHeader
         eyebrow="About Me"
         title="Engineering, Strategy & Autonomous Systems."
-        sub="Architecting intelligent AI workflows and modern web platforms, turning complex engineering challenges into scalable, deployable solutions."
+        sub="Designing agentic AI systems, intelligent workflows and dependable software for real-world use."
       />
 
       <div className="container about__container">
