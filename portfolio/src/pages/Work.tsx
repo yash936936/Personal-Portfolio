@@ -7,6 +7,13 @@ import { projects } from "../data/content";
 import "./Work.css";
 
 const RELATED_LINKS: Record<string, Array<{ label: string; to: string }>> = {
+  agm: [
+    { label: "AI and agentic systems", to: "/services/ai" },
+    { label: "Research and evaluation notes", to: "/blog/evaluating-rag-beyond-retrieval" },
+  ],
+  "sysdesign-ai": [
+    { label: "AI and agentic systems", to: "/services/ai" },
+  ],
   "coding-harness": [
     { label: "Agent workflow design", to: "/blog/designing-bounded-agent-workflows" },
     { label: "AI and agentic systems", to: "/services/ai" },
