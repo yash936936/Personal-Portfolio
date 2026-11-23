@@ -5,7 +5,7 @@ import "./NavAccessibility.css";
 
 const offerLinks = [
   { title: "Model design & training", desc: "For a model that actually solves the problem", href: "/services/ai" },
-  { title: "Full-stack web apps", desc: "A product experience worth shipping", href: "/services/web" },
+  { title: "Software development and testing", desc: "Build, verify and ship dependable applications", href: "/services/web" },
   { title: "Deployment & infra", desc: "The right cloud setup, end to end", href: "/services/infrastructure" },
 ];
 
