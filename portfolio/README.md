@@ -62,13 +62,12 @@ portfolio/
     │   └── RouteMetadata.tsx
     ├── data/
     │   ├── content.ts      # Homepage and project content
-    │   └── editorial.ts    # Research themes and technical notes
+    │   └── editorial.ts    # Blog posts and article content
     ├── hooks/              # Scroll and reveal behavior
     ├── pages/
     │   ├── Home.tsx
     │   ├── Work.tsx
-    │   ├── Research.tsx
-    │   ├── Writing.tsx
+    │   ├── Blog.tsx
     │   ├── About.tsx
     │   └── Contact.tsx
     ├── App.tsx             # Route definitions and app shell
@@ -81,9 +80,8 @@ portfolio/
 | --- | --- |
 | `/` | Homepage and service overview |
 | `/work` | Project case studies with implementation details and repository links |
-| `/research` | Research themes and evidence from active technical projects |
-| `/writing` | Technical notes and long-form articles |
-| `/writing/:slug` | Individual technical note |
+| `/blog` | Blog index with technical articles |
+| `/blog/:slug` | Individual blog article |
 | `/about` | Background, skills and professional links |
 | `/contact` | Contact form and profile links |
 | `/services/ai` | AI and agentic systems |

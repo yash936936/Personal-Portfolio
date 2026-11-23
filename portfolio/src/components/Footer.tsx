@@ -19,8 +19,7 @@ export default function Footer() {
           <div className="footer__col">
             <span className="footer__col-title">Explore</span>
             <Link to="/work">Work</Link>
-            <Link to="/research">Research</Link>
-            <Link to="/writing">Writing</Link>
+            <Link to="/blog">Blog</Link>
             <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
           </div>

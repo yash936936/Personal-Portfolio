@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { technicalNotes } from "../data/editorial";
+import { blogPosts } from "../data/editorial";
 
 const SITE_URL = "https://personal-portfolio-yashmalik.vercel.app";
 const SOCIAL_IMAGE = SITE_URL + "/og-image.svg";
@@ -19,13 +19,9 @@ const PAGE_META: Record<string, PageMeta> = {
     title: "Selected Work | Yash Malik",
     description: "Project case studies covering agentic developer tooling, legal RAG, local research systems, document intelligence and LoRA fine-tuning.",
   },
-  "/research": {
-    title: "Research Interests | Yash Malik",
-    description: "Research themes in reliable agentic systems, retrieval evaluation, evidence verification and efficient model adaptation.",
-  },
-  "/writing": {
-    title: "Technical Writing | Yash Malik",
-    description: "Technical notes on agentic systems, retrieval-augmented generation, evaluation and local AI research tools.",
+  "/blog": {
+    title: "Blog | Yash Malik",
+    description: "Articles on agentic systems, retrieval-augmented generation, evaluation and practical AI engineering.",
   },
   "/about": {
     title: "About | Yash Malik",
@@ -78,12 +74,12 @@ function setCanonical(url: string) {
 }
 
 function resolvePageMeta(pathname: string): PageMeta {
-  if (pathname.startsWith("/writing/")) {
+  if (pathname.startsWith("/blog/")) {
     const slug = pathname.split("/").filter(Boolean)[1];
-    const article = technicalNotes.find((note) => note.slug === slug);
+    const article = blogPosts.find((note) => note.slug === slug);
     if (article) {
       return {
-        title: article.title + " | Writing by Yash Malik",
+        title: article.title + " | Blog by Yash Malik",
         description: article.excerpt,
       };
     }

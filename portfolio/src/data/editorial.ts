@@ -1,73 +1,21 @@
-export interface ResearchTheme {
-  title: string;
-  question: string;
-  summary: string;
-  evidence: string[];
-  links: { label: string; href: string }[];
-}
-
-export interface WritingSection {
+export interface BlogSection {
   heading: string;
   paragraphs: string[];
   points?: string[];
 }
 
-export interface TechnicalNote {
+export interface BlogPost {
   slug: string;
   title: string;
   category: string;
   readingTime: string;
   excerpt: string;
   introduction: string;
-  sections: WritingSection[];
+  sections: BlogSection[];
   takeaways: string[];
 }
 
-export const researchThemes: ResearchTheme[] = [
-  {
-    title: "Reliable agentic systems",
-    question: "How do agent workflows remain understandable and bounded when tools, memory and multiple model calls are involved?",
-    summary: "I am interested in explicit orchestration, policy boundaries, durable state, failure handling and evaluation. The goal is to make agent behavior inspectable instead of treating a successful demo as proof of reliability.",
-    evidence: [
-      "Harness composes model access, tools, retrieval, memory, orchestration and policy gates as separate profile capabilities.",
-      "Fathom documents a planner, retrieval, evidence-checking and synthesis flow rather than one unrestricted generation step.",
-      "Harness keeps host command execution disabled while workspace transfer and result synchronization are not accepted.",
-    ],
-    links: [
-      { label: "Coding Harness", href: "https://github.com/yash936936/Harness" },
-      { label: "Fathom", href: "https://github.com/yash936936/Fathom" },
-    ],
-  },
-  {
-    title: "Retrieval quality and evidence verification",
-    question: "Can a generated answer be traced back to evidence that actually supports each claim?",
-    summary: "My work explores hybrid retrieval, source quality, answerability checks, citation verification and evaluation sets. Retrieval returning a relevant document is only one stage; the final answer still needs to stay within what the evidence supports.",
-    evidence: [
-      "Fathom combines BM25 and dense retrieval with reciprocal-rank fusion and includes per-claim citation checks.",
-      "Legal AI combines Chroma vector retrieval with BM25 and exposes optional faithfulness, relevance and helpfulness evaluation.",
-      "The Fathom repository retains citation and golden-set evaluation scripts and logs rather than presenting a single score as a universal guarantee.",
-    ],
-    links: [
-      { label: "Fathom", href: "https://github.com/yash936936/Fathom" },
-      { label: "Legal AI", href: "https://github.com/yash936936/LegalAI" },
-    ],
-  },
-  {
-    title: "Efficient model adaptation",
-    question: "How can a model be adapted for a task while keeping training and deployment costs manageable?",
-    summary: "I am exploring parameter-efficient fine-tuning, data preparation, validation, adapter evaluation and model serving. The LoRA project starts with a small smoke test so the pipeline can be checked before using larger GPU-backed models.",
-    evidence: [
-      "The LoRA repository supports LoRA and QLoRA configuration paths for Hugging Face causal language models.",
-      "The included GPT-2 sample configuration exercises data loading, adapter attachment, training, validation and checkpoint output.",
-      "Separate scripts cover evaluating adapters, merging weights and serving inference.",
-    ],
-    links: [
-      { label: "LoRA Fine-Tuning Pipeline", href: "https://github.com/yash936936/LoRA" },
-    ],
-  },
-];
-
-export const technicalNotes: TechnicalNote[] = [
+export const blogPosts: BlogPost[] = [
   {
     slug: "designing-bounded-agent-workflows",
     title: "Designing agent workflows with explicit boundaries",
@@ -145,7 +93,7 @@ export const technicalNotes: TechnicalNote[] = [
   {
     slug: "building-a-local-research-assistant",
     title: "Building a local research assistant that shows its work",
-    category: "Research tooling",
+    category: "AI research",
     readingTime: "6 min read",
     excerpt: "Local inference changes where computation happens, but source quality, citations and answer limits still need deliberate design.",
     introduction: "Running a language model locally can reduce dependence on hosted inference for some workloads. It does not automatically make the research process private, accurate or self-contained. Retrieval tools may still access external services, and the answer still needs a clear path back to its sources.",

@@ -12,8 +12,7 @@ const offerLinks = [
 const primaryLinks = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
-  { label: "Research", href: "/research" },
-  { label: "Writing", href: "/writing" },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
 ];
 
