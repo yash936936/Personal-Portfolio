@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="footer__col">
             <span className="footer__col-title">Services</span>
             <Link to="/services/ai">Agentic Systems &amp; Model Training</Link>
-            <Link to="/services/web">Full-Stack Web Apps</Link>
+            <Link to="/services/web">Software Development &amp; Testing</Link>
             <Link to="/services/infrastructure">Deployment &amp; Infrastructure</Link>
           </div>
           <div className="footer__col">
