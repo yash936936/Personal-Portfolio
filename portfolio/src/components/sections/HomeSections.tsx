@@ -9,27 +9,27 @@ const RESEARCH_THREADS = [
   {
     title: "Persistent memory and agent context",
     text: "How can an agent keep useful context, preserve provenance, correct outdated facts and abstain when evidence is missing?",
-    project: "AGM",
+    work: "AGM",
     slug: "agm",
   },
   {
     title: "Bounded agents and execution safety",
     text: "How should profiles, tools, permissions, memory and workspaces fit together without granting unnecessary access?",
-    project: "Coding Harness",
+    work: "Coding Harness",
     slug: "coding-harness",
   },
   {
     title: "Evidence and citation verification",
     text: "How can research systems trace claims to sources and identify answers that the retrieved evidence cannot support?",
-    project: "Fathom",
+    work: "Fathom",
     slug: "fathom",
   },
 ];
 
 export function FeaturedProjects() {
   const featuredProjects = FEATURED
-    .map((slug) => projects.find((project) => project.slug === slug))
-    .filter((project): project is (typeof projects)[number] => Boolean(project));
+    .map((slug) => projects.find((item) => item.slug === slug))
+    .filter((item): item is (typeof projects)[number] => Boolean(item));
 
   return (
     <section className="home-section home-featured">
@@ -37,24 +37,24 @@ export function FeaturedProjects() {
         <div className="home-section__heading home-section__heading--row">
           <div>
             <span className="home-section__eyebrow">Selected work</span>
-            <h2>Featured projects</h2>
+            <h2>Featured work</h2>
           </div>
-          <Link to="/work" className="home-section__text-link">All projects ↗</Link>
+          <Link to="/work" className="home-section__text-link">All work ↗</Link>
         </div>
         <div className="home-featured__grid">
-          {featuredProjects.map((project, index) => (
-            <Reveal key={project.slug} delay={index * 65}>
+          {featuredProjects.map((item, index) => (
+            <Reveal key={item.slug} delay={index * 65}>
               <article className="home-project-card">
                 <div className="home-project-card__meta">
-                  <span>{project.category}</span>
-                  <span>{project.status}</span>
+                  <span>{item.category}</span>
+                  <span>{item.status}</span>
                 </div>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
                 <div className="home-project-card__stack">
-                  {project.stack.slice(0, 4).map((item) => <span key={item}>{item}</span>)}
+                  {item.stack.slice(0, 4).map((skill) => <span key={skill}>{skill}</span>)}
                 </div>
-                <Link to={"/work/" + project.slug} className="home-project-card__link">
+                <Link to={"/work/" + item.slug} className="home-project-card__link">
                   Read architecture notes <span aria-hidden="true">↗</span>
                 </Link>
               </article>
@@ -74,7 +74,7 @@ export function ResearchAndBlog() {
           <span className="home-section__eyebrow">Ideas and technical notes</span>
           <h2>Research &amp; Blog</h2>
           <p className="home-section__intro">
-            Questions explored through project prototypes, technical articles and evaluation notes.
+            Questions explored through working prototypes, technical articles and evaluation notes.
           </p>
         </div>
         <div className="research-writing__layout">
@@ -84,7 +84,7 @@ export function ResearchAndBlog() {
               <article className="research-writing__question" key={thread.slug}>
                 <h4>{thread.title}</h4>
                 <p>{thread.text}</p>
-                <Link to={"/work/" + thread.slug}>Explore {thread.project} ↗</Link>
+                <Link to={"/work/" + thread.slug}>Explore {thread.work} ↗</Link>
               </article>
             ))}
           </div>

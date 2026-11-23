@@ -16,7 +16,7 @@ export default function ProjectDetail() {
       <PageHeader eyebrow={project.category} title={project.title} sub={project.description} />
       <div className="container project-detail">
         <div className="project-detail__topline">
-          <Link to="/work">← All projects</Link>
+          <Link to="/work">← All work</Link>
           <span>{project.status}</span>
         </div>
 
@@ -84,8 +84,8 @@ export default function ProjectDetail() {
           </div>
         </section>
         <div className="project-detail__bottom">
-          <Link to="/work">← Back to all projects</Link>
-          <Link to="/contact">Discuss a project ↗</Link>
+          <Link to="/work">← Back to all work</Link>
+          <Link to="/contact">Discuss an idea ↗</Link>
         </div>
       </div>
     </div>

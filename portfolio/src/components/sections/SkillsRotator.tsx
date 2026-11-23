@@ -4,41 +4,37 @@ import "./SkillsRotator.css";
 
 const CATEGORIES = [
   {
-    label: "AI & ML",
+    label: "LLM & Agentic AI",
     skills: [
-      "LLM Orchestration", "Agentic Architecture", "OpenAI & Claude APIs",
-      "LangChain / LangGraph", "Computer Vision", "Document AI",
-      "Predictive Modeling", "MLOps", "Edge Deployment", "Prompt Engineering",
+      "Large Language Models", "LangChain", "LangGraph", "Tool Calling",
+      "Agent Orchestration", "Multi-Agent Workflows", "RAG Systems", "Prompt Evaluation",
     ],
   },
   {
-    label: "Software & Cloud",
+    label: "Memory & Retrieval",
     skills: [
-      "React / TypeScript", "Next.js", "Node.js / Fastify", "MERN Stack",
-      "RESTful APIs", "Microservices", "Firebase", "Supabase",
-      "Cloud Infrastructure", "Python", "C / Assembly",
+      "Hybrid Retrieval", "Vector Search", "BM25", "Reranking",
+      "Graph Expansion", "Memory Lifecycle", "Provenance", "Citation Verification",
     ],
   },
   {
-    label: "Automation & Sec",
+    label: "Machine Learning",
     skills: [
-      "n8n Workflows", "Selenium / Playwright", "Headless Scraping",
-      "Business Process Automation", "Lead Generation Pipelines",
-      "Data Aggregation", "Cybersecurity Foundations", "Network Defense",
+      "PyTorch", "TensorFlow", "Scikit-learn", "Computer Vision",
+      "Model Fine-Tuning", "LoRA / QLoRA", "Model Evaluation", "MLOps",
     ],
   },
   {
-    label: "Business & Ops",
+    label: "Software & Infrastructure",
     skills: [
-      "Startup Leadership", "Technical Product Strategy", "Hackathon Organization",
-      "Campus Ambassadorship", "Sponsorship Outreach", "Financial Markets",
-      "Investor Relations (SEBI)", "Task-Board Management",
+      "Python", "TypeScript", "React", "FastAPI", "Node.js",
+      "SQLite / PostgreSQL", "Docker", "Cloud Deployment",
     ],
   },
 ] as const;
 
 const N = CATEGORIES.length;
-const INTERVAL = 2200;
+const INTERVAL = 2600;
 
 export default function SkillsRotator() {
   const [active, setActive] = useState(0);
@@ -51,7 +47,6 @@ export default function SkillsRotator() {
       setAnimating(false);
       return;
     }
-
     setAnimating(true);
     window.setTimeout(() => {
       setActive(next);
@@ -71,9 +66,7 @@ export default function SkillsRotator() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     startTimer(0);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [startTimer]);
 
   const current = CATEGORIES[active];
@@ -87,21 +80,16 @@ export default function SkillsRotator() {
       <div className="container">
         <div className="skills-rotator__top">
           <Reveal>
-            <h2 className="skills-rotator__heading">
-              Engineering Intelligent, Real-World Solutions
-            </h2>
+            <h2 className="skills-rotator__heading">AI systems, built with clear engineering</h2>
           </Reveal>
-
           <div className="skills-rotator__right">
             <Reveal delay={80}>
               <p className="skills-rotator__copy">
-                My primary focus is AI engineering: designing agentic workflows,
-                integrating models, and evaluating their behavior. I also develop
-                and test dependable software that turns those capabilities into
-                usable products.
+                My focus is AI engineering: LLM applications, agentic workflows, memory,
+                retrieval and model evaluation. Software development and infrastructure
+                support the systems around them.
               </p>
             </Reveal>
-
             <Reveal delay={110}>
               <div className="skills-rotator__strip-wrap">
                 <div className="skills-rotator__strip-fade skills-rotator__strip-fade--left" />
@@ -118,9 +106,7 @@ export default function SkillsRotator() {
                       ].filter(Boolean).join(" ")}
                       onClick={() => {
                         advance(idx);
-                        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                          startTimer(idx);
-                        }
+                        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) startTimer(idx);
                       }}
                       aria-pressed={offset === 0}
                     >
@@ -130,13 +116,10 @@ export default function SkillsRotator() {
                 </div>
               </div>
             </Reveal>
-
             <Reveal delay={140}>
-              <p className="skills-rotator__eyebrow">What I&apos;ve worked on</p>
+              <p className="skills-rotator__eyebrow">Areas I work across</p>
               <div className={`skills-rotator__pills ${animating ? "skills-rotator__pills--exit" : "skills-rotator__pills--enter"}`}>
-                {current.skills.map((skill) => (
-                  <span className="skills-rotator__pill" key={skill}>{skill}</span>
-                ))}
+                {current.skills.map((skill) => <span className="skills-rotator__pill" key={skill}>{skill}</span>)}
               </div>
             </Reveal>
           </div>

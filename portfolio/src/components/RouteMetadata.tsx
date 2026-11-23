@@ -8,9 +8,9 @@ const SOCIAL_IMAGE = SITE_URL + "/og-image.svg";
 interface PageMeta { title: string; description: string; }
 const PAGE_META: Record<string, PageMeta> = {
   "/": { title: "Yash Malik | AI Systems Engineer", description: "AI systems engineering, agentic workflows, software development and applied machine learning." },
-  "/work": { title: "Projects | Yash Malik", description: "Architecture notes and engineering details for AI and software projects." },
-  "/blog": { title: "Blog | Yash Malik", description: "Technical articles, project breakdowns and research notes on AI systems and engineering." },
-  "/about": { title: "About | Yash Malik", description: "AI engineering interests, technical capabilities and project work." },
+  "/work": { title: "Work and Architecture Notes | Yash Malik", description: "Technical case studies and architecture notes for AI and software builds." },
+  "/blog": { title: "Blog | Yash Malik", description: "Technical articles, build breakdowns and research notes on AI systems and engineering." },
+  "/about": { title: "About | Yash Malik", description: "AI engineering interests, research questions and recent work." },
   "/contact": { title: "Contact | Yash Malik", description: "Contact Yash Malik about AI engineering, research collaboration and technical discussions." },
   "/services/ai": { title: "AI Systems and Agentic Workflows | Yash Malik", description: "Applied AI, model adaptation, LLM applications and agentic workflow engineering." },
   "/services/web": { title: "Software Development and Testing | Yash Malik", description: "Software design, application development, automated testing and quality checks for dependable products." },
@@ -36,23 +36,23 @@ function getBlogPost(pathname: string) {
   const slug = pathname.split("/").filter(Boolean)[1];
   return blogPosts.find((post) => post.slug === slug);
 }
-function getProject(pathname: string) {
+function getWorkItem(pathname: string) {
   if (!pathname.startsWith("/work/")) return undefined;
   const slug = pathname.split("/").filter(Boolean)[1];
-  return projects.find((project) => project.slug === slug);
+  return projects.find((item) => item.slug === slug);
 }
 function resolvePageMeta(pathname: string): PageMeta {
   const article = getBlogPost(pathname);
   if (article) return { title: article.title + " | Blog by Yash Malik", description: article.excerpt };
-  const project = getProject(pathname);
-  if (project) return { title: project.title + " | Project Notes", description: project.description };
-  return PAGE_META[pathname] ?? { title: "Page not found | Yash Malik", description: "The requested page could not be found. Browse projects, blog or about." };
+  const workItem = getWorkItem(pathname);
+  if (workItem) return { title: workItem.title + " | Architecture Notes", description: workItem.description };
+  return PAGE_META[pathname] ?? { title: "Page not found | Yash Malik", description: "The requested page could not be found. Browse work, blog or about." };
 }
 export default function RouteMetadata() {
   const { pathname } = useLocation();
   useEffect(() => {
     const meta = resolvePageMeta(pathname);
-    const knownPath = Boolean(PAGE_META[pathname] || getBlogPost(pathname) || getProject(pathname));
+    const knownPath = Boolean(PAGE_META[pathname] || getBlogPost(pathname) || getWorkItem(pathname));
     const canonical = new URL(pathname, SITE_URL).toString();
     document.title = meta.title;
     upsertMeta("name", "description", meta.description);

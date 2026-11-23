@@ -6,21 +6,20 @@ import { projectDetails } from "../data/projectDetails";
 import "./Work.css";
 
 function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
-  const project = projects.find((item) => item.slug === slug);
+  const workItem = projects.find((item) => item.slug === slug);
   const detail = projectDetails[slug];
-
-  if (!project || !detail) return null;
+  if (!workItem || !detail) return null;
 
   return (
     <Reveal delay={Math.min(index, 5) * 55}>
-      <article className="case-study" id={"project-" + project.slug}>
+      <article className="case-study" id={"work-" + workItem.slug}>
         <header className="case-study__header">
           <div className="case-study__meta">
-            <span>{project.category}</span>
-            <span className="case-study__status">{project.status}</span>
+            <span>{workItem.category}</span>
+            <span className="case-study__status">{workItem.status}</span>
           </div>
-          <h2>{project.title}</h2>
-          <p>{project.description}</p>
+          <h2>{workItem.title}</h2>
+          <p>{workItem.description}</p>
         </header>
 
         <section className="case-study__architecture">
@@ -51,9 +50,7 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
               <article className="case-study__component" key={component.heading}>
                 <h4>{component.heading}</h4>
                 <p>{component.body}</p>
-                <ul>
-                  {component.points.map((point) => <li key={point}>{point}</li>)}
-                </ul>
+                <ul>{component.points.map((point) => <li key={point}>{point}</li>)}</ul>
               </article>
             ))}
           </div>
@@ -78,12 +75,12 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
         <section className="case-study__stack-section">
           <h3>Technology stack</h3>
           <div className="case-study__stack">
-            {project.stack.map((item) => <span key={item}>{item}</span>)}
+            {workItem.stack.map((skill) => <span key={skill}>{skill}</span>)}
           </div>
         </section>
 
         <div className="case-study__links">
-          <a href={project.github} target="_blank" rel="noopener noreferrer">Source repository ↗</a>
+          <a href={workItem.github} target="_blank" rel="noopener noreferrer">Source repository ↗</a>
           {detail.references.map((reference) => (
             <a href={reference.href} target="_blank" rel="noopener noreferrer" key={reference.href}>
               {reference.label} ↗
@@ -101,24 +98,21 @@ export default function Work() {
       <PageHeader
         eyebrow="Selected work"
         title="AI systems, architecture and engineering."
-        sub="Architecture notes, design decisions and implementation details for every project."
+        sub="Architecture notes, design decisions and implementation details for every build."
       />
-
       <section className="container work-intro">
         <p>
-          Each project is documented as a case study. The notes explain the system flow,
-          the role of each major component, the reasons behind key design choices and
-          the evidence available for its current state. Prototype limits and unfinished
-          validation are stated where relevant.
+          Each build is documented as a technical case study. The notes explain the system flow,
+          the role of each major component, the reasoning behind key design choices and the
+          evidence available for its current state. Prototype limits and unfinished validation
+          are stated where relevant.
         </p>
       </section>
-
-      <section className="container work-case-studies" aria-label="Project architecture case studies">
-        {projects.map((project, index) => (
-          <ProjectCaseStudy key={project.slug} slug={project.slug} index={index} />
+      <section className="container work-case-studies" aria-label="Architecture case studies">
+        {projects.map((item, index) => (
+          <ProjectCaseStudy key={item.slug} slug={item.slug} index={index} />
         ))}
       </section>
-
       <ContactBand />
     </div>
   );

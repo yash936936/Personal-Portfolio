@@ -69,11 +69,11 @@ export default function Services() {
                 <div
                   key={offer.href}
                   className={["services__item", `services__item--${meta.side}`, `services__item--anchor-${meta.vAnchor}`, isActive ? "services__item--active" : ""].join(" ")}
-                  style={{ ...meta.style, "--depth": `${meta.depth}px` } as unknown as React.CSSProperties}
+                  style={{ ...meta.style, "--depth": `${meta.depth}px` } as unknown as CSSProperties}
                   onMouseEnter={() => open(index)}
                   onMouseLeave={close}
                 >
-                  <div className="services__item-inner" style={{ "--float-delay": meta.floatDelay } as unknown as React.CSSProperties}>
+                  <div className="services__item-inner" style={{ "--float-delay": meta.floatDelay } as unknown as CSSProperties}>
                     <button type="button" className="services__pill" style={{ background: meta.bg, color: meta.fg }} onClick={() => toggle(index)} aria-expanded={isActive}>
                       {meta.label}
                       <span className="services__pill-icon" aria-hidden="true">

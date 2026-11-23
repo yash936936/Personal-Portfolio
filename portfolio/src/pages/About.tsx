@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import type { CSSProperties } from "react";
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";

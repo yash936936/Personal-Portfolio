@@ -5,7 +5,7 @@ import Reveal from "../components/Reveal";
 import { blogPosts } from "../data/editorial";
 import "./Blog.css";
 
-const RELATED_PROJECTS: Record<string, Array<{ label: string; slug: string }>> = {
+const RELATED_WORK: Record<string, Array<{ label: string; slug: string }>> = {
   "designing-bounded-agent-workflows": [{ label: "Coding Harness", slug: "coding-harness" }],
   "evaluating-rag-beyond-retrieval": [
     { label: "AGM", slug: "agm" },
@@ -22,7 +22,7 @@ export default function Blog() {
   if (slug && !article) return <Navigate to="/blog" replace />;
 
   if (article) {
-    const related = RELATED_PROJECTS[article.slug] ?? [];
+    const related = RELATED_WORK[article.slug] ?? [];
     return <div className="blog-page">
       <PageHeader eyebrow={article.category} title={article.title} sub={article.excerpt} />
       <article className="container blog-article">
@@ -38,24 +38,23 @@ export default function Blog() {
           {section.points && <ul>{section.points.map((point) => <li key={point}>{point}</li>)}</ul>}
         </section>)}
         <aside className="blog-article__takeaways"><h2>Key points</h2><ul>{article.takeaways.map((item) => <li key={item}>{item}</li>)}</ul></aside>
-        {related.length > 0 && <section className="blog-article__related" aria-labelledby="related-projects-heading">
-          <h2 id="related-projects-heading">Related projects</h2>
+        {related.length > 0 && <section className="blog-article__related" aria-labelledby="related-work-heading">
+          <h2 id="related-work-heading">Related work</h2>
           <div className="blog-article__related-links">
-            {related.map((project) => <Link key={project.slug} to={"/work/" + project.slug}>{project.label} ↗</Link>)}
+            {related.map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label} ↗</Link>)}
           </div>
         </section>}
-        <div className="blog-article__footer-nav"><Link to="/work">Explore projects ↗</Link><Link to="/blog" className="blog-article__back">← Back to blog</Link></div>
+        <div className="blog-article__footer-nav"><Link to="/work">Explore work ↗</Link><Link to="/blog" className="blog-article__back">← Back to blog</Link></div>
       </article>
     </div>;
   }
 
   const categories = ["All", ...Array.from(new Set(blogPosts.map((post) => post.category)))];
   const visiblePosts = activeCategory === "All" ? blogPosts : blogPosts.filter((post) => post.category === activeCategory);
-
   return <div className="blog-page">
-    <PageHeader eyebrow="Blog" title="Notes on AI systems and engineering." sub="Technical articles, project breakdowns and research notes from practical engineering work." />
+    <PageHeader eyebrow="Blog" title="Notes on AI systems and engineering." sub="Technical articles, build breakdowns and research notes from practical engineering work." />
     <section className="container blog-list" aria-label="Blog articles">
-      <div className="blog-list__intro"><Reveal><p>Browse by topic, then follow each article into the project or architecture it explains. The articles focus on design choices, implementation and evaluation.</p></Reveal></div>
+      <div className="blog-list__intro"><Reveal><p>Browse by topic, then follow each article into the work or architecture it explains. The articles focus on design choices, implementation and evaluation.</p></Reveal></div>
       <div className="writing-filters" aria-label="Filter blog articles by topic">
         {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? "writing-filter writing-filter--active" : "writing-filter"} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}</button>)}
       </div>
@@ -64,7 +63,7 @@ export default function Blog() {
           <article className="blog-card">
             <div className="blog-card__meta"><span>{post.category}</span><span>{post.readingTime}</span></div>
             <h2>{post.title}</h2><p>{post.excerpt}</p>
-            <div className="blog-card__related">{(RELATED_PROJECTS[post.slug] ?? []).map((project) => <Link key={project.slug} to={"/work/" + project.slug}>{project.label}</Link>)}</div>
+            <div className="blog-card__related">{(RELATED_WORK[post.slug] ?? []).map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label}</Link>)}</div>
             <Link to={"/blog/" + post.slug}>Read article ↗</Link>
           </article>
         </Reveal>)}
