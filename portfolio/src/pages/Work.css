@@ -1,5 +1,5 @@
 .work-page {
-  --color-bg: #171614;
+  --color-bg: #000000;
   --color-surface-dark: #0f0e0d;
   --color-surface-card: #24211e;
   --color-ink: #f5f0e9;
@@ -10,10 +10,7 @@
   --color-primary: #d18468;
   --color-primary-active: #e09a7e;
   --color-on-primary: #fff8f2;
-  background:
-    radial-gradient(circle at 8% 0%, rgba(193, 111, 82, 0.16), transparent 38%),
-    radial-gradient(circle at 92% 48%, rgba(113, 91, 77, 0.09), transparent 34%),
-    var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-ink);
 }
 .work-intro { padding-top: 12px; padding-bottom: 34px; }
