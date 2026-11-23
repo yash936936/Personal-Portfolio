@@ -22,7 +22,7 @@ Authentication is therefore not required for the public contact submission. Orig
 - Unknown client-side routes have a custom 404 page and are marked `noindex`.
 - A static link/content checker validates internal route targets, blog sitemap paths, image alt attributes and links opened in a new tab.
 - Dependabot configuration checks both npm workspaces and GitHub Actions weekly.
-- The frontend and Worker dependency trees were audited after compatible updates; both report zero npm audit findings in the local Node 24 validation environment.
+- The frontend and Worker dependency trees were audited after compatible updates; both reported zero npm audit findings in the hosted Node 24 repair-validation run.
 - The Worker test harness now uses `@cloudflare/vitest-plugin` with Vitest 4.1.12. A clean `npm ci`, zero-finding `npm audit`, all 17 Worker tests and TypeScript checks for source and tests passed.
 - The frontend passed a clean `npm ci`, zero-finding `npm audit`, the link/content check (35 source files, 14 routes and 3 blog slugs), ESLint and a production build.
 - GitHub Actions runs npm audit, Worker tests and type checks, the frontend link checker, lint, a production build, Playwright responsive-route tests and CodeQL source analysis.
@@ -53,15 +53,14 @@ Plausible tracking is optional. It loads only when `VITE_PLAUSIBLE_DOMAIN` is se
 - The source checker found no missing `alt` attributes. The About page skill icons use `alt=""` because those icons are decorative and the adjacent text names each skill.
 - The placeholder scan excludes normal form-field `placeholder` attributes, so labels such as “Your name” and “you@example.com” do not trigger false positives.
 - Public GitHub profile and all five project repository URLs responded with HTTP 200. The Google Drive certifications folder and six Devicon SVG assets also responded with HTTP 200. The no-`www` LinkedIn profile URL responded with HTTP 200 and is now used consistently in the site; LinkedIn's `www` hostname returned an automated-request block, not a missing-page response.
-- The Playwright smoke test is configured for 13 routes at six viewport widths (320, 360, 390, 768, 1024 and 1440 pixels), plus mobile-menu Escape/focus behavior and 404 metadata. It must pass in GitHub Actions before treating browser-level overflow checks as verified.
+- The Playwright smoke test passed in the hosted repair-validation run: 13 routes at six viewport widths (320, 360, 390, 768, 1024 and 1440 pixels), plus mobile-menu open/Escape/focus restoration and custom 404 metadata. This verifies the tested route set and widths, not every possible device/browser combination.
 - Plausible tracking is implemented but remains inactive until `VITE_PLAUSIBLE_DOMAIN` is configured. No analytics environment variable was present in the inspected Vercel project settings.
 
 ## Verification still required
 
-- Confirm the latest GitHub Actions run passes all three jobs, including the Playwright browser job, after this branch update.
-- Confirm the Vercel deployment returns the configured security headers on the real custom domain and inspect the deployed contact flow.
+- The one-time hosted repair-validation workflow passed all checks, including Playwright. The regular pull-request workflow event for the bot-authored repair commit was marked `action_required` without starting jobs; the standing workflow should be re-run or approved on the latest user-authored branch commit before merge.
+- The `personal-portfolio-xtda` preview deployment built successfully, but its preview hostname is protected by Vercel SSO. The public production custom domain still serves the previous production build and did not return the new CSP or Referrer-Policy headers during this review. Confirm both headers and the contact flow after the feature branch is promoted to production.
 - Activate Turnstile with production widget credentials and test the deployed contact form.
-- Run browser-based viewport and keyboard tests on desktop, mobile and tablet. The source-level link checker is not a visual/browser test.
 - Arrange an independent security review before describing this portfolio as independently assessed. CodeQL and an AI-assisted source review do not replace that review.
 
 ## Risk boundaries
