@@ -60,8 +60,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          npm install --no-save --package-lock=false playwright
-          npx playwright install --with-deps chromium
+          mkdir -p "$RUNNER_TEMP/playwright"
+          npm init -y --prefix "$RUNNER_TEMP/playwright"
+          npm install --prefix "$RUNNER_TEMP/playwright" --no-audit --no-fund playwright
+          npx --prefix "$RUNNER_TEMP/playwright" playwright install --with-deps chromium
           npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/portfolio-preview.log 2>&1 &
           PREVIEW_PID=$!
           trap 'kill "$PREVIEW_PID" 2>/dev/null || true' EXIT
@@ -80,7 +82,8 @@ jobs:
             exit 1
           fi
 
-          PORTFOLIO_URL=http://127.0.0.1:4173 node scripts/mobile-smoke.mjs
+          PLAYWRIGHT_PACKAGE="$RUNNER_TEMP/playwright/package.json" \
+            PORTFOLIO_URL=http://127.0.0.1:4173 node scripts/mobile-smoke.mjs
 
       - name: Commit repaired source and remove temporary workflow
         shell: bash
