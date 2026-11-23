@@ -51,7 +51,7 @@ export function FeaturedProjects() {
               <div className="home-project-card__meta"><span>{project.category}</span><span>{project.status}</span></div>
               <h3>{project.title}</h3>
               <p>{project.description}</p>
-              <ArchitectureDiagram variant={project.slug as ArchitectureVariant} compact />
+              <ArchitectureDiagram variant={project.slug === "coding-harness" ? "harness" : project.slug as ArchitectureVariant} compact />
               <div className="home-project-card__bottom">
                 <span>{project.stack.slice(0, 3).join(" · ")}</span>
                 <Link to={"/work#project-" + project.slug}>Explore case study ↗</Link>
