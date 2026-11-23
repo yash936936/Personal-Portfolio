@@ -4,13 +4,13 @@ export default function ServiceWeb() {
   return (
     <ServicePage
       eyebrow="Service · 02"
-      title="Full-stack web apps"
-      sub="A product experience that puts the model in front of real users."
+      title="Software development and testing"
+      sub="Building dependable applications through clear architecture, careful implementation, automated tests and quality checks."
       steps={[
-        { step: "01", title: "UX & architecture", desc: "Mapping the user flow and the system architecture before a line of UI code is written." },
-        { step: "02", title: "Frontend build", desc: "React / Next.js interfaces that stay fast, accessible, and easy to extend." },
-        { step: "03", title: "API & backend", desc: "Node.js / FastAPI services that connect the model to the product cleanly." },
-        { step: "04", title: "QA & polish", desc: "Cross-device testing, performance passes, and the small details that make it feel finished." },
+        { step: "01", title: "Requirements & architecture", desc: "Mapping requirements, user flows and technical boundaries before implementation." },
+        { step: "02", title: "Software development", desc: "Building maintainable interfaces and backend services with clear, well-defined APIs." },
+        { step: "03", title: "Automated testing", desc: "Writing unit, integration and end-to-end tests to catch issues throughout development." },
+        { step: "04", title: "Quality assurance", desc: "Checking usability, accessibility, performance and cross-device behavior before release." },
       ]}
       related={[
         { label: "Model design & training", href: "/services/ai" },
