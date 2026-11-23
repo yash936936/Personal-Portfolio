@@ -16,7 +16,7 @@ const META = [
     floatDelay: "0s",
   },
   {
-    label: "Full-stack Web Apps",
+    label: "Software Development & Testing",
     bg: "#4f6f8a",
     fg: "#fdfaf5",
     style: { top: "42%", right: "6%" },
