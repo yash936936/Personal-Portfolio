@@ -55,8 +55,8 @@ export default function About() {
     <div className="about-page">
       <PageHeader
         eyebrow="About Me"
-        title="Engineering, Strategy & Autonomous Systems."
-        sub="Designing agentic AI systems, intelligent workflows and dependable software for real-world use."
+        title="AI-focused technical builder."
+        sub="Interested in agentic AI, large language models, retrieval systems and applied machine learning."
       />
 
       <div className="container about__container">
@@ -64,7 +64,7 @@ export default function About() {
           <div className="about__sticky-nav">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
-              {["overview", "skills", "connect"].map((id, index) => (
+              {["overview", "ongoing", "skills", "connect"].map((id, index) => (
                 <li key={id}>
                   <button
                     type="button"
@@ -85,19 +85,47 @@ export default function About() {
         <div className="about__content" ref={contentRef}>
           <section id="overview" className="about__section">
             <Reveal>
-              <h2 className="about__h2">Overview</h2>
+              <h2 className="about__h2">About Me</h2>
               <p className="about__text">
-                I’m Yash Malik, an AI-focused technical builder working across agentic AI,
-                intelligent systems, and scalable application architecture. I use AI as a
-                core part of my daily workflow to design AI agents, multi-agent systems,
-                intelligent workflows, and AI-driven applications.
+                I build and explore AI systems, with a focus on agentic workflows, LLM
+                applications, retrieval and applied machine learning.
               </p>
-              <p className="about__text">
-                Rather than focusing on traditional manual coding, I specialize in system
-                architecture, AI orchestration, scalable workflows, and turning complex
-                ideas into working products. I combine technical thinking with a management
-                mindset to bridge AI, engineering, and real-world product development.
-              </p>
+            </Reveal>
+          </section>
+
+          <section id="ongoing" className="about__section">
+            <Reveal>
+              <h2 className="about__h2">Ongoing Work</h2>
+              <div className="about__ongoing-list">
+                <a className="about__ongoing-item" href="https://github.com/yash936936/AGM" target="_blank" rel="noreferrer">
+                  <span>
+                    <strong>AGM</strong>
+                    <span>Adaptive Graph Memory for AI agents</span>
+                  </span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a className="about__ongoing-item" href="https://github.com/yash936936/AI-System-Design" target="_blank" rel="noreferrer">
+                  <span>
+                    <strong>SysDesign AI</strong>
+                    <span>AI-assisted system design and architecture generation</span>
+                  </span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a className="about__ongoing-item" href="https://github.com/yash936936/Harness" target="_blank" rel="noreferrer">
+                  <span>
+                    <strong>Coding Harness</strong>
+                    <span>Multi-agent developer tooling</span>
+                  </span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a className="about__ongoing-item" href="https://github.com/yash936936/Fathom" target="_blank" rel="noreferrer">
+                  <span>
+                    <strong>Fathom</strong>
+                    <span>Local research assistant with evidence-based retrieval</span>
+                  </span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </Reveal>
           </section>
 
