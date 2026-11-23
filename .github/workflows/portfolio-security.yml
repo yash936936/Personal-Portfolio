@@ -49,12 +49,12 @@ jobs:
         run: npm run build
         working-directory: portfolio
 
-      - name: Install temporary browser-test dependency
-        run: npm install --no-save --package-lock=false playwright
-        working-directory: portfolio
-
-      - name: Install Chromium and system dependencies
-        run: npx playwright install --with-deps chromium
+      - name: Install isolated browser-test dependency
+        run: |
+          mkdir -p "$RUNNER_TEMP/playwright"
+          npm init -y --prefix "$RUNNER_TEMP/playwright"
+          npm install --prefix "$RUNNER_TEMP/playwright" --no-audit --no-fund playwright
+          npx --prefix "$RUNNER_TEMP/playwright" playwright install --with-deps chromium
         working-directory: portfolio
 
       - name: Start Vite preview and test responsive routes
@@ -79,7 +79,8 @@ jobs:
             exit 1
           fi
 
-          PORTFOLIO_URL=http://127.0.0.1:4173 node scripts/mobile-smoke.mjs
+          PLAYWRIGHT_PACKAGE="$RUNNER_TEMP/playwright/package.json" \
+            PORTFOLIO_URL=http://127.0.0.1:4173 node scripts/mobile-smoke.mjs
 
   contact-worker:
     name: Contact Worker audit and tests
