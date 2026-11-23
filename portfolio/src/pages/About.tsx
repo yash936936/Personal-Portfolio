@@ -1,21 +1,85 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import type { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
 import "./About.css";
 
-const SKILLS = [
-  { name: "LangChain & RAG", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", accent: "var(--color-primary)" },
-  { name: "Agentic Architecture", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", accent: "var(--color-accent-teal)" },
-  { name: "MERN Stack", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", accent: "#4f6f8a" },
-  { name: "Data Analysis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg", accent: "var(--color-accent-violet)" },
-  { name: "Cloud Integration", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg", accent: "var(--color-accent-amber)" },
-  { name: "UI/UX Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", accent: "var(--color-primary)" },
+const SECTION_LABELS: Record<string, string> = {
+  overview: "Overview",
+  "recent-work": "Recent work",
+  research: "Research interests",
+  arsenal: "Tech arsenal",
+  connect: "Connect",
+};
+
+const RECENT_WORK = [
+  {
+    name: "AGM",
+    type: "Agent memory infrastructure",
+    summary: "A model-agnostic memory layer exploring event-sourced storage, hybrid retrieval, provenance and memory lifecycle controls.",
+    href: "/work/agm",
+  },
+  {
+    name: "SysDesign AI",
+    type: "AI-assisted system design",
+    summary: "A structured HLD and LLD workflow that clarifies requirements, retrieves design references and generates reviewable architecture artifacts.",
+    href: "/work/sysdesign-ai",
+  },
+  {
+    name: "Coding Harness",
+    type: "Multi-agent developer tooling",
+    summary: "A profile-governed coding harness combining model access, retrieval, memory, policy controls and sandbox workflow design.",
+    href: "/work/coding-harness",
+  },
+  {
+    name: "Fathom",
+    type: "Local research assistant",
+    summary: "A research workflow using hybrid retrieval, reranking and claim-level citation checks to make evidence visible.",
+    href: "/work/fathom",
+  },
+];
+
+const RESEARCH_INTERESTS = [
+  {
+    title: "Agent memory and context",
+    detail: "Persistent memory, provenance, temporal updates, retrieval boundaries and safe context sharing.",
+  },
+  {
+    title: "LLM and agent systems",
+    detail: "Tool use, multi-agent coordination, planning, orchestration and system-level reliability.",
+  },
+  {
+    title: "Retrieval and grounded generation",
+    detail: "Hybrid search, reranking, answerability, citation verification and evaluation beyond retrieval recall.",
+  },
+  {
+    title: "AI architecture and evaluation",
+    detail: "How to design, test and measure AI applications under real constraints rather than relying on demos alone.",
+  },
+];
+
+const TECH_ARSENAL = [
+  {
+    title: "LLM and agentic systems",
+    items: ["Python", "LangChain", "LangGraph", "RAG", "Tool calling", "LLM APIs"],
+  },
+  {
+    title: "Machine learning",
+    items: ["PyTorch", "TensorFlow", "Scikit-learn", "NumPy", "Pandas", "Computer vision"],
+  },
+  {
+    title: "Software and APIs",
+    items: ["TypeScript", "React", "Node.js", "FastAPI", "Flask", "REST APIs"],
+  },
+  {
+    title: "Data and delivery",
+    items: ["SQLite", "PostgreSQL", "MongoDB", "Git & GitHub", "Azure", "Vercel"],
+  },
 ];
 
 export default function About() {
   const [activeSection, setActiveSection] = useState("overview");
-  const sections = ["overview", "skills", "connect"];
+  const sections = Object.keys(SECTION_LABELS);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,15 +108,15 @@ export default function About() {
     <div className="about-page">
       <PageHeader
         eyebrow="About Me"
-        title="AI engineering, research and project work."
-        sub="Designing intelligent systems, exploring their architecture and testing ideas through practical engineering."
+        title="AI engineering, research and recent work."
+        sub="I design and explore intelligent systems through research-led prototypes, practical software engineering and careful evaluation."
       />
       <div className="container about__container">
         <aside className="about__sidebar" aria-label="About page sections">
           <div className="about__sticky-nav">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
-              {sections.map((id, index) => (
+              {sections.map((id) => (
                 <li key={id}>
                   <button
                     type="button"
@@ -61,8 +125,7 @@ export default function About() {
                     aria-current={activeSection === id ? "location" : undefined}
                   >
                     <span className="about__nav-dot" aria-hidden="true" />
-                    <span className="about__nav-index">{String(index + 1).padStart(2, "0")}</span>
-                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                    {SECTION_LABELS[id]}
                   </button>
                 </li>
               ))}
@@ -73,36 +136,68 @@ export default function About() {
         <div className="about__content">
           <section id="overview" className="about__section">
             <Reveal>
-              <h2 className="about__h2">Overview</h2>
+              <h2 className="about__h2">About Me</h2>
               <p className="about__text">
                 I&apos;m an AI-focused technical builder interested in agentic AI, large language
-                models, retrieval systems and applied machine learning. I enjoy shaping system
-                architecture, building practical prototypes and testing whether the result works
-                as intended.
+                models, memory systems, retrieval and applied machine learning. I enjoy shaping
+                system architecture, building practical prototypes and testing whether the
+                result works as intended.
               </p>
               <p className="about__text">
-                My work explores how intelligent systems manage context, use tools, coordinate
-                agents and turn retrieved information into useful outputs. Software development,
-                testing and infrastructure support that work from prototype to application.
+                My current work explores how intelligent systems manage context, use tools,
+                coordinate agents and turn retrieved information into useful outputs. Software
+                development, testing and infrastructure support that work from prototype to
+                usable application.
               </p>
             </Reveal>
           </section>
 
-          <section id="skills" className="about__section">
+          <section id="recent-work" className="about__section">
             <Reveal>
-              <h2 className="about__h2">Technical Arsenal</h2>
+              <h2 className="about__h2">Recent work</h2>
+              <div className="about__recent-grid">
+                {RECENT_WORK.map((item) => (
+                  <Link to={item.href} className="about__recent-card" key={item.name}>
+                    <span className="about__recent-type">{item.type}</span>
+                    <h3>{item.name}</h3>
+                    <p>{item.summary}</p>
+                    <span className="about__recent-link">Read the technical notes ↗</span>
+                  </Link>
+                ))}
+              </div>
+              <Link className="about__inline-link" to="/work">Explore all work ↗</Link>
+            </Reveal>
+          </section>
+
+          <section id="research" className="about__section">
+            <Reveal>
+              <h2 className="about__h2">Research interests</h2>
+              <div className="about__research-list">
+                {RESEARCH_INTERESTS.map((item) => (
+                  <article className="about__research-item" key={item.title}>
+                    <h3>{item.title}</h3>
+                    <p>{item.detail}</p>
+                  </article>
+                ))}
+              </div>
+            </Reveal>
+          </section>
+
+          <section id="arsenal" className="about__section">
+            <Reveal>
+              <h2 className="about__h2">Focused tech arsenal</h2>
               <p className="about__text">
-                A practical foundation spanning AI engineering, software development, data
-                analysis and cloud integration.
+                A focused set of tools I use across AI systems, machine learning, software
+                engineering and deployment.
               </p>
-              <div className="about__skills-grid">
-                {SKILLS.map((skill) => (
-                  <div className="about__skill-card" key={skill.name} style={{ "--skill-accent": skill.accent } as CSSProperties}>
-                    <span className="about__skill-badge">
-                      <img src={skill.icon} alt={skill.name} className="about__skill-icon" />
-                    </span>
-                    <span className="about__skill-name">{skill.name}</span>
-                  </div>
+              <div className="about__arsenal-grid">
+                {TECH_ARSENAL.map((group) => (
+                  <article className="about__arsenal-card" key={group.title}>
+                    <h3>{group.title}</h3>
+                    <div className="about__arsenal-tags">
+                      {group.items.map((item) => <span key={item}>{item}</span>)}
+                    </div>
+                  </article>
                 ))}
               </div>
             </Reveal>
@@ -113,21 +208,15 @@ export default function About() {
               <h2 className="about__h2">Connect &amp; Credentials</h2>
               <div className="about__reveal-cards">
                 <a href="https://github.com/yash936936" target="_blank" rel="noopener noreferrer" className="reveal-card">
-                  <div className="reveal-card__cover">
-                    <span className="reveal-card__title">GitHub</span>
-                  </div>
-                  <div className="reveal-card__content"><p>View repositories ↗</p></div>
+                  <div className="reveal-card__cover"><span className="reveal-card__title">GitHub</span></div>
+                  <div className="reveal-card__content"><p>Browse source code ↗</p></div>
                 </a>
                 <a href="https://linkedin.com/in/yashmalik-/" target="_blank" rel="noopener noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as CSSProperties}>
-                  <div className="reveal-card__cover">
-                    <span className="reveal-card__title">LinkedIn</span>
-                  </div>
+                  <div className="reveal-card__cover"><span className="reveal-card__title">LinkedIn</span></div>
                   <div className="reveal-card__content"><p>Connect professionally ↗</p></div>
                 </a>
                 <a href="https://drive.google.com/drive/folders/1as0o0p7JRGXrWlpTwC9ZlgsXRN7WeX2F?usp=sharing" target="_blank" rel="noopener noreferrer" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as CSSProperties}>
-                  <div className="reveal-card__cover">
-                    <span className="reveal-card__title">Certifications</span>
-                  </div>
+                  <div className="reveal-card__cover"><span className="reveal-card__title">Certifications</span></div>
                   <div className="reveal-card__content"><p>View credentials ↗</p></div>
                 </a>
               </div>
