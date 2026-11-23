@@ -73,6 +73,44 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "agm",
+    title: "AGM — Adaptive Graph Memory",
+    year: "2026",
+    category: "Agent memory infrastructure",
+    color: "#5db8a6",
+    status: "Local research prototype · v0.7.x",
+    description: "A model-agnostic Python memory layer for AI agents. AGM stores structured memories in an event-sourced SQLite core and supports keyword, vector and bounded graph retrieval, provenance, trust tiers, memory lifecycle operations and task handoff.",
+    architecture: "The immutable event log is the source of truth; node, edge, FTS5 and embedding tables are rebuildable views. Retrieval combines keyword and vector seeds, bounded graph expansion, scope and validity filters, ranking, and an abstention path when evidence is insufficient. The library, REST API, standard-library client and CLI share the same core.",
+    evidence: [
+      "Event-sourced SQLite storage with replayable derived views",
+      "Trust tiers, provenance, secret redaction and instruction-like-text quarantine in the core",
+      "Memory lifecycle support for supersede, hard delete, expiry and writer revocation",
+      "Python library, FastAPI REST adapter, standard-library client and CLI",
+      "Synthetic retrieval benchmarks and regression tests are present; real-history evaluation remains NOT RUN"
+    ],
+    stack: ["Python", "SQLite", "FastAPI", "Pydantic", "FTS5", "Vector retrieval", "Pytest"],
+    github: "https://github.com/yash936936/AGM",
+  },
+  {
+    slug: "sysdesign-ai",
+    title: "SysDesign AI",
+    year: "2026",
+    category: "AI-assisted system design",
+    color: "#8a7fc7",
+    status: "Prototype",
+    description: "An AI-powered system design workspace that guides a prompt through HLD or LLD classification, requirement clarification and reference retrieval, then builds a structured system design in a chat-based interface.",
+    architecture: "The Next.js frontend communicates with a FastAPI backend. The flow classifies the design request, collects requirements through interactive multiple-choice questions, retrieves reference material using Gemini embeddings and ChromaDB, and streams generated sections over server-sent events. The artifact workspace is designed to display architecture diagrams, capacity estimates, data models, API design and technology choices.",
+    evidence: [
+      "HLD/LLD intent classification with a heuristic fallback when Gemini classification is unavailable",
+      "Interactive clarification flow for functional requirements, non-functional requirements and constraints",
+      "RAG retrieval over ingested system-design references and a curated famous-systems collection",
+      "SSE generation pipeline for architecture, capacity, data model, API and stack sections",
+      "Interactive React Flow architecture diagrams and PDF/Markdown export paths"
+    ],
+    stack: ["Next.js", "React", "FastAPI", "Gemini", "LangChain", "ChromaDB", "PostgreSQL", "Supabase", "Redis", "React Flow"],
+    github: "https://github.com/yash936936/AI-System-Design",
+  },
+  {
     slug: "coding-harness",
     title: "Coding Harness",
     year: "2026",
