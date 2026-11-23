@@ -31,4 +31,15 @@ export default function Footer() {
           <div className="footer__col">
             <span className="footer__col-title">Get in touch</span>
             <a href="mailto:yashsunilmalik@gmail.com">yashsunilmalik@gmail.com</a>
-    ¶»§q«^
+            <span className="footer__muted">Delhi NCR, India</span>
+          </div>
+        </div>
+
+        <div className="footer__bottom">
+          <span>Â© {new Date().getFullYear()} Yash. All rights reserved.</span>
+          <Link to="/mentions-legales">Legal notice</Link>
+        </div>
+      </div>
+    </footer>
+  );
+}
