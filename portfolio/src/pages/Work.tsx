@@ -1,44 +1,124 @@
-import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
 import { projects } from "../data/content";
+import { projectDetails } from "../data/projectDetails";
 import "./Work.css";
+
+function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
+  const project = projects.find((item) => item.slug === slug);
+  const detail = projectDetails[slug];
+
+  if (!project || !detail) return null;
+
+  return (
+    <Reveal delay={Math.min(index, 5) * 55}>
+      <article className="case-study" id={"project-" + project.slug}>
+        <header className="case-study__header">
+          <div className="case-study__meta">
+            <span>{project.category}</span>
+            <span className="case-study__status">{project.status}</span>
+          </div>
+          <h2>{project.title}</h2>
+          <p>{project.description}</p>
+        </header>
+
+        <section className="case-study__architecture">
+          <div className="case-study__section-heading">
+            <span>Architecture overview</span>
+            <h3>{detail.architectureTitle}</h3>
+          </div>
+          <p className="case-study__architecture-intro">{detail.architectureIntro}</p>
+        </section>
+
+        <section className="case-study__flow-section">
+          <h3>System flow</h3>
+          <div className="case-study__flow">
+            {detail.flow.map((step) => (
+              <article className="case-study__flow-step" key={step.name}>
+                <span className="case-study__flow-label">Architecture layer</span>
+                <h4>{step.name}</h4>
+                <p>{step.responsibility}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="case-study__components">
+          <h3>Architecture breakdown</h3>
+          <div className="case-study__component-grid">
+            {detail.components.map((component) => (
+              <article className="case-study__component" key={component.heading}>
+                <h4>{component.heading}</h4>
+                <p>{component.body}</p>
+                <ul>
+                  {component.points.map((point) => <li key={point}>{point}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <div className="case-study__details">
+          <section className="case-study__block">
+            <h3>Design decisions</h3>
+            <ul>{detail.designDecisions.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section className="case-study__block">
+            <h3>Implementation and evaluation</h3>
+            <ul>{detail.evaluation.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+        </div>
+
+        <aside className="case-study__limits">
+          <span>Limitations and validation status</span>
+          <ul>{detail.limitations.map((item) => <li key={item}>{item}</li>)}</ul>
+        </aside>
+
+        <section className="case-study__stack-section">
+          <h3>Technology stack</h3>
+          <div className="case-study__stack">
+            {project.stack.map((item) => <span key={item}>{item}</span>)}
+          </div>
+        </section>
+
+        <div className="case-study__links">
+          <a href={project.github} target="_blank" rel="noopener noreferrer">Source repository ↗</a>
+          {detail.references.map((reference) => (
+            <a href={reference.href} target="_blank" rel="noopener noreferrer" key={reference.href}>
+              {reference.label} ↗
+            </a>
+          ))}
+        </div>
+      </article>
+    </Reveal>
+  );
+}
 
 export default function Work() {
   return (
     <div className="work-page">
       <PageHeader
-        eyebrow="Projects"
-        title="Systems, tools and applied AI."
-        sub="Each project has its own architecture notes, design decisions, implementation details and current validation status."
+        eyebrow="Selected work"
+        title="AI systems, architecture and engineering."
+        sub="Architecture notes, design decisions and implementation details for every project."
       />
-      <section className="container work-projects">
-        <div className="work-projects__intro">
-          <p>Explore the system design behind each build. The notes distinguish implemented components from evaluation results and unfinished acceptance work.</p>
-        </div>
-        <div className="work-projects__grid">
-          {projects.map((project, index) => (
-            <Reveal key={project.slug} delay={Math.min(index, 6) * 45}>
-              <article className="work-project-card">
-                <div className="work-project-card__meta">
-                  <span>{project.category}</span>
-                  <span>{project.status}</span>
-                </div>
-                <h2>{project.title}</h2>
-                <p>{project.description}</p>
-                <div className="work-project-card__stack">
-                  {project.stack.slice(0, 5).map((item) => <span key={item}>{item}</span>)}
-                </div>
-                <div className="work-project-card__links">
-                  <Link to={"/work/" + project.slug}>Architecture notes ↗</Link>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+
+      <section className="container work-intro">
+        <p>
+          Each project is documented as a case study. The notes explain the system flow,
+          the role of each major component, the reasons behind key design choices and
+          the evidence available for its current state. Prototype limits and unfinished
+          validation are stated where relevant.
+        </p>
       </section>
+
+      <section className="container work-case-studies" aria-label="Project architecture case studies">
+        {projects.map((project, index) => (
+          <ProjectCaseStudy key={project.slug} slug={project.slug} index={index} />
+        ))}
+      </section>
+
       <ContactBand />
     </div>
   );
