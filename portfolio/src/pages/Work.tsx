@@ -30,6 +30,22 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
           <p className="case-study__architecture-intro">{detail.architectureIntro}</p>
         </section>
 
+        <section className="case-study__diagram-section">
+          <h3>Architecture at a glance</h3>
+          <figure className="case-study__diagram">
+            <img
+              src={"/architecture/" + workItem.slug + ".svg"}
+              alt={"Simplified architecture diagram: " + detail.architectureTitle}
+              width="1440"
+              height={workItem.slug === "agm" ? "790" : "700"}
+              loading="lazy"
+            />
+            <figcaption>
+              A plain-language view of the main system flow. The detailed engineering notes follow below.
+            </figcaption>
+          </figure>
+        </section>
+
         <section className="case-study__flow-section">
           <h3>System flow</h3>
           <div className="case-study__flow">
