@@ -13,7 +13,7 @@ interface PageMeta {
 const PAGE_META: Record<string, PageMeta> = {
   "/": {
     title: "Yash Malik | AI Systems Engineer",
-    description: "AI systems engineering, agentic workflows, applied machine learning and full-stack software architecture by Yash Malik.",
+    description: "AI systems engineering, agentic workflows and applied machine learning, supported by dependable software development and testing.",
   },
   "/work": {
     title: "Selected Work | Yash Malik",
@@ -25,19 +25,19 @@ const PAGE_META: Record<string, PageMeta> = {
   },
   "/about": {
     title: "About | Yash Malik",
-    description: "Background, engineering interests and technical skills across AI, machine learning, agentic systems and web development.",
+    description: "An AI-focused background covering machine learning, agentic systems, software development and engineering.",
   },
   "/contact": {
     title: "Contact | Yash Malik",
-    description: "Contact Yash Malik about AI systems, research collaboration, software engineering and technical projects.",
+    description: "Contact Yash Malik about AI systems, research collaboration, software development and testing.",
   },
   "/services/ai": {
     title: "AI & Agentic Systems | Yash Malik",
     description: "Applied AI, model adaptation, LLM applications and agentic workflow engineering.",
   },
   "/services/web": {
-    title: "Full-Stack Development | Yash Malik",
-    description: "Full-stack application development connecting AI capabilities, APIs, data and user experiences.",
+    title: "Software Development & Testing | Yash Malik",
+    description: "Software design, application development, automated testing and quality checks for reliable products.",
   },
   "/services/infrastructure": {
     title: "Deployment & Infrastructure | Yash Malik",
