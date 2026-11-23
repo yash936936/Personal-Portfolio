@@ -102,6 +102,12 @@ jobs:
         run: npm audit --audit-level=high
         working-directory: contact-backend
 
+      - name: Type-check Worker source and tests
+        run: |
+          npx tsc --noEmit -p tsconfig.json
+          npx tsc --noEmit -p test/tsconfig.json
+        working-directory: contact-backend
+
       - name: Run Worker tests
         run: npm test -- --run
         working-directory: contact-backend

@@ -26,20 +26,9 @@ export default function Footer() {
           <div className="footer__col">
             <span className="footer__col-title">Elsewhere</span>
             <a href="https://github.com/yash936936" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/yashmalik-/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://linkedin.com/in/yashmalik-/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Get in touch</span>
             <a href="mailto:yashsunilmalik@gmail.com">yashsunilmalik@gmail.com</a>
-            <span className="footer__muted">Delhi NCR, India</span>
-          </div>
-        </div>
-
-        <div className="footer__bottom">
-          <span>Â© {new Date().getFullYear()} Yash. All rights reserved.</span>
-          <Link to="/mentions-legales">Legal notice</Link>
-        </div>
-      </div>
-    </footer>
-  );
-}
+    ¶»§q«^

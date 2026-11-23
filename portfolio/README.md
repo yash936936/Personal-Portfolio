@@ -4,7 +4,7 @@ A React and TypeScript portfolio for AI systems engineering, applied machine lea
 
 ## Requirements
 
-- Node.js 20.19+ or 22.12+ (Vite 8 requirement)
+- Node.js 22.12+ (Vite 8 and Wrangler 4.166 compatibility)
 - npm
 - A Cloudflare account and Wrangler access only when running or deploying the contact Worker
 - A Resend API key for contact-form email delivery
@@ -118,11 +118,15 @@ Turnstile support is included but remains disabled until a real widget is config
 
 In another terminal, set `VITE_CONTACT_API_URL=http://127.0.0.1:8787` in `portfolio/.env.local` and run the Vite dev server. The local Worker only accepts origins in its `ALLOWED_ORIGINS` list.
 
-Run Worker tests once with:
+Run Worker tests and TypeScript checks with:
 
 ```bash
 npm test -- --run
+npx tsc --noEmit -p tsconfig.json
+npx tsc --noEmit -p test/tsconfig.json
 ```
+
+The Worker suite uses Cloudflare's current `@cloudflare/vitest-plugin` integration with Vitest 4.1.12. It replaces the retired `@cloudflare/vitest-pool-workers` package. See the [official migration guide](https://developers.cloudflare.com/workers/testing/vitest-integration/migration-guides/migrate-to-vitest-plugin/) for configuration details.
 
 ### Production secrets and deployment
 
@@ -182,7 +186,7 @@ The navigation supports keyboard dismissal, focus containment and focus return. 
 
 ## Automated security and quality checks
 
-GitHub Actions runs the frontend dependency audit, link checker, lint and production build, plus the contact Worker dependency audit and test suite. It also runs Playwright route, responsive-overflow, mobile-navigation and 404 checks. CodeQL performs JavaScript/TypeScript source analysis. Dependabot checks both npm workspaces and GitHub Actions weekly. See [the security review record](../docs/security-review.md) for production activation steps and checks that still require a live environment.
+GitHub Actions runs the frontend and Worker dependency audits, internal-route and sitemap checks, lint, TypeScript/build checks, Worker tests and Playwright route/responsive-overflow/mobile-navigation/404 checks. CodeQL performs JavaScript/TypeScript source analysis. Dependabot checks both npm workspaces and GitHub Actions weekly. `npm run check:links` verifies route references, blog sitemap destinations, image alt attributes, safe new-tab links and unresolved placeholder markers. See [the security review record](../docs/security-review.md) for test results, production activation steps and checks that still require a live environment.
 
 ## Project content policy
 
