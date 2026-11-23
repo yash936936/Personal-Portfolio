@@ -6,10 +6,10 @@ import RouteMetadata from "./components/RouteMetadata";
 import SiteAnalytics from "./components/SiteAnalytics";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { useScrollToTop } from "./hooks/useScrollToTop";
-
 import Home from "./pages/Home";
 import Work from "./pages/Work";
 import Blog from "./pages/Blog";
+import Research from "./pages/Research";
 import NotFound from "./pages/NotFound";
 import ServiceAI from "./pages/ServiceAI";
 import ServiceWeb from "./pages/ServiceWeb";
@@ -22,46 +22,34 @@ function LegacyBlogRedirect() {
   const { slug } = useParams();
   return <Navigate to={slug ? "/blog/" + slug : "/blog"} replace />;
 }
-
 function Shell() {
   useScrollToTop();
-
-  return (
-    <>
-      <RouteMetadata />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<Blog />} />
-        <Route path="/research" element={<Navigate to="/blog" replace />} />
-        <Route path="/writing" element={<Navigate to="/blog" replace />} />
-        <Route path="/writing/:slug" element={<LegacyBlogRedirect />} />
-        <Route path="/services/ai" element={<ServiceAI />} />
-        <Route path="/services/web" element={<ServiceWeb />} />
-        <Route path="/services/infrastructure" element={<ServiceInfrastructure />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/mentions-legales" element={<LegalNotice />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </>
-  );
+  return <>
+    <RouteMetadata />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/work" element={<Work />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:slug" element={<Blog />} />
+      <Route path="/research" element={<Research />} />
+      <Route path="/writing" element={<Navigate to="/blog" replace />} />
+      <Route path="/writing/:slug" element={<LegacyBlogRedirect />} />
+      <Route path="/services/ai" element={<ServiceAI />} />
+      <Route path="/services/web" element={<ServiceWeb />} />
+      <Route path="/services/infrastructure" element={<ServiceInfrastructure />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/mentions-legales" element={<LegalNotice />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </>;
 }
-
 export default function App() {
   useSmoothScroll();
-
-  return (
-    <>
-      <a className="skip-link" href="#main-content">Skip to main content</a>
-      <CustomCursor />
-      <SiteAnalytics />
-      <Nav />
-      <main id="main-content" tabIndex={-1}>
-        <Shell />
-      </main>
-      <Footer />
-    </>
-  );
+  return <>
+    <a className="skip-link" href="#main-content">Skip to main content</a>
+    <CustomCursor /><SiteAnalytics /><Nav />
+    <main id="main-content" tabIndex={-1}><Shell /></main>
+    <Footer />
+  </>;
 }

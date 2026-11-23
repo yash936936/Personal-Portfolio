@@ -4,116 +4,50 @@ import { blogPosts } from "../data/editorial";
 
 const SITE_URL = "https://personal-portfolio-yashmalik.vercel.app";
 const SOCIAL_IMAGE = SITE_URL + "/og-image.svg";
-
-interface PageMeta {
-  title: string;
-  description: string;
-}
+interface PageMeta { title: string; description: string; }
 
 const PAGE_META: Record<string, PageMeta> = {
-  "/": {
-    title: "Yash Malik | AI Systems Engineer",
-    description: "AI systems engineering, agentic workflows and applied machine learning, supported by dependable software development and testing.",
-  },
-  "/work": {
-    title: "Selected Work | Yash Malik",
-    description: "Project case studies covering agentic developer tooling, legal RAG, local research systems, document intelligence and LoRA fine-tuning.",
-  },
-  "/blog": {
-    title: "Blog | Yash Malik",
-    description: "Articles on agentic systems, retrieval-augmented generation, evaluation and practical AI engineering.",
-  },
-  "/about": {
-    title: "About | Yash Malik",
-    description: "An AI-focused background covering machine learning, agentic systems, software development and engineering.",
-  },
-  "/contact": {
-    title: "Contact | Yash Malik",
-    description: "Contact Yash Malik about AI systems, research collaboration, software development and testing.",
-  },
-  "/services/ai": {
-    title: "AI & Agentic Systems | Yash Malik",
-    description: "Applied AI, model adaptation, LLM applications and agentic workflow engineering.",
-  },
-  "/services/web": {
-    title: "Software Development & Testing | Yash Malik",
-    description: "Software design, application development, automated testing and quality checks for reliable products.",
-  },
-  "/services/infrastructure": {
-    title: "Deployment & Infrastructure | Yash Malik",
-    description: "Application deployment, cloud integration, backend services and infrastructure engineering.",
-  },
-  "/mentions-legales": {
-    title: "Legal Notice | Yash Malik",
-    description: "Legal notice and site information for the portfolio of Yash Malik.",
-  },
+  "/": { title: "Yash Malik | AI Systems Engineer", description: "AI systems engineering, agentic workflows, research and applied machine learning." },
+  "/work": { title: "Projects and Case Studies | Yash Malik", description: "Detailed case studies for AGM, SysDesign AI, Coding Harness, Fathom and applied AI projects." },
+  "/research": { title: "Research and Experiments | Yash Malik", description: "Research questions, technical experiments and evaluation notes on agent memory, agentic systems and retrieval." },
+  "/blog": { title: "Writing | Yash Malik", description: "Technical articles, project breakdowns and research notes on AI systems and engineering." },
+  "/about": { title: "About | Yash Malik", description: "AI engineering interests, research questions and project work." },
+  "/contact": { title: "Contact | Yash Malik", description: "Contact Yash Malik about AI engineering, research collaboration and technical discussions." },
+  "/services/ai": { title: "AI Systems and Agentic Workflows | Yash Malik", description: "Applied AI, model adaptation, LLM applications and agentic workflow engineering." },
+  "/services/web": { title: "Software Development and Testing | Yash Malik", description: "Software design, application development, automated testing and quality checks for dependable products." },
+  "/services/infrastructure": { title: "Deployment and Infrastructure | Yash Malik", description: "Application deployment, cloud integration, backend services and infrastructure engineering." },
+  "/mentions-legales": { title: "Legal Notice | Yash Malik", description: "Legal notice and site information for the portfolio of Yash Malik." },
 };
-
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
-  let element = document.head.querySelector<HTMLMetaElement>(
-    'meta[' + attribute + '="' + key + '"]',
-  );
-
-  if (!element) {
-    element = document.createElement("meta");
-    element.setAttribute(attribute, key);
-    document.head.appendChild(element);
-  }
-
+  let element = document.head.querySelector<HTMLMetaElement>('meta[' + attribute + '="' + key + '"]');
+  if (!element) { element = document.createElement("meta"); element.setAttribute(attribute, key); document.head.appendChild(element); }
   element.content = content;
 }
-
 function removeMeta(attribute: "name" | "property", key: string) {
   document.head.querySelector('meta[' + attribute + '="' + key + '"]')?.remove();
 }
-
 function setCanonical(url: string) {
   let element = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-  if (!element) {
-    element = document.createElement("link");
-    element.rel = "canonical";
-    document.head.appendChild(element);
-  }
+  if (!element) { element = document.createElement("link"); element.rel = "canonical"; document.head.appendChild(element); }
   element.href = url;
 }
-
-function removeCanonical() {
-  document.head.querySelector('link[rel="canonical"]')?.remove();
-}
-
+function removeCanonical() { document.head.querySelector('link[rel="canonical"]')?.remove(); }
 function getBlogPost(pathname: string) {
   if (!pathname.startsWith("/blog/")) return undefined;
   const slug = pathname.split("/").filter(Boolean)[1];
   return blogPosts.find((post) => post.slug === slug);
 }
-
-function isKnownPath(pathname: string) {
-  return Boolean(PAGE_META[pathname] || getBlogPost(pathname));
-}
-
 function resolvePageMeta(pathname: string): PageMeta {
   const article = getBlogPost(pathname);
-  if (article) {
-    return {
-      title: article.title + " | Blog by Yash Malik",
-      description: article.excerpt,
-    };
-  }
-
-  return PAGE_META[pathname] ?? {
-    title: "Page not found | Yash Malik",
-    description: "The requested page could not be found. Browse the portfolio, projects or blog.",
-  };
+  if (article) return { title: article.title + " | Writing by Yash Malik", description: article.excerpt };
+  return PAGE_META[pathname] ?? { title: "Page not found | Yash Malik", description: "The requested page could not be found. Browse projects, research or writing." };
 }
-
 export default function RouteMetadata() {
   const { pathname } = useLocation();
-
   useEffect(() => {
     const meta = resolvePageMeta(pathname);
-    const knownPath = isKnownPath(pathname);
+    const knownPath = Boolean(PAGE_META[pathname] || getBlogPost(pathname));
     const canonical = new URL(pathname, SITE_URL).toString();
-
     document.title = meta.title;
     upsertMeta("name", "description", meta.description);
     upsertMeta("name", "robots", knownPath ? "index, follow" : "noindex, follow");
@@ -130,15 +64,8 @@ export default function RouteMetadata() {
     upsertMeta("name", "twitter:title", meta.title);
     upsertMeta("name", "twitter:description", meta.description);
     upsertMeta("name", "twitter:image", SOCIAL_IMAGE);
-
-    if (knownPath) {
-      upsertMeta("property", "og:url", canonical);
-      setCanonical(canonical);
-    } else {
-      removeMeta("property", "og:url");
-      removeCanonical();
-    }
+    if (knownPath) { upsertMeta("property", "og:url", canonical); setCanonical(canonical); }
+    else { removeMeta("property", "og:url"); removeCanonical(); }
   }, [pathname]);
-
   return null;
 }

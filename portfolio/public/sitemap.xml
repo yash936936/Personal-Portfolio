@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/work</loc></url>
+  <url><loc>https://personal-portfolio-yashmalik.vercel.app/research</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/blog</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/blog/designing-bounded-agent-workflows</loc></url>
   <url><loc>https://personal-portfolio-yashmalik.vercel.app/blog/evaluating-rag-beyond-retrieval</loc></url>

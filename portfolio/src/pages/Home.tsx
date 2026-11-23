@@ -1,21 +1,23 @@
 import Hero from "../components/sections/Hero";
-import LogoMarquee from "../components/sections/LogoMarquee";
-import SkillsRotator from "../components/sections/SkillsRotator";
-import Services from "../components/sections/Services";
-import ApproachStrip from "../components/sections/ApproachStrip";
-import Faq from "../components/sections/Faq";
-import ContactBand from "../components/sections/ContactBand";
+import {
+  FocusAreas,
+  FeaturedProjects,
+  ResearchPreview,
+  Capabilities,
+  WritingPreview,
+  HomeContact,
+} from "../components/sections/HomeSections";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <LogoMarquee />
-      <Services />
-      <SkillsRotator />
-      <ApproachStrip />
-      <Faq />
-      <ContactBand />
+      <FocusAreas />
+      <FeaturedProjects />
+      <ResearchPreview />
+      <Capabilities />
+      <WritingPreview />
+      <HomeContact />
     </>
   );
 }
