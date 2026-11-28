@@ -18,7 +18,7 @@
 }
 .home-featured__layout { display: block; }
 .home-featured__stack {
-  display: grid; width: min(100%, 920px); gap: 18px; padding-bottom: 12px; margin: 0 auto;
+  display: grid; width: min(100%, 920px); gap: 6px; padding-bottom: 12px; margin: 0 auto;
 }
 .home-project-card {
   position: sticky; top: calc(116px + var(--stack-index) * 13px); z-index: calc(2 + var(--stack-index));
