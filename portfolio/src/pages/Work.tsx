@@ -138,7 +138,15 @@ export default function Work() {
               aria-pressed={selectedPrototype === item.slug}
               onClick={() => setSelectedPrototype(item.slug)}
             >
-              {item.title}
+              {({
+                agm: "Adaptive Graph Memory",
+                "sysdesign-ai": "SysDesign AI",
+                "coding-harness": "Harness",
+                "legal-ai": "Legal AI Assistant",
+                fathom: "Research Assistant",
+                "document-analysis": "Document Analysis API",
+                "lora-pipeline": "LoRA",
+              }[item.slug] ?? item.title)}
             </button>
           ))}
         </div>
