@@ -33,12 +33,14 @@ export default function Services() {
   }, [activeIndex]);
 
   return (
-    <section className="services">
+    <section className="services" id="engineering-capabilities">
       <div className="container">
         <div className="services__intro">
           <Reveal>
             <span className="services__eyebrow">Engineering capabilities</span>
-            <h2 className="services__heading">Designing, building <br /> and delivering systems</h2>
+            <a href="#capability-list" className="services__heading-link" aria-label="View engineering capabilities">
+              <h2 className="services__heading">Designing, building <br /> and delivering systems</h2>
+            </a>
           </Reveal>
           <Reveal delay={100} className="services__intro-right">
             <p className="services__sub">
@@ -48,7 +50,7 @@ export default function Services() {
             <Link to="/contact" className="services__cta">Discuss an idea</Link>
           </Reveal>
         </div>
-        <div className="services__list" onMouseLeave={() => setActiveIndex(-1)} aria-label="Engineering capabilities">
+        <div className="services__list" id="capability-list" onMouseLeave={() => setActiveIndex(-1)} aria-label="Engineering capabilities">
           {offers.map((offer, index) => {
             const meta = CAPABILITY_META[index];
             const isActive = activeIndex === index;
