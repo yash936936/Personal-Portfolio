@@ -114,7 +114,7 @@ describe("portfolio contact worker", () => {
   });
 
   it("does not call the provider when the API key is missing", async () => {
-    const fetchMock = vi.fn();
+    const fetchMock = vi.fn<typeof fetch>();
     vi.stubGlobal("fetch", fetchMock);
 
     const response = await worker.fetch(
