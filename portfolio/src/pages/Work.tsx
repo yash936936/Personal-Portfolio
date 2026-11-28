@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
@@ -20,7 +19,6 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
             <span className="case-study__status">{workItem.status}</span>
           </div>
           <h2>{workItem.title}</h2>
-          <p>{workItem.description}</p>
         </header>
 
         <section className="case-study__architecture">
@@ -73,22 +71,6 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
           </div>
         </section>
 
-        <div className="case-study__details">
-          <section className="case-study__block">
-            <h3>Design decisions</h3>
-            <ul>{detail.designDecisions.map((item) => <li key={item}>{item}</li>)}</ul>
-          </section>
-          <section className="case-study__block">
-            <h3>Implementation and evaluation</h3>
-            <ul>{detail.evaluation.map((item) => <li key={item}>{item}</li>)}</ul>
-          </section>
-        </div>
-
-        <aside className="case-study__limits">
-          <span>Limitations and validation status</span>
-          <ul>{detail.limitations.map((item) => <li key={item}>{item}</li>)}</ul>
-        </aside>
-
         <section className="case-study__stack-section">
           <h3>Technology stack</h3>
           <div className="case-study__stack">
@@ -110,34 +92,20 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
 }
 
 export default function Work() {
-  const [selectedPrototype, setSelectedPrototype] = useState("agm");
-  const selectedProject = projects.find((item) => item.slug === selectedPrototype) ?? projects[0];
-
   return (
     <div className="work-page">
       <PageHeader
         eyebrow="Selected work"
         title="AI systems, architecture and engineering."
-        sub="Architecture notes, design decisions and implementation details for every build."
       />
-      <section className="container work-intro">
-        <p>
-          Each build is documented as a technical case study. The notes explain the system flow,
-          the role of each major component, the reasoning behind key design choices and the
-          evidence available for its current state. Prototype limits and unfinished validation
-          are stated where relevant.
-        </p>
-      </section>
-      <section className="container prototype-picker" aria-label="Choose a prototype description">
+      <section className="container prototype-picker" aria-label="Choose a prototype">
         <div className="prototype-picker__track" role="group" aria-label="Prototypes">
           {projects.map((item) => (
             <button
               type="button"
               key={item.slug}
-              className={`prototype-picker__tab ${selectedPrototype === item.slug ? "is-active" : ""}`}
-              aria-pressed={selectedPrototype === item.slug}
+              className="prototype-picker__tab"
               onClick={() => {
-                setSelectedPrototype(item.slug);
                 document.getElementById("work-" + item.slug)?.scrollIntoView({
                   behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
                   block: "start",
@@ -155,10 +123,6 @@ export default function Work() {
               }[item.slug] ?? item.title)}
             </button>
           ))}
-        </div>
-        <div className="prototype-picker__description" aria-live="polite">
-          <h2>{selectedProject.title}</h2>
-          <p>{selectedProject.description}</p>
         </div>
       </section>
       <section className="container work-case-studies" aria-label="Architecture case studies">
