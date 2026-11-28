@@ -28,7 +28,7 @@ export default function ProjectDetail() {
       A plain-language view of the main system flow. The detailed architecture breakdown follows below.
      </figcaption>
     </figure>
-   </section>}
+   </section>
    <section className="project-detail__flow-section"><h3>System flow</h3><div className="project-detail__flow">{detail.flow.map(step=><article className="project-detail__flow-step" key={step.name}><span className="project-detail__flow-label">Architecture layer</span><h4>{step.name}</h4><p>{step.responsibility}</p></article>)}</div></section>
    <section className="project-detail__components"><h3>Architecture breakdown</h3><div className="project-detail__component-grid">{detail.components.map(component=><article className="project-detail__component" key={component.heading}><h4>{component.heading}</h4><p>{component.body}</p><ul>{component.points.map(point=><li key={point}>{point}</li>)}</ul></article>)}</div></section>
    <section className="project-detail__stack"><h3>Technology stack</h3><div>{project.stack.map(item=><span key={item}>{item}</span>)}</div></section>
