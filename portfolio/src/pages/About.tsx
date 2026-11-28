@@ -20,21 +20,33 @@ export default function About() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll(".about__section");
-      let current = "overview";
+    let frameId: number | null = null;
 
-      sections.forEach((section) => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop <= 150) {
-          current = section.getAttribute("id") || current;
-        }
+    const handleScroll = () => {
+      if (frameId !== null) return;
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null;
+        const sections = document.querySelectorAll(".about__section");
+        let current = "overview";
+
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= 150) {
+            current = section.getAttribute("id") || current;
+          }
+        });
+
+        setActiveSection(current);
       });
-      setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -48,7 +60,7 @@ export default function About() {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
       });
     }
   };
