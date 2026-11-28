@@ -60,7 +60,6 @@ export const projects = [
     title: "Coding Harness", 
     year: "2026", 
     category: "Harness Engineering", 
-    color: "#5db8a6", 
     github: "https://github.com/yash936936/Harness" 
   },
   { 
@@ -68,7 +67,6 @@ export const projects = [
     title: "Legal AI Assistant", 
     year: "2026", 
     category: "AI Orchestration", 
-    color: "#cc785c", 
     github: "https://github.com/yash936936/LegalAI" 
   },
   { 
@@ -90,7 +88,6 @@ export const projects = [
     title: "LoRA", 
     year: "2026", 
     category: "Applied ML", 
-    color: "#e8a55a", 
     github: "https://github.com/yash936936/LoRA" 
   },
   { 
@@ -98,7 +95,6 @@ export const projects = [
     title: "MERN E-Commerce Platform", 
     year: "2025", 
     category: "Full-Stack Web", 
-    color: "#181715", 
     github: "https://github.com/yash936936/MERN_ECOMMERCEE" 
   }
 ];
