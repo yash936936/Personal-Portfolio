@@ -166,7 +166,7 @@ describe("portfolio contact worker", () => {
 
     const response = await worker.fetch(
       makeRequest(validPayload),
-      { RESEND_API_KEY: "" },
+      { RESEND_API_KEY: "", ALLOWED_ORIGIN: "https://portfolio.example.com" },
     );
 
     expect(response.status).toBe(503);
