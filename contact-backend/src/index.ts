@@ -2,7 +2,7 @@ export interface Env {
   RESEND_API_KEY: string;
 }
 
-const MAX_BODY_BYTES = 8 * 1024;
+const MAX_BODY_BYTES = 24 * 1024;
 const MAX_NAME_LENGTH = 120;
 const MAX_EMAIL_LENGTH = 254;
 const MAX_MESSAGE_LENGTH = 5_000;
