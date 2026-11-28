@@ -96,9 +96,13 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
 export default function Work() {
   const [selectedPrototype, setSelectedPrototype] = useState("agm");
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
-    const updateScrollState = () => setShowBackToTop(window.scrollY > 420);
+    const updateScrollState = () => {
+      setHasScrolled(window.scrollY > 24);
+      setShowBackToTop(window.scrollY > 420);
+    };
     updateScrollState();
     window.addEventListener("scroll", updateScrollState, { passive: true });
     return () => window.removeEventListener("scroll", updateScrollState);
@@ -119,7 +123,7 @@ export default function Work() {
 
   return (
     <div className="work-page">
-      <div className="work-page__intro">
+      <div className={"work-page__intro" + (hasScrolled ? " has-scrolled" : "")}>
         <PageHeader
           eyebrow="Selected work"
           title="AI systems, architecture and engineering."
