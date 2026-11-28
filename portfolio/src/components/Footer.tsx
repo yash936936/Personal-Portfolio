@@ -32,7 +32,7 @@ export default function Footer() {
           <div className="footer__col">
             <span className="footer__col-title">Get in touch</span>
             <a href="mailto:yashsunilmalik@gmail.com">yashsunilmalik@gmail.com</a>
-            <a className="footer__muted" href="mailto:yashsunilmalik@gmail.com">Email Yash</a>
+            <span className="footer__muted">Delhi NCR, India</span>
           </div>
         </div>
 
