@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="footer__col">
             <span className="footer__col-title">Capabilities</span>
             <Link to="/services/ai">AI Systems and Agentic Workflows</Link>
-            <Link to="/services/web">Software Development and Testing</Link>
+            <Link to="/services/web">Software development</Link>
             <Link to="/services/infrastructure">Deployment and Infrastructure</Link>
           </div>
           <div className="footer__col">
