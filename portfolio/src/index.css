@@ -119,15 +119,6 @@ html {
   scroll-padding-top: calc(var(--nav-height) + 18px);
 }
 
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
 body {
   margin: 0;
   background: var(--color-canvas);
@@ -229,28 +220,6 @@ button:focus-visible,
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Custom cursor (desktop only) */
-  .cursor-dot { display: none !important; }
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--color-ink);
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
-  will-change: transform, width, height;
-  transition: width 0.3s var(--ease-out-quart), height 0.3s var(--ease-out-quart), background-color 0.3s, opacity 0.4s ease;
-}
-
-@media (hover: none), (prefers-reduced-motion: reduce) {
-  .cursor-dot { display: none; }
 }
 
 @theme inline {
