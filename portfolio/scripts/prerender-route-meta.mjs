@@ -49,15 +49,8 @@ const pages = {
   },
 };
 
-const escapeAttribute = (value) => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
-
-function setMeta(html, selector, attribute, value) {
-  const safeValue = escapeAttribute(value);
-  const pattern = new RegExp(`<meta ${selector}="[^"]*" content="[^"]*"\\s*\\/?>`);
-  const tag = `<meta ${selector}="${attribute}" content="${safeValue}" />`;
-  if (pattern.test(html)) return html.replace(pattern, tag);
-  return html.replace("</head>", `    ${tag}\n  </head>`);
-}
+const escapeAttribute = (value) =>
+  value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 
 function replaceTitle(html, title) {
   const start = html.indexOf("<title>");
@@ -66,10 +59,18 @@ function replaceTitle(html, title) {
   return html.slice(0, start) + `<title>${escapeAttribute(title)}</title>` + html.slice(end + 8);
 }
 
+function setMeta(html, selector, attribute, value) {
+  const safeValue = escapeAttribute(value);
+  const pattern = new RegExp(`<meta ${selector}="[^"]*" content="[^"]*"\\s*/?>`);
+  const tag = `<meta ${selector}="${attribute}" content="${safeValue}" />`;
+  if (pattern.test(html)) return html.replace(pattern, tag);
+  return html.replace("</head>", `    ${tag}\n  </head>`);
+}
+
 const template = await readFile(resolve("dist/index.html"), "utf8");
 
 for (const [route, meta] of Object.entries(pages)) {
-  let html = template.replace(/<title>[^<]*<\/title>/, `<title>${escapeAttribute(meta.title)}</title>`);
+  let html = replaceTitle(template, meta.title);
   html = setMeta(html, "name", "description", meta.description);
   html = setMeta(html, "property", "og:title", meta.title);
   html = setMeta(html, "property", "og:description", meta.description);
@@ -88,10 +89,9 @@ for (const [route, meta] of Object.entries(pages)) {
   await writeFile(outputPath, html, "utf8");
 }
 
-const notFound = template
-  .replace(/<title>[^<]*<\/title>/, "<title>Page Not Found | Yash Malik</title>")
-  .replace(/<meta name="robots" content="[^"]*"\\s*\\/?>/, '<meta name="robots" content="noindex, nofollow" />')
-  .replace(/<meta name="description" content="[^"]*"\\s*\\/?>/, '<meta name="description" content="The page you requested could not be found." />');
+let notFound = replaceTitle(template, "Page Not Found | Yash Malik");
+notFound = setMeta(notFound, "name", "robots", "noindex, nofollow");
+notFound = setMeta(notFound, "name", "description", "The page you requested could not be found.");
 await writeFile(resolve("dist/404.html"), notFound, "utf8");
 
 console.log(`Generated static metadata for ${Object.keys(pages).length} routes.`);
