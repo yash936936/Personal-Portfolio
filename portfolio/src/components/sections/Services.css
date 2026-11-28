@@ -21,6 +21,30 @@
   margin-bottom: 14px;
 }
 
+.services__heading-link {
+  position: relative;
+  display: inline-block;
+  max-width: 560px;
+}
+
+.services__heading-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-out-expo);
+}
+
+.services__heading-link:hover::after,
+.services__heading-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
 .services__heading {
   font-size: clamp(30px, 4.4vw, 52px);
   letter-spacing: -1px;
