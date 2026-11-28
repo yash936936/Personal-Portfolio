@@ -4,21 +4,21 @@ on:
   push:
     branches:
       - main
-      - chore/remove-homepage-video
   pull_request:
     branches:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-  actions: read
-  security-events: write
+concurrency:
+  group: portfolio-quality-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   portfolio:
     name: Frontend audit, links, build and browser checks
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -53,7 +53,7 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/playwright"
           npm init -y --prefix "$RUNNER_TEMP/playwright"
-          npm install --prefix "$RUNNER_TEMP/playwright" --no-audit --no-fund playwright
+          npm install --prefix "$RUNNER_TEMP/playwright" --no-audit --no-fund playwright@1.56.1
           npx --prefix "$RUNNER_TEMP/playwright" playwright install --with-deps chromium
         working-directory: portfolio
 
@@ -85,6 +85,8 @@ jobs:
   contact-worker:
     name: Contact Worker audit and tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -116,6 +118,9 @@ jobs:
   codeql:
     name: CodeQL source analysis
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
