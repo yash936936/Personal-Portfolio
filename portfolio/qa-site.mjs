@@ -29,7 +29,7 @@ try {
         scrollWidth: document.documentElement.scrollWidth,
         missingAlt: document.querySelectorAll("img:not([alt])").length,
         hasH1: Boolean(document.querySelector("h1")),
-        invalidInternalLinks: [...document.querySelectorAll<HTMLAnchorElement>('a[href^="/"]')]
+        invalidInternalLinks: [...document.querySelectorAll('a[href^="/"]')]
           .map((link) => link.getAttribute("href")?.split(/[?#]/)[0] ?? "/")
           .filter((href) => href && ![
             "/", "/work", "/services", "/services/ai", "/services/web",
