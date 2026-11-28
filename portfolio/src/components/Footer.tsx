@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
+import { prefetchRoute } from "../utils/prefetchRoute";
 
 export default function Footer() {
   return (
@@ -12,15 +13,15 @@ export default function Footer() {
         <div className="footer__grid">
           <div className="footer__col">
             <span className="footer__col-title">Services</span>
-            <Link to="/services/ai">Agentic Systems &amp; Model Training</Link>
-            <Link to="/services/web">Full-Stack Web Apps</Link>
-            <Link to="/services/infrastructure">Deployment &amp; Infrastructure</Link>
+            <Link to="/services/ai" onMouseEnter={() => prefetchRoute("/services/ai")} onFocus={() => prefetchRoute("/services/ai")}>Agentic Systems &amp; Model Training</Link>
+            <Link to="/services/web" onMouseEnter={() => prefetchRoute("/services/web")} onFocus={() => prefetchRoute("/services/web")}>Full-Stack Web Apps</Link>
+            <Link to="/services/infrastructure" onMouseEnter={() => prefetchRoute("/services/infrastructure")} onFocus={() => prefetchRoute("/services/infrastructure")}>Deployment &amp; Infrastructure</Link>
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Studio</span>
-            <Link to="/work">Work</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+            <Link to="/work" onMouseEnter={() => prefetchRoute("/work")} onFocus={() => prefetchRoute("/work")}>Work</Link>
+            <Link to="/about" onMouseEnter={() => prefetchRoute("/about")} onFocus={() => prefetchRoute("/about")}>About</Link>
+            <Link to="/contact" onMouseEnter={() => prefetchRoute("/contact")} onFocus={() => prefetchRoute("/contact")}>Contact</Link>
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Elsewhere</span>
@@ -31,13 +32,13 @@ export default function Footer() {
           <div className="footer__col">
             <span className="footer__col-title">Get in touch</span>
             <a href="mailto:yashsunilmalik@gmail.com">yashsunilmalik@gmail.com</a>
-            <span className="footer__muted">Delhi NCR, India</span>
+            <a className="footer__muted" href="mailto:yashsunilmalik@gmail.com">Email Yash</a>
           </div>
         </div>
 
         <div className="footer__bottom">
           <span>© {new Date().getFullYear()} Yash. All rights reserved.</span>
-          <Link to="/mentions-legales">Legal notice</Link>
+          <Link to="/mentions-legales" onMouseEnter={() => prefetchRoute("/mentions-legales")} onFocus={() => prefetchRoute("/mentions-legales")}>Legal notice</Link>
         </div>
       </div>
     </footer>
