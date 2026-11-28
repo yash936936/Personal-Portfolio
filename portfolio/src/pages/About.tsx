@@ -187,7 +187,7 @@ export default function About() {
                   </div>
                 </a>
 
-                <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as CSSProperties}>
+                <a href="https://www.linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as CSSProperties}>
                   <div className="reveal-card__cover">
                     <span className="reveal-card__title">LinkedIn</span>
                   </div>
