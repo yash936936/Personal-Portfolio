@@ -44,7 +44,7 @@ function FaqItem({
 }) {
   return (
     <div className={`faq-item ${isOpen ? "faq-item--open" : ""}`}>
-      <button className="faq-item__trigger" onClick={onToggle} aria-expanded={isOpen}>
+      <button type="button" className="faq-item__trigger" onClick={onToggle} aria-expanded={isOpen}>
         <span className="faq-item__q">{q}</span>
         <span className="faq-item__icon" aria-hidden="true">
           <span />
