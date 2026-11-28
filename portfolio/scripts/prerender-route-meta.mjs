@@ -19,6 +19,22 @@ const pages = {
     title: "Selected Work | Yash Malik",
     description: "Explore AI engineering, research tooling, machine learning, and full-stack projects built by Yash Malik.",
   },
+  "/work/agm": {
+    title: "AGM — Adaptive Graph Memory | Yash Malik",
+    description: "AGM is a model-agnostic agent memory layer with event-sourced storage, hybrid retrieval and bounded graph expansion."
+  },
+  "/work/sysdesign-ai": {
+    title: "SysDesign AI | Yash Malik",
+    description: "SysDesign AI turns system-design briefs into reviewable HLD and LLD architecture artifacts."
+  },
+  "/work/coding-harness": {
+    title: "Coding Harness | Yash Malik",
+    description: "Coding Harness is a profile-governed multi-agent coding runtime with policy gates, shared memory and sandbox integration."
+  },
+  "/work/fathom": {
+    title: "Fathom Research Assistant | Yash Malik",
+    description: "Fathom is a local research assistant with hybrid retrieval, reranking and per-claim citation checks."
+  },
   "/services": {
     title: "Engineering Capabilities | Yash Malik",
     description: "AI and agentic systems, full-stack product development, and cloud deployment capabilities.",
