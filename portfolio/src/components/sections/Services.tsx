@@ -39,9 +39,7 @@ export default function Services() {
         <div className="services__intro">
           <Reveal>
             <span className="services__eyebrow">Engineering capabilities</span>
-            <a href="#capability-list" className="services__heading-link" aria-label="View engineering capabilities">
-              <h2 className="services__heading">Designing, building <br /> and delivering systems</h2>
-            </a>
+            <h2 className="services__heading">Designing, building <br /> and delivering systems</h2>
           </Reveal>
           <Reveal delay={100} className="services__intro-right">
             <p className="services__sub">
