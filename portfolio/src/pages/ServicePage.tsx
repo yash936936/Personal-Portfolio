@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
@@ -17,8 +16,6 @@ interface ServicePageProps {
   sub: string;
   steps: ServiceStep[];
   related: { label: string; href: string }[];
-  accent?: string;
-  onAccent?: string;
 }
 
 export default function ServicePage({
@@ -27,14 +24,9 @@ export default function ServicePage({
   sub,
   steps,
   related,
-  accent = "var(--color-primary)",
-  onAccent = "var(--color-on-primary)",
 }: ServicePageProps) {
   return (
-    <div
-      className="service-page"
-      style={{ "--service-accent": accent, "--service-on-accent": onAccent } as CSSProperties}
-    >
+    <div className="service-page">
       <PageHeader eyebrow={eyebrow} title={title} sub={sub} />
 
       <section className="container service-steps" aria-label="How the service works">
