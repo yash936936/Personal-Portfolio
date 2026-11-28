@@ -119,16 +119,18 @@ export default function Work() {
 
   return (
     <div className="work-page">
-      <PageHeader
-        eyebrow="WORK"
-        title="AI systems, architecture and engineering."
-      />
-      <section className="work-scroll-cue" aria-label="Explore the work">
-        <div className="work-scroll-cue__content">
-          <span>Systems, prototypes and engineering notes</span>
-          <button type="button" onClick={scrollToProjects}>Scroll to explore <span aria-hidden="true">↓</span></button>
-        </div>
-      </section>
+      <div className="work-page__intro">
+        <PageHeader
+          eyebrow="Selected work"
+          title="AI systems, architecture and engineering."
+        />
+        <section className="work-scroll-cue" aria-label="Explore the work">
+          <div className="work-scroll-cue__content">
+            <span>Systems, prototypes and engineering notes</span>
+            <button type="button" onClick={scrollToProjects}>Scroll to explore <span aria-hidden="true">↓</span></button>
+          </div>
+        </section>
+      </div>
       <section className="container prototype-picker" id="work-projects" aria-label="Choose a prototype">
         <div className="prototype-picker__track" role="group" aria-label="Prototypes">
           {projects.map((item) => (
