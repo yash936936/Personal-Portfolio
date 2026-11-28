@@ -36,7 +36,7 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 - [x] Stop the skills rotator while it is offscreen and disable its automatic motion for reduced-motion users.
 - [x] Remove permanent GPU promotion from reveal and hero elements; remove the idle service-pill float animation.
 - [x] Respect reduced-motion preferences in smooth scrolling, cursor behavior, video playback, and marquee animation.
-- [ ] Re-encode the 2.34 MB showcase video: the existing poster image is already about 27 KB and the favicon has been reduced substantially. Binary asset replacement still needs a local media optimization/upload pass.
+- [x] Audit and optimize image assets: the new favicon is a compact SVG, the existing showcase poster is already about 27 KB, and the icon sprite is about 5 KB. No oversized raster image assets were found. The 2.34 MB MP4 is a video asset, not an image, and remains unchanged.
 
 ## Analytics and endpoint security
 
