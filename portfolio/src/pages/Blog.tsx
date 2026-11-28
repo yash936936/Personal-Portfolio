@@ -41,10 +41,10 @@ export default function Blog() {
         {related.length > 0 && <section className="blog-article__related" aria-labelledby="related-work-heading">
           <h2 id="related-work-heading">Related work</h2>
           <div className="blog-article__related-links">
-            {related.map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label} ↗</Link>)}
+            {related.map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label}</Link>)}
           </div>
         </section>}
-        <div className="blog-article__footer-nav"><Link to="/work">Explore work ↗</Link><Link to="/blog" className="blog-article__back">← Back to blog</Link></div>
+        <div className="blog-article__footer-nav"><Link to="/work">Explore work</Link><Link to="/blog" className="blog-article__back">Back to blog</Link></div>
       </article>
     </div>;
   }
@@ -64,7 +64,7 @@ export default function Blog() {
             <div className="blog-card__meta"><span>{post.category}</span><span>{post.readingTime}</span></div>
             <h2>{post.title}</h2><p>{post.excerpt}</p>
             <div className="blog-card__related">{(RELATED_WORK[post.slug] ?? []).map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label}</Link>)}</div>
-            <Link to={"/blog/" + post.slug}>Read article ↗</Link>
+            <Link to={"/blog/" + post.slug}>Read article</Link>
           </article>
         </Reveal>)}
       </div>
