@@ -65,6 +65,7 @@ export default function Nav() {
           </Link>
 
           <button
+            type="button"
             className={`nav__trigger ${open ? "nav__trigger--open" : ""}`}
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
