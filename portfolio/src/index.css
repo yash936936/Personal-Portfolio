@@ -195,7 +195,6 @@ button:focus-visible,
 
 /* Custom cursor (desktop only) */
   .cursor-dot { display: none !important; }
-.cursor-dot { display: none !important; }
 .cursor-dot {
   position: fixed;
   top: 0;
