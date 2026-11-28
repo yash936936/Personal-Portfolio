@@ -20,3 +20,7 @@
   color: var(--color-muted);
   max-width: 560px;
 }
+
+@media (max-width: 600px) {
+  .page-header { padding-top: calc(var(--nav-height) + 44px); }
+}

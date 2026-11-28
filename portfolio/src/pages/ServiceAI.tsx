@@ -3,7 +3,7 @@ import ServicePage from "./ServicePage";
 export default function ServiceAI() {
   return (
     <ServicePage
-      eyebrow="Service · 01"
+      eyebrow="AI & Agentic Systems"
       title="Model Training, Fine-Tuning & Agentic AI"
       sub="Orchestrating autonomous agents and fine-tuning models to deliver intelligent systems that solve real-world problems, not just benchmarks."
       steps={[
@@ -13,7 +13,7 @@ export default function ServiceAI() {
         { step: "04", title: "Export & handoff", desc: "ONNX / ready-to-serve artifacts, documented and packaged for the next stage." },
       ]}
       related={[
-        { label: "Full-stack web apps", href: "/services/web" },
+        { label: "Software development", href: "/services/web" },
         { label: "Deployment & infra", href: "/services/infrastructure" },
       ]}
       accent="var(--color-primary)"

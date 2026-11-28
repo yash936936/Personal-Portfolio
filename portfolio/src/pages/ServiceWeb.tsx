@@ -3,14 +3,14 @@ import ServicePage from "./ServicePage";
 export default function ServiceWeb() {
   return (
     <ServicePage
-      eyebrow="Service · 02"
-      title="Full-stack web apps"
-      sub="A product experience that puts the model in front of real users."
+      eyebrow="Software Development"
+      title="Software development"
+      sub="Building maintainable applications through clear architecture, thoughtful implementation and dependable delivery."
       steps={[
-        { step: "01", title: "UX & architecture", desc: "Mapping the user flow and the system architecture before a line of UI code is written." },
-        { step: "02", title: "Frontend build", desc: "React / Next.js interfaces that stay fast, accessible, and easy to extend." },
-        { step: "03", title: "API & backend", desc: "Node.js / FastAPI services that connect the model to the product cleanly." },
-        { step: "04", title: "QA & polish", desc: "Cross-device testing, performance passes, and the small details that make it feel finished." },
+        { step: "01", title: "Requirements & architecture", desc: "Mapping requirements, user flows and technical boundaries before implementation." },
+        { step: "02", title: "Application development", desc: "Building maintainable interfaces and backend services with clear, well-defined APIs." },
+        { step: "03", title: "Integration", desc: "Connecting frontend, backend, data and external services into a coherent application." },
+        { step: "04", title: "Delivery & handoff", desc: "Preparing the application for deployment with clear configuration and handoff notes." },
       ]}
       related={[
         { label: "Model design & training", href: "/services/ai" },

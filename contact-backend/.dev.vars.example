@@ -1,0 +1,8 @@
+# Copy to .dev.vars for local Wrangler development.
+RESEND_API_KEY=your_resend_api_key
+ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+REQUIRE_TURNSTILE=false
+
+# Set REQUIRE_TURNSTILE=true and add a matching Cloudflare Turnstile secret
+# after configuring VITE_TURNSTILE_SITE_KEY in the frontend environment.
+TURNSTILE_SECRET_KEY=

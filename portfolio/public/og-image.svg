@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Yash Malik | AI Systems Engineer</title>
+  <desc id="desc">AI systems engineering, agentic workflows, applied machine learning and software architecture.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf7f3"/>
+      <stop offset="1" stop-color="#eee6df"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d58a6f"/>
+      <stop offset="1" stop-color="#a9583e"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#d8cfc7" stroke-width="1" opacity=".45"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity=".58"/>
+  <rect x="38" y="38" width="1124" height="554" rx="28" fill="none" stroke="#d9cec5" stroke-width="2"/>
+  <circle cx="1005" cy="195" r="112" fill="none" stroke="#cc785c" stroke-width="2" opacity=".25"/>
+  <circle cx="1005" cy="195" r="76" fill="none" stroke="#5db8a6" stroke-width="2" opacity=".48"/>
+  <circle cx="1005" cy="195" r="38" fill="url(#accent)" opacity=".9"/>
+  <path d="M930 195h150M1005 120v150M952 142l106 106M1058 142 952 248" stroke="#181715" stroke-width="1.5" opacity=".28"/>
+  <rect x="92" y="106" width="11" height="11" rx="5.5" fill="#cc785c"/>
+  <text x="120" y="117" fill="#6c6a64" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="4">AI SYSTEMS ENGINEERING</text>
+  <text x="92" y="275" fill="#141413" font-family="Georgia, 'Times New Roman', serif" font-size="100" letter-spacing="-4">Yash Malik</text>
+  <text x="96" y="341" fill="#292824" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="500">Agentic AI · Applied ML · Software Architecture</text>
+  <text x="96" y="410" fill="#6c6a64" font-family="Inter, Arial, sans-serif" font-size="20">Building intelligent workflows, research tools</text>
+  <text x="96" y="442" fill="#6c6a64" font-family="Inter, Arial, sans-serif" font-size="20">and software systems with clear engineering boundaries.</text>
+  <rect x="96" y="500" width="238" height="48" rx="24" fill="#181715"/>
+  <text x="215" y="531" fill="#faf9f5" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" text-anchor="middle">PERSONAL PORTFOLIO</text>
+  <text x="1104" y="535" fill="#8e8b82" font-family="JetBrains Mono, monospace" font-size="15" text-anchor="end">PORTFOLIO / 2026</text>
+</svg>

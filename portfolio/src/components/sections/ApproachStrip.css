@@ -1,99 +1,27 @@
-.approach {
-  padding: 64px 0;
-}
-
+.approach { padding: 64px 0; background: var(--color-canvas); }
 .approach__card {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xxl);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 28px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 36px;
+  padding: var(--space-xxl); border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg); background: #d18468; color: #fff6ef; border-color: rgba(92,48,34,.22);
 }
-
-.approach__text {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 3.6vw, 38px);
-  line-height: 1.25;
-  letter-spacing: -0.4px;
-  max-width: 820px;
-}
-
-.approach__cta {
-  display: inline-flex;
-  align-items: center;
-  height: 46px;
-  padding: 0 24px;
-  border-radius: var(--radius-pill);
-  background: var(--color-canvas);
-  color: var(--color-ink);
-  font-size: 14px;
-  font-weight: 500;
-  transition: transform 0.3s var(--ease-out-quart);
-}
-
-.approach__cta:hover {
-  transform: translateY(-2px);
-}
-
-/* ── Row holding both CTAs ── */
-.approach__row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-/* ── "See the work" pill, distinct from the plain contact pill ── */
-.approach__cta--work {
-  height: auto;
-  padding: 10px 12px 10px 22px;
-  gap: 14px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.approach__cta--work:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.approach__cta-title {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 18px;
-  color: var(--color-on-primary);
-  letter-spacing: -0.2px;
-}
-
-.approach__cta-arrow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--color-primary);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  background: var(--color-canvas);
-  padding: 8px 16px;
-  border-radius: var(--radius-pill);
-}
-
-@media (max-width: 640px) {
-  .approach__card {
-    padding: var(--space-xl);
-  }
-
-  .approach__row {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .approach__cta,
-  .approach__cta--work {
-    width: 100%;
-    justify-content: center;
-  }
-}
+.approach__copy { max-width: 820px; }
+.approach__eyebrow { display: block; margin-bottom: 16px; color: rgba(255,246,239,.82); font-family: var(--font-code); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; }
+.approach__text { max-width: 780px; color: var(--color-on-dark); font-family: var(--font-display); font-size: clamp(25px, 3.4vw, 40px); line-height: 1.22; letter-spacing: -.025em; }
+.approach__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; flex-shrink: 0; }
+.approach__cta { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 1px solid rgba(255,246,239,.58); border-radius: var(--radius-pill); background: #181715; color: #fff6ef; font-size: 13px; font-weight: 600; transition: background .25s, color .25s, transform .25s; }
+.approach__cta:hover { transform: translateY(-2px); background: #fff6ef; color: #181715; }
+.apple-switch { --switch-width: 204px; --switch-height: 58px; --switch-thumb: 46px; --switch-inset: 5px; position: relative; display: inline-flex; width: var(--switch-width); height: var(--switch-height); align-items: center; justify-content: flex-end; padding: 0 16px 0 calc(var(--switch-thumb) + 15px); overflow: hidden; border: 1px solid rgba(255,255,255,.38); border-radius: var(--radius-pill); background: rgba(255,255,255,.06); color: var(--color-on-dark); cursor: grab; touch-action: pan-y; user-select: none; -webkit-tap-highlight-color: transparent; transition: background .28s, border-color .28s, box-shadow .28s; }
+.apple-switch--sm { --switch-width: 164px; --switch-height: 46px; --switch-thumb: 34px; }
+.apple-switch--md { --switch-width: 184px; --switch-height: 52px; --switch-thumb: 40px; }
+.apple-switch--lg { --switch-width: 204px; --switch-height: 58px; --switch-thumb: 46px; }
+.apple-switch--light { --switch-track: var(--color-canvas); --switch-border: var(--color-hairline); --switch-text: var(--color-ink); --switch-thumb-bg: var(--color-primary); --switch-mark: var(--color-on-primary); }
+.apple-switch--dark { --switch-track: var(--color-surface-dark); --switch-border: var(--color-surface-dark); --switch-text: var(--color-on-dark); --switch-thumb-bg: var(--color-canvas); --switch-mark: var(--color-ink); }
+.apple-switch--brand { --switch-track: rgba(24,23,21,.16); --switch-border: rgba(255,246,239,.72); --switch-text: #fff6ef; --switch-thumb-bg: #fff6ef; --switch-mark: #d18468; }
+.apple-switch:active { cursor: grabbing; box-shadow: 0 0 0 5px rgba(255,255,255,.14); }
+.apple-switch__thumb { position: absolute; left: var(--switch-inset); top: var(--switch-inset); display: grid; width: var(--switch-thumb); height: var(--switch-thumb); place-items: center; border-radius: 50%; background: var(--switch-thumb-bg); box-shadow: 0 4px 16px rgba(0,0,0,.16); will-change: transform; pointer-events: none; }
+.apple-switch__thumb span { width: 9px; height: 9px; border-top: 2px solid var(--switch-mark); border-right: 2px solid var(--switch-mark); transform: rotate(45deg); }
+.apple-switch__label { position: relative; z-index: 1; font-size: 12px; font-weight: 650; white-space: nowrap; pointer-events: none; }
+.apple-switch.is-on { background: var(--switch-track); border-color: var(--switch-border); justify-content: flex-start; padding: 0 calc(var(--switch-thumb) + 15px) 0 16px; color: var(--switch-text); }
+.apple-switch:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+@media (max-width: 900px) { .approach__card { align-items: flex-start; flex-direction: column; } .approach__actions { width: 100%; } }
+@media (max-width: 640px) { .approach__card { padding: var(--space-xl); } .approach__actions { align-items: stretch; flex-direction: column; } .approach__cta, .apple-switch { width: 100%; justify-content: center; } }

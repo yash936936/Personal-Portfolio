@@ -9,10 +9,10 @@ export default function ContactBand() {
         <Reveal>
           <div className="contact-band__row">
             <h2 className="contact-band__heading">
-              Got a project worth <br /> building well?
+              Have a system worth <br /> building well?
             </h2>
             <Link to="/contact" className="contact-band__cta">
-              Book a call
+              Start a conversation
             </Link>
           </div>
         </Reveal>

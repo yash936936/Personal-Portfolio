@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://personal-portfolio-yashmalik.vercel.app/sitemap.xml

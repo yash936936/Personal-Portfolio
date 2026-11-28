@@ -1,0 +1,78 @@
+.nav-overlay {
+  z-index: 900;
+}
+
+.nav__pill[aria-current="page"],
+.nav-overlay__link[aria-current="page"] {
+  outline: 1px solid color-mix(in srgb, var(--color-primary) 65%, transparent);
+  outline-offset: 2px;
+}
+
+.nav-overlay__link[aria-current="page"] {
+  color: var(--color-primary-active);
+}
+
+@media (max-width: 1040px) {
+  .nav__primary {
+    display: none;
+  }
+
+  .nav__trigger {
+    display: inline-flex;
+  }
+
+  .nav-overlay {
+    align-items: flex-start;
+    padding-top: var(--nav-height);
+  }
+
+  .nav-overlay__inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-height: calc(100svh - var(--nav-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-top: 18px;
+    padding-bottom: 36px;
+  }
+
+  .nav-overlay__offer-title {
+    font-size: 19px;
+  }
+
+  .nav-overlay__offer-desc {
+    display: none;
+  }
+
+  .nav-overlay__offer {
+    padding: 13px 4px;
+    gap: 0;
+  }
+
+  .nav-overlay__links {
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .nav-overlay__link {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-overlay__inner {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .nav-overlay__eyebrow {
+    margin-bottom: 14px;
+  }
+
+  .nav-overlay__contact-email {
+    font-size: 18px;
+    overflow-wrap: anywhere;
+  }
+}

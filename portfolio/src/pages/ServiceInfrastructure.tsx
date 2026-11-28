@@ -3,7 +3,7 @@ import ServicePage from "./ServicePage";
 export default function ServiceInfrastructure() {
   return (
     <ServicePage
-      eyebrow="Service · 03"
+      eyebrow="Deployment & Infrastructure"
       title="Deployment & infra"
       sub="The right cloud setup for the people who'll actually use it."
       steps={[
@@ -14,7 +14,7 @@ export default function ServiceInfrastructure() {
       ]}
       related={[
         { label: "Model design & training", href: "/services/ai" },
-        { label: "Full-stack web apps", href: "/services/web" },
+        { label: "Software development", href: "/services/web" },
       ]}
       accent="var(--color-accent-teal)"
       onAccent="var(--color-ink)"

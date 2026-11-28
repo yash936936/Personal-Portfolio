@@ -1,0 +1,135 @@
+name: Portfolio security and quality
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: portfolio-quality-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  portfolio:
+    name: Frontend audit, links, build and browser checks
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: portfolio
+
+      - name: Audit frontend dependencies
+        run: npm audit --audit-level=high
+        working-directory: portfolio
+
+      - name: Check internal routes, sitemap and content
+        run: npm run check:links
+        working-directory: portfolio
+
+      - name: Lint frontend
+        run: npm run lint
+        working-directory: portfolio
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: portfolio
+
+      - name: Install isolated browser-test dependency
+        run: |
+          mkdir -p "$RUNNER_TEMP/playwright"
+          npm init -y --prefix "$RUNNER_TEMP/playwright"
+          npm install --prefix "$RUNNER_TEMP/playwright" --no-audit --no-fund playwright@1.56.1
+          npx --prefix "$RUNNER_TEMP/playwright" playwright install --with-deps chromium
+        working-directory: portfolio
+
+      - name: Start Vite preview and test responsive routes
+        working-directory: portfolio
+        shell: bash
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/portfolio-preview.log 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill "$PREVIEW_PID" 2>/dev/null || true' EXIT
+
+          READY=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              READY=1
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$READY" -ne 1 ]; then
+            cat /tmp/portfolio-preview.log
+            exit 1
+          fi
+
+          PLAYWRIGHT_PACKAGE="$RUNNER_TEMP/playwright/package.json" \
+            PORTFOLIO_URL=http://127.0.0.1:4173 node scripts/mobile-smoke.mjs
+
+  contact-worker:
+    name: Contact Worker audit and tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Install Worker dependencies
+        run: npm ci
+        working-directory: contact-backend
+
+      - name: Audit Worker dependencies
+        run: npm audit --audit-level=high
+        working-directory: contact-backend
+
+      - name: Type-check Worker source and tests
+        run: |
+          npx tsc --noEmit -p tsconfig.json
+          npx tsc --noEmit -p test/tsconfig.json
+        working-directory: contact-backend
+
+      - name: Run Worker tests
+        run: npm test -- --run
+        working-directory: contact-backend
+
+  codeql:
+    name: CodeQL source analysis
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+
+      - name: Analyze source
+        uses: github/codeql-action/analyze@v4

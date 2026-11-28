@@ -42,10 +42,9 @@ export default function ServicePage({
 
       <section className="container service-steps">
         {steps.map((s, i) => (
-          <Reveal key={s.step} delay={i * 80}>
+          <Reveal key={s.title} delay={i * 80}>
             <div className="service-step">
-              <span className="service-step__ghost" aria-hidden="true">{s.step}</span>
-              <span className="service-step__num">{s.step}</span>
+              
               <div className="service-step__body">
                 <h3 className="service-step__title">{s.title}</h3>
                 <p className="service-step__desc">{s.desc}</p>
@@ -62,20 +61,10 @@ export default function ServicePage({
         <div className="service-related__list">
           {related.map((r, i) => (
             <Reveal key={r.href} delay={i * 70}>
-              <Link to={r.href} className="service-related__item" data-cursor="link">
-                <span className="service-related__dot" aria-hidden="true" />
+              <Link to={r.href} className="service-related__item">
+                
                 {r.label}
-                <span className="service-related__arrow" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                    <path
-                      d="M4 14L14 4M14 4H6M14 4V12"
-                      stroke="currentColor"
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
+                
               </Link>
             </Reveal>
           ))}

@@ -1,0 +1,33 @@
+.scroll-progress {
+  position: fixed;
+  z-index: 1200;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  overflow: hidden;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--color-ink) 16%, var(--color-canvas));
+  box-shadow: 0 1px 8px color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+.scroll-progress__bar {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-primary-active) 62%, white),
+    var(--color-primary-active) 58%,
+    color-mix(in srgb, var(--color-primary-active) 82%, var(--color-ink))
+  );
+  box-shadow:
+    0 0 5px color-mix(in srgb, var(--color-primary-active) 65%, transparent),
+    0 0 12px color-mix(in srgb, var(--color-primary-active) 38%, transparent);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress__bar { will-change: auto; }
+}

@@ -1,14 +1,12 @@
 import "./PageHeader.css";
 
-export default function PageHeader({
-  eyebrow,
-  title,
-  sub,
-}: {
+interface PageHeaderProps {
   eyebrow: string;
   title: string;
   sub?: string;
-}) {
+}
+
+export default function PageHeader({ eyebrow, title, sub }: PageHeaderProps) {
   return (
     <section className="page-header">
       <div className="container">

@@ -1,148 +1,131 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Nav.css";
+import "./NavAccessibility.css";
 
 const offerLinks = [
-  { title: "Model design & training", desc: "For a model that actually solves the problem", href: "/services/ai" },
-  { title: "Full-stack web apps", desc: "A product experience worth shipping", href: "/services/web" },
-  { title: "Deployment & infra", desc: "The right cloud setup, end to end", href: "/services/infrastructure" },
+  { title: "AI systems and agentic workflows", desc: "LLM applications, retrieval and model integration", href: "/services/ai" },
+  { title: "Software development", desc: "Build and ship dependable applications", href: "/services/web" },
+  { title: "Deployment and infrastructure", desc: "Backend services and cloud integration", href: "/services/infrastructure" },
 ];
-
 const primaryLinks = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
 ];
-
-// Pages with dark backgrounds where nav trigger needs to be light
+const exploreLinks = [...primaryLinks, { label: "Contact", href: "/contact" }];
 const DARK_BG_ROUTES = ["/work", "/contact"];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  const closeMenu = () => setOpen(false);
-
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
+  const closeMenu = useCallback(() => setOpen(false), []);
   const isDarkPage = DARK_BG_ROUTES.includes(location.pathname);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const next = window.scrollY > 24;
+      setScrolled((current) => current === next ? current : next);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = open ? "hidden" : previousOverflow;
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [open]);
-
-  // Close menu on route change
   useEffect(() => {
-    closeMenu();
-  }, [location.pathname]);
+    if (!open) {
+      if (wasOpenRef.current) {
+        wasOpenRef.current = false;
+        triggerRef.current?.focus();
+      }
+      return;
+    }
+    wasOpenRef.current = true;
+    const frame = window.requestAnimationFrame(() => overlayRef.current?.querySelector<HTMLElement>("a[href]")?.focus());
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); closeMenu(); return; }
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(
+        overlayRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], area[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), iframe, object, embed, [contenteditable="true"], [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((element) => !element.hasAttribute("hidden") && element.getAttribute("aria-hidden") !== "true" && element.getClientRects().length > 0);
+      if (!focusable.length) {
+        event.preventDefault();
+        overlayRef.current?.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !overlayRef.current?.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !overlayRef.current?.contains(document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => { window.cancelAnimationFrame(frame); document.removeEventListener("keydown", onKeyDown); };
+  }, [open, closeMenu]);
 
-  return (
-    <>
-      <header className={`nav ${scrolled ? "nav--scrolled" : ""} ${isDarkPage ? "nav--dark-page" : ""}`}>
-        <div className="nav__inner container">
-          <Link to="/" className="nav__logo" aria-label="Home" onClick={closeMenu}>
-            <span className="nav__logo-mark">Y</span>
-            <span className="nav__logo-word">Yash</span>
-          </Link>
-
-          <button
-            className={`nav__trigger ${open ? "nav__trigger--open" : ""}`}
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-label="Toggle menu"
-          >
-            <span className="nav__trigger-label">{open ? "Close" : "Menu"}</span>
-            <span className="nav__trigger-icon">
-              <span />
-              <span />
-            </span>
-          </button>
-
-          <nav className="nav__primary" aria-label="Primary">
-            <div className="nav__track">
-              {primaryLinks.map((l) => (
-                <Link key={l.href} to={l.href} className="nav__pill">
-                  {l.label}
-                </Link>
-              ))}
-              <span className="nav__divider" aria-hidden="true" />
-              <Link to="/contact" className="nav__pill nav__pill--cta">
-                <span className="nav__pill-arrow nav__pill-arrow--left" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" focusable="false">
-                    <path d="M4 10h11M11 6l4 4-4 4" />
-                  </svg>
-                </span>
-                <span className="nav__pill-cta-label">Contact</span>
-                <span className="nav__pill-arrow nav__pill-arrow--right" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" focusable="false">
-                    <path d="M4 10h11M11 6l4 4-4 4" />
-                  </svg>
-                </span>
-              </Link>
-            </div>
-          </nav>
+  return <>
+    <header className={"nav " + (scrolled ? "nav--scrolled " : "") + (isDarkPage ? "nav--dark-page" : "")}>
+      <div className="nav__inner container">
+        <Link to="/" className="nav__logo" aria-label="Home" onClick={closeMenu}>
+          <span className="nav__logo-mark">Y</span><span className="nav__logo-word">Yash</span>
+        </Link>
+        <button ref={triggerRef} type="button" className={"nav__trigger " + (open ? "nav__trigger--open" : "")} onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="site-navigation-overlay" aria-label={open ? "Close navigation menu" : "Open navigation menu"}>
+          <span className="nav__trigger-label">{open ? "Close" : "Menu"}</span><span className="nav__trigger-icon" aria-hidden="true"><span /><span /></span>
+        </button>
+        <nav className="nav__primary" aria-label="Primary navigation">
+          <div className="nav__track">
+            {primaryLinks.map((link) => <Link key={link.href} to={link.href} className="nav__pill" aria-current={location.pathname === link.href ? "page" : undefined}>{link.label}</Link>)}
+            <span className="nav__divider" aria-hidden="true" />
+            <Link to="/contact" className="nav__pill nav__pill--cta" aria-current={location.pathname === "/contact" ? "page" : undefined}>
+              <span className="nav__pill-arrow nav__pill-arrow--left" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+              <span className="nav__pill-cta-label">Contact</span>
+              <span className="nav__pill-arrow nav__pill-arrow--right" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </Link>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <div id="site-navigation-overlay" ref={overlayRef} className={"nav-overlay " + (open ? "nav-overlay--open" : "")} role="dialog" aria-modal={open} aria-label="Site navigation" aria-hidden={!open} inert={!open}>
+      <div className="nav-overlay__inner container">
+        <div className="nav-overlay__col">
+          <span className="eyebrow nav-overlay__eyebrow">Engineering capabilities</span>
+          <ul className="nav-overlay__offers">
+            {offerLinks.map((offer, index) => <li key={offer.href} style={{ transitionDelay: open ? (120 + index * 70) + "ms" : "0ms" }} className="nav-overlay__offer-item">
+              <Link to={offer.href} className="nav-overlay__offer" onClick={closeMenu}><span className="nav-overlay__offer-title">{offer.title}</span><span className="nav-overlay__offer-desc">{offer.desc}</span></Link>
+            </li>)}
+          </ul>
         </div>
-      </header>
-
-      <div className={`nav-overlay ${open ? "nav-overlay--open" : ""}`}>
-        <div className="nav-overlay__inner container">
-          <div className="nav-overlay__col">
-            <span className="eyebrow nav-overlay__eyebrow">Services</span>
-            <ul className="nav-overlay__offers">
-              {offerLinks.map((o, i) => (
-                <li
-                  key={o.href}
-                  style={{ transitionDelay: open ? `${120 + i * 70}ms` : "0ms" }}
-                  className="nav-overlay__offer-item"
-                >
-                  <Link to={o.href} className="nav-overlay__offer" onClick={closeMenu}>
-                    <span className="nav-overlay__offer-title">{o.title}</span>
-                    <span className="nav-overlay__offer-desc">{o.desc}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="nav-overlay__col">
-            <span className="eyebrow nav-overlay__eyebrow">Explore</span>
-            <ul className="nav-overlay__links">
-              {[
-                { label: "Home", href: "/" },
-                { label: "Work", href: "/work" },
-                { label: "About", href: "/about" },
-                { label: "Contact", href: "/contact" },
-              ].map((l, i) => (
-                <li
-                  key={l.href}
-                  style={{ transitionDelay: open ? `${180 + i * 70}ms` : "0ms" }}
-                  className="nav-overlay__link-item"
-                >
-                  <Link to={l.href} className="nav-overlay__link" onClick={closeMenu}>
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className="nav-overlay__contact">
-              <p className="nav-overlay__contact-label">Say hello</p>
-              <a href="mailto:yashsunilmalik@gmail.com" className="nav-overlay__contact-email">
-                yashsunilmalik@gmail.com
-              </a>
-            </div>
-          </div>
+        <div className="nav-overlay__col">
+          <span className="eyebrow nav-overlay__eyebrow">Explore</span>
+          <ul className="nav-overlay__links">
+            {exploreLinks.map((link, index) => <li key={link.href} style={{ transitionDelay: open ? (180 + index * 55) + "ms" : "0ms" }} className="nav-overlay__link-item">
+              <Link to={link.href} className="nav-overlay__link" onClick={closeMenu} aria-current={location.pathname === link.href ? "page" : undefined}>{link.label}</Link>
+            </li>)}
+          </ul>
+          <div className="nav-overlay__contact"><p className="nav-overlay__contact-label">Say hello</p><a href="mailto:yashsunilmalik@gmail.com" className="nav-overlay__contact-email">yashsunilmalik@gmail.com</a></div>
         </div>
       </div>
-    </>
-  );
+    </div>
+  </>;
 }

@@ -1,197 +1,109 @@
-import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import { Link } from "react-router-dom";
+import { gsap } from "gsap";
 import { offers } from "../../data/content";
 import Reveal from "../Reveal";
 import "./Services.css";
 
-const META = [
-  {
-    label: "AI & Agentic Systems",
-    bg: "var(--color-primary)",
-    fg: "var(--color-on-primary)",
-    style: { top: "8%", left: "34%" },
-    side: "left" as const,
-    vAnchor: "top" as const,
-    depth: 16,
-    floatDelay: "0s",
-  },
-  {
-    label: "Full-stack Web Apps",
-    bg: "#4f6f8a",
-    fg: "#fdfaf5",
-    style: { top: "42%", right: "6%" },
-    side: "right" as const,
-    vAnchor: "top" as const,
-    depth: 24,
-    floatDelay: "1.4s",
-  },
-  {
-    label: "Deployment & Infra",
-    bg: "var(--color-accent-teal)",
-    fg: "var(--color-ink)",
-    style: { top: "76%", left: "5%" },
-    side: "left" as const,
-    vAnchor: "bottom" as const,
-    depth: 12,
-    floatDelay: "2.6s",
-  },
+const CAPABILITY_META = [
+  { label: "AI & agentic systems", number: "", accent: "var(--color-primary)" },
+  { label: "Software development", number: "", accent: "var(--color-primary)" },
+  { label: "Deployment & infrastructure", number: "", accent: "var(--color-primary)" },
 ] as const;
 
 export default function Services() {
-  const [active, setActive] = useState<number | null>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const detailRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
-    return () => { if (closeTimerRef.current) clearTimeout(closeTimerRef.current); };
-  }, []);
-
-  function open(i: number) {
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    setActive(i);
-  }
-
-  function close() {
-    closeTimerRef.current = setTimeout(() => setActive(null), 300);
-  }
-
-  function toggle(i: number) {
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    if (active === i) {
-      navigate(offers[i].href);
-    } else {
-      setActive(i);
-    }
-  }
-
-  function handleStageMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const el = stageRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const mx = (e.clientX - rect.left) / rect.width - 0.5;
-    const my = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.setProperty("--mx", mx.toFixed(3));
-    el.style.setProperty("--my", my.toFixed(3));
-  }
-
-  function handleStageMouseLeave() {
-    const el = stageRef.current;
-    if (!el) return;
-    el.style.setProperty("--mx", "0");
-    el.style.setProperty("--my", "0");
-  }
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    detailRefs.current.forEach((element, index) => {
+      if (!element) return;
+      gsap.killTweensOf(element);
+      gsap.to(element, {
+        height: index === activeIndex ? "auto" : 0,
+        opacity: index === activeIndex ? 1 : 0,
+        duration: reduceMotion ? 0 : index === activeIndex ? 0.72 : 0.28,
+        ease: index === activeIndex ? "elastic.out(1, 0.78)" : "power3.inOut",
+        overwrite: "auto",
+      });
+    });
+    const elements = detailRefs.current;
+    return () => elements.forEach((element) => element && gsap.killTweensOf(element));
+  }, [activeIndex]);
 
   return (
-    <section className="services">
+    <section className="services" id="engineering-capabilities">
       <div className="container">
         <div className="services__intro">
           <Reveal>
-            <span className="services__eyebrow">Be precise. Be fast. Be bold.</span>
-            <h2 className="services__heading">
-              Turning ambition <br /> into shipped systems
-            </h2>
+            <span className="services__eyebrow">Engineering capabilities</span>
+            <h2 className="services__heading">Designing, building <br /> and delivering systems</h2>
           </Reveal>
-
           <Reveal delay={100} className="services__intro-right">
             <p className="services__sub">
-              I combine strategy, engineering, and design to build the thing you actually
-              need — and make sure it reaches production.
+              AI engineering leads the work. Software development and infrastructure
+              help turn prototypes into dependable applications.
             </p>
-            <Link to="/contact" className="services__cta">
-              Book a call
-            </Link>
+            <Link to="/contact" className="services__cta">Discuss an idea</Link>
           </Reveal>
         </div>
-
-        <Reveal delay={140}>
-          <div
-            className="services__stage"
-            ref={stageRef}
-            onMouseMove={handleStageMouseMove}
-            onMouseLeave={handleStageMouseLeave}
-          >
-            <span className="services__ring services__ring--a" aria-hidden="true" />
-            <span className="services__ring services__ring--b" aria-hidden="true" />
-
-            {offers.map((offer, i) => {
-              const meta = META[i];
-              const isActive = active === i;
-              return (
-                <div
-                  key={offer.href}
-                  className={[
-                    "services__item",
-                    `services__item--${meta.side}`,
-                    `services__item--anchor-${meta.vAnchor}`,
-                    isActive ? "services__item--active" : "",
-                  ].join(" ")}
-                  style={
-                    { ...meta.style, "--depth": `${meta.depth}px` } as unknown as React.CSSProperties
+        <div className="services__list" id="capability-list" aria-label="Engineering capabilities">
+          {offers.map((offer, index) => {
+            const meta = CAPABILITY_META[index];
+            const isActive = activeIndex === index;
+            const detailId = `capability-detail-${index}`;
+            return (
+              <article
+                className={`services__row ${isActive ? "is-active" : ""}`}
+                key={offer.href}
+                style={{ "--service-accent": meta.accent } as CSSProperties}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={(event) => {
+                  if (!event.currentTarget.contains(document.activeElement)) {
+                    setActiveIndex((current) => current === index ? -1 : current);
                   }
-                  onMouseEnter={() => open(i)}
-                  onMouseLeave={close}
-                >
-                  <div
-                    className="services__item-inner"
-                    style={
-                      { "--float-delay": meta.floatDelay } as unknown as React.CSSProperties
-                    }
+                }}
+                onFocusCapture={() => setActiveIndex(index)}
+                onBlurCapture={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    setActiveIndex((current) => current === index ? -1 : current);
+                  }
+                }}
+              >
+                <div className="services__row-trigger">
+                  
+                  <Link to={offer.href} className="services__row-title" onFocus={() => setActiveIndex(index)}>
+                    {offer.title.replace(/\n/g, " ")}
+                  </Link>
+                  <span className="services__row-label">{meta.label}</span>
+                  <button
+                    type="button"
+                    className="services__row-icon"
+                    aria-label={`${isActive ? "Collapse" : "Expand"} ${meta.label}`}
+                    aria-expanded={isActive}
+                    aria-controls={detailId}
+                    onFocus={() => setActiveIndex(index)}
+                    onClick={() => setActiveIndex(isActive ? -1 : index)}
                   >
-                    <button
-                      type="button"
-                      className="services__pill"
-                      style={{ background: meta.bg, color: meta.fg }}
-                      onClick={() => toggle(i)}
-                      aria-expanded={isActive}
-                    >
-                      {meta.label}
-                      <span className="services__pill-icon" aria-hidden="true">
-                        <svg className="services__icon services__icon--arrow" viewBox="0 0 20 20" focusable="false">
-                          <path d="M4 10h11M11 6l4 4-4 4" />
-                        </svg>
-                        <svg className="services__icon services__icon--close" viewBox="0 0 20 20" focusable="false">
-                          <path d="M5 5l10 10M15 5L5 15" />
-                        </svg>
-                      </span>
-                    </button>
-
-                    <div className="services__card" aria-hidden={!isActive}>
-                      <span className="services__card-kicker">{offer.kicker}</span>
-                      <h3 className="services__card-title">
-                        {offer.title.split("\n").map((line, li) => (
-                          <span key={li} className="services__card-title-row">
-                            {line}
-                          </span>
-                        ))}
-                      </h3>
-
-                      <Link
-                        to={offer.href}
-                        className="services__card-link"
-                        data-cursor="link"
-                        tabIndex={isActive ? 0 : -1}
-                      >
-                        <span>{offer.desc}</span>
-                        <span className="services__card-arrow" aria-hidden="true">
-                          <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                            <path
-                              d="M4 14L14 4M14 4H6M14 4V12"
-                              stroke="currentColor"
-                              strokeWidth="1.4"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </span>
-                      </Link>
-                    </div>
+                    <span aria-hidden="true">{isActive ? "−" : "+"}</span>
+                  </button>
+                </div>
+                <div
+                  className="services__row-detail"
+                  id={detailId}
+                  aria-hidden={!isActive}
+                  ref={(element) => { detailRefs.current[index] = element; }}
+                >
+                  <div className="services__row-detail-inner">
+                    <p>{offer.desc}</p>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </Reveal>
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

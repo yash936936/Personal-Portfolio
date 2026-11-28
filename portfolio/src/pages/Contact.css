@@ -151,3 +151,7 @@ a.contact-info__value:hover {
     gap: 36px;
   }
 }
+.contact-info__value {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
