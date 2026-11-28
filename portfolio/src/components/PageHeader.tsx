@@ -20,16 +20,24 @@ export default function PageHeader({ eyebrow, title, sub }: PageHeaderProps) {
         {pathname !== "/" && (
           <nav className="page-header__breadcrumbs" aria-label="Breadcrumb">
             <Link to="/">Home</Link>
-            {parent && parent.href !== pathname && (
+            {parent && (
               <>
                 <span aria-hidden="true">/</span>
-                {segments.length > 1 ? <Link to={parent.href}>{parent.label}</Link> : <span aria-current="page">{parent.label}</span>}
+                {parent.href === pathname
+                  ? <span aria-current="page">{parent.label}</span>
+                  : <Link to={parent.href}>{parent.label}</Link>}
               </>
             )}
             {segments.length > 1 && (
               <>
                 <span aria-hidden="true">/</span>
                 <span aria-current="page">{title.replace(/\n/g, " ")}</span>
+              </>
+            )}
+            {parent && segments.length > 1 && (
+              <>
+                <span aria-hidden="true">/</span>
+                <span aria-current="page">{title.replace(/\\n/g, " ")}</span>
               </>
             )}
             {!parent && segments.length === 1 && (
