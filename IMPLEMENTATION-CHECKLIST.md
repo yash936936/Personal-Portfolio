@@ -20,7 +20,7 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 - [x] Add unique route-specific page titles and meta descriptions.
 - [x] Add canonical URLs, Open Graph and Twitter metadata, Person structured data, and a crawler access policy.
 - [x] Add build-time sitemap generation and a matching robots.txt Sitemap directive when `VITE_SITE_URL` is configured.
-- [ ] Set `VITE_SITE_URL` to the real production hostname before deployment.
+- [x] Set `VITE_SITE_URL` on the Vercel project serving `personal-portfolio-yashmalik.vercel.app` for production and preview builds.
 - [x] Remove form placeholder copy; visible labels now carry the field instructions.
 - [x] Add contact success and error states with live-region announcements.
 - [x] Add alt attributes to image elements; decorative technology icons use empty alt text and are hidden from assistive technology.
@@ -41,9 +41,9 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 ## Analytics and endpoint security
 
 - [x] Add optional Cloudflare Web Analytics integration.
-- [ ] Activate analytics: set `VITE_CF_WEB_ANALYTICS_TOKEN` in the portfolio build environment.
+- [ ] Activate analytics: add `VITE_CF_WEB_ANALYTICS_TOKEN` to the Vercel project after creating a Cloudflare Web Analytics token.
 - [x] Restrict the contact Worker to an exact configured `ALLOWED_ORIGIN`, validate fields, reject a honeypot submission, cap request size, and escape HTML email content.
-- [ ] Configure production `ALLOWED_ORIGIN` in Cloudflare: the production website hostname is not present in the repository.
+- [x] Configure `ALLOWED_ORIGIN` in `contact-backend/wrangler.jsonc` for `https://personal-portfolio-yashmalik.vercel.app`. Deploy the Worker to apply it.
 - [ ] Add Cloudflare rate limiting or Turnstile: this requires a Cloudflare dashboard rule or site/secret keys.
 - [x] Review RLS applicability: the current Worker has no database binding or database-backed endpoint, so row-level security does not apply. If a database is added later, enable RLS on its exposed tables.
 
