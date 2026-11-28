@@ -61,7 +61,7 @@ describe("portfolio contact worker", () => {
       testEnv,
     );
     const injectedEmail = await worker.fetch(
-      makeRequest({ ...validPayload, email: "hello@example.com\\r\\nBcc:other@example.com" }),
+      makeRequest({ ...validPayload, email: "hello@example.com\r\nBcc:other@example.com" }),
       testEnv,
     );
     const longName = await worker.fetch(
