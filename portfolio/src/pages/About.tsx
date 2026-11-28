@@ -65,14 +65,12 @@ export default function About() {
           <div className="about__sticky-nav">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
-              {["overview", "skills", "connect"].map((id, i) => (
+              {["overview", "skills", "connect"].map((id) => (
                 <li key={id}>
                   <button
                     className={`about__nav-btn ${activeSection === id ? "active" : ""}`}
                     onClick={() => scrollToSection(id)}
                   >
-                    <span className="about__nav-dot" aria-hidden="true" />
-                    <span className="about__nav-index">{String(i + 1).padStart(2, "0")}</span>
                     {id.charAt(0).toUpperCase() + id.slice(1)}
                   </button>
                 </li>
