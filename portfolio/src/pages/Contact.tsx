@@ -111,8 +111,8 @@ export default function Contact() {
                 {status === "loading" ? "Sending..." : "Send Message"}
               </button>
               {status === "error" && (
-                <p className="text-red-500 mt-4" role="alert">
-                  Something went wrong. Please try again.
+                <p className="contact-error" role="alert" aria-live="assertive">
+                  Your message could not be sent. Please check your connection and try again.
                 </p>
               )}
             </form>
