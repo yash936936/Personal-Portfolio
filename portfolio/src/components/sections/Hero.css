@@ -25,7 +25,7 @@
   border-right: 1px solid var(--color-hairline);
   opacity: 0;
   transform: translateX(-28px);
-  transition: opacity 0.9s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+  transition: opacity 0.85s cubic-bezier(.22, 1, .36, 1), transform 0.95s cubic-bezier(.22, 1, .36, 1);
 }
 
 .hero--entered .hero__visual {
@@ -41,7 +41,7 @@
   border: 0;
   background: transparent;
   transform: rotate(-43deg) scale(0.92);
-  transition: transform 1.25s var(--ease-in-out-quart);
+  transition: transform 1s cubic-bezier(.22, 1, .36, 1);
 }
 
 .hero--entered .hero__switch {
@@ -105,7 +105,7 @@
   box-shadow:
     0 16px 34px rgba(20, 20, 19, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition: top 1.25s var(--ease-in-out-quart), transform 1.25s var(--ease-in-out-quart), background-color 0.3s;
+  transition: top 0.95s cubic-bezier(.22, 1, .36, 1), transform 0.95s cubic-bezier(.22, 1, .36, 1), background-color 0.3s ease;
 }
 
 .hero__switch--bottom .hero__switch-control {
@@ -148,7 +148,7 @@
   color: var(--color-primary-active);
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 0.7s var(--ease-out-expo) 0.18s, transform 0.7s var(--ease-out-expo) 0.18s;
+  transition: opacity 0.75s cubic-bezier(.22, 1, .36, 1) 0.12s, transform 0.85s cubic-bezier(.22, 1, .36, 1) 0.12s;
 }
 
 .hero--entered .hero__eyebrow {
@@ -185,7 +185,7 @@
   display: block;
   opacity: 0;
   transform: translateY(112%);
-  transition: transform 0.82s var(--ease-in-out-quart), opacity 0.4s ease;
+  transition: transform 0.95s cubic-bezier(.22, 1, .36, 1), opacity 0.55s ease;
 }
 
 .hero__headline-row:nth-child(2) > span {
@@ -219,7 +219,7 @@
   color: var(--color-muted);
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.55s ease, transform 0.7s var(--ease-out-expo);
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(.22, 1, .36, 1);
   pointer-events: none;
 }
 
@@ -260,7 +260,7 @@
   font-size: 13px;
   color: var(--color-body);
   border-bottom: 1px solid var(--color-body);
-  transition: color 0.25s, border-color 0.25s;
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .hero__work-link:hover {
