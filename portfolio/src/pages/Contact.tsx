@@ -74,6 +74,10 @@ export default function Contact() {
               onSubmit={handleSubmit}
               aria-busy={status === "loading"}
             >
+              <label className="contact-form__honeypot" aria-hidden="true">
+                <span>Leave this field empty</span>
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+              </label>
               <label className="contact-form__field">
                 <span>Name</span>
                 <input
@@ -82,7 +86,6 @@ export default function Contact() {
                   autoComplete="name"
                   maxLength={120}
                   required
-                  placeholder="Your name"
                 />
               </label>
               <label className="contact-form__field">
@@ -93,7 +96,6 @@ export default function Contact() {
                   autoComplete="email"
                   maxLength={254}
                   required
-                  placeholder="you@example.com"
                 />
               </label>
               <label className="contact-form__field">
@@ -103,7 +105,6 @@ export default function Contact() {
                   rows={5}
                   maxLength={5000}
                   required
-                  placeholder="A few lines about the project..."
                 />
               </label>
               <button type="submit" className="contact-form__submit" disabled={status === "loading"}>
