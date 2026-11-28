@@ -29,7 +29,7 @@ export default function SiteAnalytics() {
       if (!link) return;
       const href = link.getAttribute("href") ?? "";
       let eventName: string | undefined;
-      let label = link.textContent?.trim().replace(/\\s+/g, " ").slice(0, 80) ?? "";
+      const label = link.textContent?.trim().replace(/\\s+/g, " ").slice(0, 80) ?? "";
       if (href.startsWith("mailto:")) eventName = "Contact email click";
       else if (href === "/contact") eventName = "Contact CTA click";
       else if (href.startsWith("/work/")) eventName = "Project detail click";
@@ -38,8 +38,13 @@ export default function SiteAnalytics() {
       if (eventName) window.plausible?.(eventName, { props: { label, destination: href } });
     };
 
+    const trackContactSuccess = () => window.plausible?.("Contact form submitted");
     document.addEventListener("click", trackInteraction);
-    return () => document.removeEventListener("click", trackInteraction);
+    document.addEventListener("portfolio:contact-success", trackContactSuccess);
+    return () => {
+      document.removeEventListener("click", trackInteraction);
+      document.removeEventListener("portfolio:contact-success", trackContactSuccess);
+    };
   }, []);
 
   return null;
