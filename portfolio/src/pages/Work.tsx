@@ -175,7 +175,6 @@ export default function Work() {
         tabIndex={showBackToTop ? 0 : -1}
       >
         <span aria-hidden="true">↑</span>
-        <span>Back to top</span>
       </button>
     </div>
   );
