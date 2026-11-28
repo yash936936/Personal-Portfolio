@@ -31,6 +31,10 @@ try {
 const routes = [
   "/",
   "/work",
+  "/work/agm",
+  "/work/sysdesign-ai",
+  "/work/coding-harness",
+  "/work/fathom",
   "/services",
   "/services/ai",
   "/services/web",
