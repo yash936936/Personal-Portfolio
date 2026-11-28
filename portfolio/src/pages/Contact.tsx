@@ -56,7 +56,7 @@ export default function Contact() {
               <span className="contact-info__label">Elsewhere</span>
               <div className="contact-info__links">
                 <a href="https://github.com/yash936936" target="_blank" rel="noreferrer">GitHub</a>
-                <a href="https://linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/yashmalik-" target="_blank" rel="noreferrer">LinkedIn</a>
               </div>
             </div>
           </div>
