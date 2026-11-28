@@ -9,10 +9,13 @@ export default function CtaBand() {
     const video = videoRef.current;
     if (!video) return;
 
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches || typeof IntersectionObserver === "undefined") return;
+
     let startTimer: ReturnType<typeof setTimeout> | null = null;
 
     const clearStartTimer = () => {
-      if (startTimer) {
+      if (startTimer !== null) {
         clearTimeout(startTimer);
         startTimer = null;
       }
@@ -22,17 +25,18 @@ export default function CtaBand() {
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          // Wait 2s after the section becomes visible before playing
+          clearStartTimer();
           startTimer = setTimeout(() => {
-            video.play().catch(() => {});
+            video.play().catch(() => {
+              // Autoplay may be blocked; the poster remains visible.
+            });
           }, 2000);
         } else {
-          // Left the viewport: cancel any pending start and stop playback
           clearStartTimer();
           video.pause();
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
 
     observer.observe(video);
@@ -40,11 +44,12 @@ export default function CtaBand() {
     return () => {
       clearStartTimer();
       observer.disconnect();
+      video.pause();
     };
   }, []);
 
   return (
-    <section className="cta-band">
+    <section className="cta-band" aria-label="Portfolio showcase">
       <div className="container">
         <Reveal>
           <div className="cta-band__card">
@@ -57,6 +62,7 @@ export default function CtaBand() {
               muted
               playsInline
               preload="metadata"
+              aria-label="A short visual showcase of selected portfolio work"
             />
           </div>
         </Reveal>
