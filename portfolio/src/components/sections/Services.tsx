@@ -59,6 +59,18 @@ export default function Services() {
                 className={`services__row ${isActive ? "is-active" : ""}`}
                 key={offer.href}
                 style={{ "--service-accent": meta.accent } as CSSProperties}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={(event) => {
+                  if (!event.currentTarget.contains(document.activeElement)) {
+                    setActiveIndex((current) => current === index ? -1 : current);
+                  }
+                }}
+                onFocusCapture={() => setActiveIndex(index)}
+                onBlurCapture={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    setActiveIndex((current) => current === index ? -1 : current);
+                  }
+                }}
               >
                 <div className="services__row-trigger">
                   
@@ -84,7 +96,9 @@ export default function Services() {
                   aria-hidden={!isActive}
                   ref={(element) => { detailRefs.current[index] = element; }}
                 >
-                  <div className="services__row-detail-inner"><p>{offer.desc}</p></div>
+                  <div className="services__row-detail-inner">
+                    <p>{offer.desc}</p>
+                  </div>
                 </div>
               </article>
             );
