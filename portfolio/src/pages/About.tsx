@@ -124,7 +124,7 @@ export default function About() {
                     <span className="reveal-card__title">GitHub</span>
                   </div>
                   <div className="reveal-card__content">
-                    <p>View Repositories ➔</p>
+                    <p>View repositories</p>
                   </div>
                 </a>
 
@@ -133,7 +133,7 @@ export default function About() {
                     <span className="reveal-card__title">LinkedIn</span>
                   </div>
                   <div className="reveal-card__content">
-                    <p>Connect Professionally ➔</p>
+                    <p>Connect professionally</p>
                   </div>
                 </a>
 
@@ -142,7 +142,7 @@ export default function About() {
                     <span className="reveal-card__title">Certifications</span>
                   </div>
                   <div className="reveal-card__content">
-                    <p>View Credentials ➔</p>
+                    <p>View credentials</p>
                   </div>
                 </a>
 
