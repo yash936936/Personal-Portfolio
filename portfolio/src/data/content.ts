@@ -2,12 +2,12 @@ export const heroTag = "AI ENGINEERING";
 
 export const heroLines = [
   {
-    title: "Awaken your\nthinking\npartner",
-    sub: "A practical AI engineering practice focused on agentic systems, applied machine learning and intelligent software.",
+    title: "Engineering\nintelligent\nsystems",
+    sub: "I design and build AI systems, agentic workflows and research-driven software with clear architecture and measurable behavior.",
   },
   {
-    title: "From ideas\nto working\nsystems",
-    sub: "I design, build and test AI-powered applications, with attention to architecture, evidence and real-world constraints.",
+    title: "Research to\nworking\narchitecture",
+    sub: "My work spans LLM applications, agent memory, retrieval, evaluation and the engineering needed to make these systems dependable.",
   },
 ];
 
