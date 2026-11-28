@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import RouteMetadata from "./components/RouteMetadata";
 import SiteAnalytics from "./components/SiteAnalytics";
 import { useScrollToTop } from "./hooks/useScrollToTop";
+import SitePreloader from "./components/SitePreloader";
 import Home from "./pages/Home";
 import Work from "./pages/Work";
 import ProjectDetail from "./pages/ProjectDetail";
@@ -44,6 +45,7 @@ function Shell() {
 }
 export default function App() {
   return <>
+    <SitePreloader />
     <a className="skip-link" href="#main-content">Skip to main content</a>
     <SiteAnalytics />
     <Nav />
