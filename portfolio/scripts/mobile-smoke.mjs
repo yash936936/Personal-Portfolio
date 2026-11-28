@@ -45,6 +45,9 @@ try {
         documentWidth: document.documentElement.scrollWidth,
         bodyWidth: document.body.scrollWidth,
         headingCount: document.querySelectorAll("main h1").length,
+        hasPreloader: Boolean(document.querySelector(".site-preloader, .exscem-loader")),
+        hasBreadcrumbs: Boolean(document.querySelector(".page-header__breadcrumbs, .blog-breadcrumbs")),
+        workEyebrow: document.querySelector(".page-header__eyebrow")?.textContent?.trim() ?? "",
         title: document.title.trim(),
         description: document.querySelector('meta[name="description"]')?.getAttribute("content")?.trim() ?? "",
         internalLinks: [...document.querySelectorAll('a[href^="/"]')].map((link) => link.getAttribute("href")).filter(Boolean),
@@ -79,6 +82,9 @@ try {
         failures.push(route + " at " + width + "px has no document title");
       }
       if (!result.description) failures.push(route + " at " + width + "px has no meta description");
+      if (result.hasPreloader) failures.push(route + " at " + width + "px unexpectedly renders a loading animation");
+      if (result.hasBreadcrumbs) failures.push(route + " at " + width + "px unexpectedly renders breadcrumb navigation");
+      if (route === "/work" && result.workEyebrow !== "Work") failures.push("Work page eyebrow should read Work, received: " + result.workEyebrow);
       if (result.brokenAnchors) failures.push(route + " at " + width + "px contains " + result.brokenAnchors + " empty or placeholder anchors");
       if (result.imagesMissingAlt) failures.push(route + " at " + width + "px contains images without alt attributes");
       if (result.unnamedButtons) failures.push(route + " at " + width + "px contains " + result.unnamedButtons + " buttons without accessible names");
