@@ -150,7 +150,7 @@ export function createRenderer({ canvas }: RendererOptions) {
   };
   document.addEventListener("visibilitychange", onVisibilityChange);
 
-  if ("ResizeObserver" in window) {
+  if (typeof ResizeObserver !== "undefined") {
     resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);
   } else {
