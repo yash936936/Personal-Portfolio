@@ -172,6 +172,7 @@
   flex-direction: column;
 }
 .work-page__intro .page-header { flex: 0 0 auto; }
+.work-page__intro .prototype-picker { flex: 0 0 auto; margin-top: clamp(34px, 6vh, 64px); }
 .work-scroll-cue {
   display: grid;
   place-items: center;
