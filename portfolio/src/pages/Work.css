@@ -188,11 +188,7 @@
   transition: opacity .25s ease, padding .35s ease, visibility .25s ease;
 }
 .work-page__intro.has-scrolled .work-scroll-cue {
-  padding-top: 0;
-  padding-bottom: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  display: none;
 }
 .work-scroll-cue__content { display: grid; justify-items: center; gap: 12px; }
 .work-scroll-cue__content > span {
