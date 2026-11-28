@@ -33,6 +33,7 @@ export default function Contact() {
       if (!response.ok) throw new Error("Contact submission failed");
       formElement.reset();
       setTurnstileToken(null);
+      document.dispatchEvent(new Event("portfolio:contact-success"));
       setStatus("success");
     } catch {
       setStatus("error");
