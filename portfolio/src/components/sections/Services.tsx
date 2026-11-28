@@ -83,19 +83,28 @@ export default function Services() {
                 style={{ "--service-accent": meta.accent } as CSSProperties}
                 onMouseEnter={() => setActiveIndex(index)}
               >
-                <button
-                  type="button"
-                  className="services__row-trigger"
-                  aria-expanded={isActive}
-                  aria-controls={detailId}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(isActive ? -1 : index)}
-                >
+                <div className="services__row-trigger">
                   <span className="services__row-number">{meta.number}</span>
-                  <span className="services__row-title">{offer.title.replace(/\n/g, " ")}</span>
+                  <Link
+                    to={offer.href}
+                    className="services__row-title"
+                    onFocus={() => setActiveIndex(index)}
+                  >
+                    {offer.title.replace(/\n/g, " ")}
+                  </Link>
                   <span className="services__row-label">{meta.label}</span>
-                  <span className="services__row-icon" aria-hidden="true">↗</span>
-                </button>
+                  <button
+                    type="button"
+                    className="services__row-icon"
+                    aria-label={`${isActive ? "Collapse" : "Expand"} ${meta.label}`}
+                    aria-expanded={isActive}
+                    aria-controls={detailId}
+                    onFocus={() => setActiveIndex(index)}
+                    onClick={() => setActiveIndex(isActive ? -1 : index)}
+                  >
+                    <span aria-hidden="true">↗</span>
+                  </button>
+                </div>
 
                 <div
                   className="services__row-detail"
