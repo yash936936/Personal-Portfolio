@@ -25,9 +25,9 @@
   pointer-events: none;
 }
 .home-featured__hero-kicker { position: relative; z-index: 1; color: #d99579; font-family: var(--font-code); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
-.home-featured__hero h3 { position: relative; z-index: 1; max-width: 480px; margin: auto 0 24px; font-family: var(--font-display); font-size: clamp(34px, 4vw, 52px); font-weight: 400; line-height: 1.06; letter-spacing: -.04em; }
+.home-featured__hero h3 { position: relative; z-index: 1; max-width: 480px; margin: auto 0 24px; color: var(--color-primary); font-family: var(--font-display); font-size: clamp(34px, 4vw, 52px); font-weight: 400; line-height: 1.06; letter-spacing: -.04em; }
 .home-featured__hero p { position: relative; z-index: 1; max-width: 430px; color: rgba(248,243,236,.72); font-size: 14px; line-height: 1.8; }
-.home-featured__hero-foot { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 16px; margin-top: 42px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.16); color: rgba(248,243,236,.58); font-family: var(--font-code); font-size: 9px; letter-spacing: .6px; text-transform: uppercase; }
+
 .home-featured__stack { display: grid; gap: 18px; padding-bottom: 12px; }
 .home-project-card {
   position: sticky; top: calc(116px + var(--stack-index) * 13px); z-index: calc(2 + var(--stack-index));
