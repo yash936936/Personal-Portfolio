@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import BlackHole from "../components/ui/optimized-black-hole";
 import "./NotFound.css";
 
 export default function NotFound() {
   return (
     <div className="not-found-page">
-      <BlackHole />
       <div className="not-found__content container">
         <span className="not-found__eyebrow">ERROR 404 · LOST IN SPACE</span>
         <p className="not-found__code">404</p>
