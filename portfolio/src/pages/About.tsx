@@ -52,7 +52,7 @@ export default function About() {
   };
 
   return (
-    <main className="about-page">
+    <div className="about-page">
       <PageHeader
         eyebrow="About Me"
         title="Engineering, Strategy & Autonomous Systems."
@@ -154,6 +154,6 @@ export default function About() {
 
         </div>
       </div>
-    </main>
+    </div>
   );
 }
