@@ -4,7 +4,7 @@ import "./LegalNotice.css";
 
 export default function LegalNotice() {
   return (
-    <main className="legal-page">
+    <div className="legal-page">
       <PageHeader
         eyebrow="Legal"
         title="Legal Notice & Privacy Policy"
@@ -76,6 +76,6 @@ export default function LegalNotice() {
           </Reveal>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
