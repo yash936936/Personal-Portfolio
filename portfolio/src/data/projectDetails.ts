@@ -1,5 +1,18 @@
-export interface ProjectFlowStep { name: string; responsibility: string; }
-export interface ProjectDetailContent { architectureTitle: string; architectureIntro: string; flow: ProjectFlowStep[]; components: { heading: string; body: string; points: string[] }[]; designDecisions: string[]; evaluation: string[]; limitations: string[]; references: { label: string; href: string }[]; }
+export interface ProjectFlowStep {
+  name: string;
+  responsibility: string;
+}
+export interface ProjectDetailContent {
+  architectureTitle: string;
+  architectureIntro: string;
+  flow: ProjectFlowStep[];
+  components: { heading: string; body: string; points: string[] }[];
+  designDecisions: string[];
+  evaluation: string[];
+  limitations: string[];
+  references: { label: string; href: string }[];
+}
+
 export const projectDetails: Record<string, ProjectDetailContent> = {
   agm: {
     architectureTitle: "Event-sourced memory with hybrid retrieval",
@@ -76,6 +89,32 @@ export const projectDetails: Record<string, ProjectDetailContent> = {
       { label: "Build plan", href: "https://github.com/yash936936/Harness/blob/main/docs/BUILD-PLAN.md" },
     ],
   },
+  "legal-ai": {
+    architectureTitle: "Hybrid RAG with separate legal-advice and contract-analysis paths",
+    architectureIntro: "The Streamlit application presents two legal workflows over a shared LangGraph state machine. A rule-based supervisor routes the user query, a retrieval node builds legal context, and Gemini generates an answer or a structured contract review.",
+    flow: [
+      { name: "Streamlit interface", responsibility: "The user selects Legal Advisor or Contract Analyzer, starts conversations, opens saved threads and can export a thread as Markdown." },
+      { name: "Rule-based supervisor", responsibility: "The LangGraph supervisor routes by the selected mode and contract-related keywords without spending an LLM call on routing." },
+      { name: "Hybrid retrieval", responsibility: "A local semantic cache is checked first; otherwise the query searches Chroma dense vectors and BM25 lexical results, then fuses rankings with RRF." },
+      { name: "Context selection", responsibility: "The best retrieved passages are formatted as legal context. Retrieval failure or no usable context moves the advisor to a fallback prompt." },
+      { name: "Gemini response", responsibility: "Gemini 2.5 Flash generates the legal-advisor response or the structured contract-analysis result using the selected prompt." },
+      { name: "Optional quality judge", responsibility: "When enabled, Gemini 2.5 Flash Lite scores faithfulness, relevance and helpfulness through an LLM-as-judge evaluation path." },
+    ],
+    components: [
+      { heading: "Legal corpus and indexing", body: "PDF and text sources are loaded from the repository data directory, split into overlapping chunks and indexed for both semantic and lexical retrieval.", points: ["RecursiveCharacterTextSplitter uses 1,000-character chunks with 200-character overlap.", "Chroma stores dense vectors in a persistent local collection.", "BM25 is built over the same chunks with a top-eight lexical result setting.", "Reciprocal Rank Fusion combines dense and sparse rankings into a short context list."] },
+      { heading: "Conversation and agent graph", body: "LangGraph uses a shared AgentState containing messages, mode, next node, RAG context, retrieval tier, raw query and contract result.", points: ["The supervisor routes by selected mode or contract keywords.", "The advisor uses recent conversation history, bounded to the last three user/assistant pairs.", "The advisor chooses a RAG-grounded prompt when context exists and a fallback prompt when it does not.", "The contract workflow produces risk scores, red-flag clauses, business impact and suggested revisions."] },
+      { heading: "Evaluation and persistence", body: "Conversation storage and optional judging are part of the Streamlit application rather than separate hosted services.", points: ["Thread helpers create, load, save, list and delete conversations and export Markdown.", "The evaluator scores faithfulness, relevance and helpfulness from 1 to 10.", "The optional judge uses its own rate-limit bucket and returns a pass when the overall score is at least 6/10.", "No measured quality score was published in the source files reviewed."] },
+    ],
+    designDecisions: ["Use a rule-based supervisor to route common legal and contract requests without an extra classification call.", "Combine dense semantic search with BM25 lexical search for legal terminology.", "Use a semantic cache for paraphrased repeat queries, with a documented cosine threshold of 0.93 and maximum 200 cache entries.", "Keep a fallback answer path explicit when retrieval is unavailable.", "Offer a separate contract mode because contract review needs a structured risk report rather than a conversational legal answer."],
+    evaluation: ["The repository includes an optional LLM-as-judge rubric for faithfulness, relevance and helpfulness.", "The judge returns an unavailable/failed result when the evaluation call fails and marks an answer as passing at an overall score of 6/10 or higher.", "No published evaluation-run aggregate or held-out benchmark score was found in the files reviewed."],
+    limitations: ["This is an AI-assisted information tool, not a substitute for advice from a qualified legal professional.", "RAG quality depends on the completeness and currency of the local legal corpus.", "The optional judge is another model call and should not be treated as independent legal verification.", "No controlled external evaluation result was available in the repository files reviewed."],
+    references: [
+      { label: "Application UI and workflows", href: "https://github.com/yash936936/LegalAI/blob/main/app.py" },
+      { label: "LangGraph routing and generation", href: "https://github.com/yash936936/LegalAI/blob/main/agent_graph.py" },
+      { label: "Hybrid retrieval implementation", href: "https://github.com/yash936936/LegalAI/blob/main/rag_vectorstore.py" },
+      { label: "RAG evaluation code", href: "https://github.com/yash936936/LegalAI/blob/main/evaluator.py" },
+    ],
+  },
   fathom: {
     architectureTitle: "Local research agent with hybrid retrieval and claim verification",
     architectureIntro: "Fathom is a single-process CLI research assistant. Its language model runs locally through llama.cpp and a Qwen GGUF model, while retrieval tools make outbound requests to live research sources. It is designed to research a question and show the sources behind its claims.",
@@ -100,6 +139,57 @@ export const projectDetails: Record<string, ProjectDetailContent> = {
       { label: "User manual", href: "https://github.com/yash936936/Fathom/blob/main/docs/readme.md" },
       { label: "Evaluation log", href: "https://github.com/yash936936/Fathom/blob/main/docs/eval_log.md" },
       { label: "Project status", href: "https://github.com/yash936936/Fathom/blob/main/docs/status.md" },
+    ],
+  },
+  "document-analysis": {
+    architectureTitle: "Asynchronous document extraction and structured analysis",
+    architectureIntro: "The API accepts a Base64-encoded PDF, DOCX or image, extracts text with a type-specific pipeline, then asks Gemini to return a fixed JSON shape for summary, named entities and sentiment. Celery and Redis keep document processing outside the request handler.",
+    flow: [
+      { name: "Authenticated request", responsibility: "FastAPI validates the x-api-key header, request fields and supported file type." },
+      { name: "Decode and route", responsibility: "The Base64 payload is decoded and passed to the extractor that matches the declared file type." },
+      { name: "Celery task queue", responsibility: "The API enqueues process_document; Redis acts as both message broker and result backend." },
+      { name: "Text extraction", responsibility: "PDFs use pdfplumber with scanned-page OCR fallback, DOCX uses python-docx and XML traversal, and images use Tesseract after Pillow preprocessing." },
+      { name: "Structured analysis", responsibility: "Gemini 2.5 Flash receives the extracted text and returns summary, entities and sentiment in JSON mode." },
+      { name: "Validation and response", responsibility: "The output is parsed, normalised to the expected schema and returned as a structured API response." },
+    ],
+    components: [
+      { heading: "Document extraction", body: "The extractor selects a different strategy for each input type instead of forcing all files through a single parser.", points: ["PDF text extraction uses pdfplumber; scanned PDFs render pages with PyMuPDF before Tesseract OCR.", "DOCX extraction covers body paragraphs, tables, headers, footers and embedded text boxes.", "Image OCR converts to grayscale, enhances contrast and uses Tesseract LSTM mode.", "Extraction work runs inside Celery tasks."] },
+      { heading: "LLM output contract", body: "Gemini is prompted to return one JSON object rather than free-form prose. The response is normalised before it is passed back to the caller.", points: ["The schema contains summary, entity groups for names/dates/organisations/amounts/locations, and sentiment.", "The request sets JSON response mode.", "Parsing falls back through direct JSON parsing, markdown-fence stripping and JSON block extraction.", "Pydantic/schema normalisation fills missing entity arrays and checks sentiment values."] },
+      { heading: "Worker and deployment model", body: "The API and worker are separate processes, allowing extraction and analysis to run asynchronously.", points: ["FastAPI exposes POST /api/document-analyze.", "Celery runs process_document; Redis provides broker and result backend.", "Transient failures use automatic retries with exponential backoff.", "The README documents separate web-service and worker deployment commands."] },
+    ],
+    designDecisions: ["Validate the API key and file type before expensive extraction or LLM work.", "Use parsers matched to PDF, DOCX and image content.", "Move extraction into Celery workers so API request handling is not responsible for CPU-heavy parsing and OCR.", "Constrain generation to a predictable JSON schema and validate it before responding.", "Keep a separate worker process in deployment rather than embedding task execution in the API server."],
+    evaluation: ["The repository documents extraction paths, schema parsing and API error behavior.", "No held-out OCR accuracy, extraction completeness or LLM field-accuracy benchmark was found in the README.", "The sample response illustrates the contract; it is not a quality measurement."],
+    limitations: ["OCR quality depends on scan quality, language and document layout.", "The API waits for a Celery result with a 90-second timeout in the documented implementation.", "Gemini output still requires validation and human review for high-impact document decisions.", "Redis and a separately running Celery worker are required for the full asynchronous workflow."],
+    references: [
+      { label: "Repository README", href: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction#readme" },
+      { label: "FastAPI entry point", href: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction/blob/main/src/main.py" },
+      { label: "Document extractor", href: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction/blob/main/src/extractor.py" },
+      { label: "Analysis and schema handling", href: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction/blob/main/src/analyser.py" },
+    ],
+  },
+  "lora-pipeline": {
+    architectureTitle: "Config-driven LoRA and QLoRA fine-tuning lifecycle",
+    architectureIntro: "The pipeline adapts Hugging Face causal language models by freezing base weights and training small low-rank adapter matrices. YAML configuration controls model, dataset, adapter and training settings; separate tools handle evaluation, merge/export and inference.",
+    flow: [
+      { name: "Configuration", responsibility: "A base YAML config and model-specific overrides define model identifiers, data paths, LoRA parameters, quantisation options and trainer settings." },
+      { name: "Dataset ingestion", responsibility: "Local CSV, JSON or JSONL files, or Hugging Face datasets, are read, formatted with prompt templates and tokenised." },
+      { name: "Base model loading", responsibility: "Transformers loads the model and tokenizer; optional BitsAndBytes 4-bit or 8-bit quantisation supports QLoRA." },
+      { name: "Adapter construction", responsibility: "PEFT creates the LoRA configuration and attaches trainable low-rank matrices to selected model modules." },
+      { name: "Training and evaluation", responsibility: "Trainer or SFTTrainer runs the training loop, saves checkpoints and evaluates validation loss, perplexity or optional task metrics." },
+      { name: "Export and serving", responsibility: "The adapter can be loaded separately or merged into the base model, then used through the inference helper or optional FastAPI endpoint." },
+    ],
+    components: [
+      { heading: "Data and model loading", body: "The data loader formats instruction/response examples, tokenises them and creates a train/validation split. The model loader obtains the base model and tokenizer and optionally configures quantisation.", points: ["Inputs include local CSV, JSON/JSONL or Hugging Face dataset sources.", "A sample JSONL dataset provides a CPU-friendly smoke test.", "The README's default GPT-2 setup uses a 10% validation split.", "QLoRA uses 4-bit/8-bit quantisation where the hardware and platform support it."] },
+      { heading: "Adapter training", body: "PEFT's LoraConfig is built from configuration values and applied with get_peft_model. The training layer wraps Hugging Face Trainer or SFTTrainer.", points: ["Rank, alpha, dropout, target modules, bias and task type are configurable.", "Training arguments and checkpointing are handled separately from data preparation.", "Logs can be sent to Weights & Biases or TensorBoard.", "The pipeline stores adapters and run metadata under timestamped checkpoint directories."] },
+      { heading: "Evaluation, merge and inference", body: "Training is not the end of the pipeline: adapters have a separate evaluation path and can be deployed either attached to the base model or merged into it.", points: ["The evaluator reports validation loss, perplexity and optional task-specific metrics.", "merge_and_unload creates a standalone merged model export.", "The inference path can load an adapter without merging.", "An optional FastAPI service exposes a /generate endpoint."] },
+    ],
+    designDecisions: ["Keep model, data and trainer settings in configuration files instead of hardcoding hyperparameters.", "Freeze base weights and train adapter parameters to lower the fine-tuning resource requirement.", "Support QLoRA when the target model and environment support quantised loading.", "Separate training, evaluation, merge/export and inference so each stage can be run independently.", "Keep GPT-2 as a small end-to-end smoke test before using larger GPU-backed models."],
+    evaluation: ["The README documents unit-style tests for data loading, LoRA config creation and trainer setup.", "A CPU-friendly GPT-2 smoke configuration exists to verify the pipeline path.", "No published validation loss, perplexity or task benchmark result for a completed fine-tuning run was found in the reviewed repository documentation."],
+    limitations: ["Real LLaMA/Mistral-scale runs require suitable GPU memory; 4-bit/8-bit quantisation requires compatible CUDA/Linux dependencies.", "The sample GPT-2 smoke run validates pipeline wiring, not the quality of a task-specific model.", "Performance depends heavily on dataset quality, prompt format, chosen target modules and hyperparameters."],
+    references: [
+      { label: "Pipeline README", href: "https://github.com/yash936936/LoRA#readme" },
+      { label: "Full pipeline architecture documentation", href: "https://github.com/yash936936/LoRA/blob/main/LoRA_FineTuning_Pipeline.md" },
+      { label: "Training entry point", href: "https://github.com/yash936936/LoRA/blob/main/scripts/train.py" },
     ],
   },
 };
