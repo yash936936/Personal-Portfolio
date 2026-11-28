@@ -71,7 +71,7 @@ export default function Blog() {
             if (!image) return;
             gsap.killTweensOf(image);
             gsap.to(image, {
-              height: expanded ? 230 : 0,
+              height: expanded ? image.scrollHeight : 0,
               opacity: expanded ? 1 : 0,
               duration: expanded ? 0.72 : 0.42,
               ease: expanded ? "elastic.out(1, 0.72)" : "power3.inOut",
