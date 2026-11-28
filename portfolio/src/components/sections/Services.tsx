@@ -51,7 +51,7 @@ export default function Services() {
             <Link to="/contact" className="services__cta">Discuss an idea</Link>
           </Reveal>
         </div>
-        <div className="services__list" id="capability-list" onMouseLeave={() => setActiveIndex(-1)} aria-label="Engineering capabilities">
+        <div className="services__list" id="capability-list" aria-label="Engineering capabilities">
           {offers.map((offer, index) => {
             const meta = CAPABILITY_META[index];
             const isActive = activeIndex === index;
@@ -61,7 +61,6 @@ export default function Services() {
                 className={`services__row ${isActive ? "is-active" : ""}`}
                 key={offer.href}
                 style={{ "--service-accent": meta.accent } as CSSProperties}
-                onMouseEnter={() => setActiveIndex(index)}
               >
                 <div className="services__row-trigger">
                   
