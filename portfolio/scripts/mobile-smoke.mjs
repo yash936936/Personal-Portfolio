@@ -57,7 +57,7 @@ try {
             return {
               tag: element.tagName.toLowerCase(),
               className: typeof element.className === "string" ? element.className : "",
-              text: (element.textContent ?? "").trim().replace(/\\s+/g, " ").slice(0, 70),
+              text: (element.textContent ?? "").trim().replace(/\s+/g, " ").slice(0, 70),
               left: Math.round(rect.left),
               right: Math.round(rect.right),
               width: Math.round(rect.width),
