@@ -22,13 +22,16 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let ticking = false;
+    let frameId: number | null = null;
 
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
 
-      window.requestAnimationFrame(() => {
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null;
         const currentY = window.scrollY;
         const delta = currentY - lastScrollY.current;
 
@@ -43,7 +46,10 @@ export default function Hero() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+    };
   }, []);
 
   return (
