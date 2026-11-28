@@ -23,6 +23,7 @@ export default function Work() {
                 year={project.year}
                 category={project.category}
                 github={project.github}
+                href={`/work/${project.slug}`}
               />
             </Reveal>
           ))}
