@@ -10,6 +10,10 @@ The portfolio is a public, client-rendered website. Its only application API is 
 
 Authentication is therefore not required for the public contact submission. Origin validation is a browser-origin restriction, not authentication. The Worker continues to validate the request body and apply rate limits independently of the frontend.
 
+## Database row-level security
+
+Row-level security (RLS) is not applicable to the current endpoints: the Worker has no database binding, does not persist contact submissions in a database and has no user-owned rows to authorize. It forwards validated inquiries to Resend. If a database or authenticated user data is added later, enable and test database-native RLS policies before exposing those records through an endpoint.
+
 ## Implemented or configured in this branch
 
 - Exact Origin allowlist and restricted CORS response headers on the contact Worker.
@@ -43,22 +47,24 @@ Do not enable `REQUIRE_TURNSTILE` until both the frontend sitekey and Worker sec
 
 ## Analytics configuration
 
-Plausible tracking is optional. It loads only when `VITE_PLAUSIBLE_DOMAIN` is set at frontend build time. The Vercel project currently has no environment variables configured, so analytics is not active from this change alone. The privacy notice describes this conditional behavior.
+Plausible tracking is optional. It loads only when `VITE_PLAUSIBLE_DOMAIN` is set at frontend build time. No `VITE_PLAUSIBLE_DOMAIN` value was present in the inspected Vercel project environment, so analytics remains inactive until the site is registered with Plausible and this value is configured. The privacy notice describes this conditional behavior.
 
 ## Website and link review
 
 - The custom 404 route is registered as the React Router wildcard and receives `noindex, follow` metadata.
 - Project pages link to related blog articles and service pages; relevant blog articles link back to their related project case studies.
-- The footer exposes only registered site routes, GitHub, LinkedIn, email and the legal notice.
+- The footer exposes registered site routes, GitHub, LinkedIn, email and the legal notice. The logo and email are clickable. No phone number is published in the current site content, so a `tel:` link cannot be added without a verified number.
 - The source checker found no missing `alt` attributes. The About page skill icons use `alt=""` because those icons are decorative and the adjacent text names each skill.
 - The placeholder scan excludes normal form-field `placeholder` attributes, so labels such as “Your name” and “you@example.com” do not trigger false positives.
-- Public GitHub profile and all five project repository URLs responded with HTTP 200. The Google Drive certifications folder and six Devicon SVG assets also responded with HTTP 200. The no-`www` LinkedIn profile URL responded with HTTP 200 and is now used consistently in the site; LinkedIn's `www` hostname returned an automated-request block, not a missing-page response.
-- The Playwright smoke test passed in the hosted repair-validation run: 13 routes at six viewport widths (320, 360, 390, 768, 1024 and 1440 pixels), plus mobile-menu open/Escape/focus restoration and custom 404 metadata. This verifies the tested route set and widths, not every possible device/browser combination.
-- Plausible tracking is implemented but remains inactive until `VITE_PLAUSIBLE_DOMAIN` is configured. No analytics environment variable was present in the inspected Vercel project settings.
+- The public GitHub profile and all seven project repository links were confirmed to resolve to accessible repositories through the connected GitHub account. The Google Drive certifications folder and six Devicon SVG assets also responded with HTTP 200. The no-`www` LinkedIn profile URL responded with HTTP 200 and is now used consistently in the site; LinkedIn's `www` hostname returned an automated-request block, not a missing-page response.
+- The earlier Playwright smoke test passed for 13 routes at six viewport widths (320, 360, 390, 768, 1024 and 1440 pixels), plus mobile-menu open/Escape/focus restoration and custom 404 metadata. The current branch extends this test to audit internal links, unique titles, meta descriptions, accessible button names, image alt attributes and contact success/error states. Those new checks still require a fresh CI run.
+- Plausible tracking is implemented but remains inactive until `VITE_PLAUSIBLE_DOMAIN` is configured. No analytics domain was present in the inspected Vercel project settings.
+- Current visual assets are SVG diagrams and vector artwork rather than raster photographs, so raster compression is not applicable. Architecture diagrams use explicit dimensions and lazy loading.
+- Page content is bundled locally and no remote page-data API exists, so intent-based data prefetching would add requests without improving data availability.
 
 ## Verification still required
 
-- The one-time hosted repair-validation workflow passed all checks, including Playwright. The regular pull-request workflow event for the bot-authored repair commit was marked `action_required` without starting jobs; the standing workflow should be re-run or approved on the latest user-authored branch commit before merge.
+- The earlier hosted repair-validation workflow passed its then-current checks. The latest branch commits have not yet received a fresh GitHub Actions run, and the current Vercel branch deployment records still point to older commits. Re-run CI and obtain a successful deployment for the latest branch head before merge.
 - The `personal-portfolio-xtda` preview deployment built successfully, but its preview hostname is protected by Vercel SSO. The public production custom domain still serves the previous production build and did not return the new CSP or Referrer-Policy headers during this review. Confirm both headers and the contact flow after the feature branch is promoted to production.
 - Activate Turnstile with production widget credentials and test the deployed contact form.
 - Arrange an independent security review before describing this portfolio as independently assessed. CodeQL and an AI-assisted source review do not replace that review.
