@@ -65,28 +65,9 @@ export default function SitePreloader() {
 
   return (
     <div className="site-preloader" role="status" aria-label="Loading portfolio">
-      <div className="site-preloader__visual" aria-hidden="true">
-        <svg className="site-preloader__ring" viewBox="0 0 120 120">
-          <defs>
-            <linearGradient id="preloader-ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8a7fc7" />
-              <stop offset="52%" stopColor="#5db8a6" />
-              <stop offset="100%" stopColor="#cc785c" />
-            </linearGradient>
-            <filter id="preloader-ring-glow" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="3.5" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-          <circle className="site-preloader__ring-base" cx="60" cy="60" r="39" />
-          <circle className="site-preloader__ring-orbit" cx="60" cy="60" r="39" />
-          <circle className="site-preloader__ring-core" cx="60" cy="60" r="39" />
-        </svg>
-        <span className="site-preloader__orb" />
-        <span className="site-preloader__reflection" />
+      <div className="exscem-loader" aria-hidden="true">
+        <span className="exscem-loader__shape" />
+        <span className="exscem-loader__shape exscem-loader__shape--delayed" />
       </div>
     </div>
   );
