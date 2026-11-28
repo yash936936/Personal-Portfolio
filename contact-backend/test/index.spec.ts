@@ -356,4 +356,80 @@ describe("contact worker", () => {
     expect(response.status).toBe(502);
     expect(await response.json()).toEqual({ error: "Unable to send your message right now" });
   });
+  it("fails closed when the IP rate-limit binding throws", async () => {
+    const env = createEnv();
+    env.CONTACT_IP_RATE_LIMITER.limit = vi.fn().mockRejectedValue(new Error("binding unavailable"));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify(validPayload), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.21",
+      }),
+      env,
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(503);
+    expect(env.CONTACT_RATE_LIMITER.limit).not.toHaveBeenCalled();
+    expect(resendFetch).not.toHaveBeenCalled();
+  });
+
+  it("fails closed when the per-submission rate-limit binding throws", async () => {
+    const env = createEnv();
+    env.CONTACT_RATE_LIMITER.limit = vi.fn().mockRejectedValue(new Error("binding unavailable"));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify(validPayload), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.22",
+      }),
+      env,
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(503);
+    expect(resendFetch).not.toHaveBeenCalled();
+  });
+
+  it("returns a safe gateway error when Resend times out", async () => {
+    resendFetch.mockRejectedValueOnce(new DOMException("The operation was aborted", "AbortError"));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify(validPayload), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.23",
+      }),
+      createEnv(),
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(502);
+    expect(await response.json()).toEqual({ error: "Unable to send your message right now" });
+    expect(resendFetch).toHaveBeenCalledTimes(1);
+    expect(resendFetch.mock.calls[0][1].signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it("fails closed when Siteverify returns malformed JSON", async () => {
+    resendFetch.mockResolvedValueOnce(new Response("not-json", {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }));
+
+    const response = await worker.fetch(
+      createRequest(JSON.stringify({ ...validPayload, turnstileToken: "single-use-token" }), {
+        origin: ALLOWED_ORIGIN,
+        contentType: "application/json",
+        ip: "203.0.113.24",
+      }),
+      createEnv(true, true, true),
+      EXECUTION_CONTEXT,
+    );
+
+    expect(response.status).toBe(503);
+    expect(resendFetch).toHaveBeenCalledTimes(1);
+  });
+
 });
