@@ -55,7 +55,7 @@
   transform: rotate(45deg); transition: transform .2s;
 }
 .apple-switch__label { position: relative; z-index: 1; font-size: 12px; font-weight: 650; white-space: nowrap; pointer-events: none; }
-.apple-switch.is-on { background: rgba(145,197,188,.32); border-color: var(--switch-thumb-bg); }
+.apple-switch.is-on { background: rgba(145,197,188,.32); border-color: var(--switch-thumb-bg); justify-content: flex-start; padding: 0 calc(var(--switch-thumb) + 15px) 0 16px; }
 .apple-switch.is-on .apple-switch__thumb span { transform: rotate(45deg) translate(1px, -1px); }
 .apple-switch:focus-visible { outline: 2px solid #b9ded6; outline-offset: 4px; }
 @media (max-width: 900px) {
