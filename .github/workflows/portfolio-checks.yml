@@ -29,6 +29,8 @@ jobs:
         working-directory: portfolio
       - run: npm run build
         working-directory: portfolio
+        env:
+          VITE_SITE_URL: https://portfolio.example.com
 
   contact-worker:
     name: Contact Worker tests
