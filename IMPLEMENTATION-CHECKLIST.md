@@ -7,7 +7,7 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 - [x] Remove horizontal scrolling: global overflow clipping, constrained root/media elements, and narrow-screen layout guards.
 - [x] Find broken internal links: all in-app destinations map to registered routes; project GitHub repositories were checked and returned successfully.
 - [x] Add mobile menu: existing menu retained, with Escape handling, scroll locking, hidden-state focus prevention, and responsive viewport handling.
-- [x] Fix footer links: internal links map to registered routes; email remains a `mailto:` link. Social destinations still need owner confirmation if any URL has changed.
+- [x] Fix footer links: internal links map to registered routes; email remains a `mailto:` link. Social destinations and the Google Drive credentials folder remain externally permissioned links; their availability was not confirmed by public fetch.
 - [x] Remove unused navigation: audited the navigation; retained the links that serve mobile navigation and real pages rather than deleting valid destinations.
 - [x] Make the logo and email clickable: logo links home; email links use `mailto:`.
 - [ ] Make a phone number clickable: no phone number is present in the repository. Add a number only after the owner supplies the public contact number.
