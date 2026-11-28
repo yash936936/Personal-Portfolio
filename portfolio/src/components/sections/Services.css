@@ -234,7 +234,7 @@
 
 /* arrow slides out to the right and fades; cross slides in from the left
    to take its place */
-.services__item--active .services__icon--arrow {
+.services__item--active .services__icon--plus {
   opacity: 0;
   transform: rotate(45deg);
 }
