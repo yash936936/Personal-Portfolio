@@ -6,11 +6,12 @@ import "./Contact.css";
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
     setStatus("loading");
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const data = Object.fromEntries(formData);
 
     try {
@@ -20,13 +21,12 @@ export default function Contact() {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) throw new Error("Network response was not ok");
-      
-      setStatus("success");
-      e.currentTarget.reset();
+      if (!response.ok) throw new Error("Contact request failed");
 
+      form.reset();
+      setStatus("success");
     } catch (error) {
-      console.error("Submission failed:", error);
+      console.error("Contact form submission failed:", error);
       setStatus("error");
     }
   };
@@ -64,28 +64,56 @@ export default function Contact() {
 
         <Reveal delay={100}>
           {status === "success" ? (
-            <div className="contact-success">
+            <div className="contact-success" role="status" aria-live="polite">
               <h3>Message sent.</h3>
               <p>Thanks for reaching out — I'll get back to you within a couple of days.</p>
             </div>
           ) : (
-            <form className="contact-form" onSubmit={handleSubmit}>
+            <form
+              className="contact-form"
+              onSubmit={handleSubmit}
+              aria-busy={status === "loading"}
+            >
               <label className="contact-form__field">
                 <span>Name</span>
-                <input type="text" name="name" required placeholder="Your name" />
+                <input
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  maxLength={120}
+                  required
+                  placeholder="Your name"
+                />
               </label>
               <label className="contact-form__field">
                 <span>Email</span>
-                <input type="email" name="email" required placeholder="you@example.com" />
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  maxLength={254}
+                  required
+                  placeholder="you@example.com"
+                />
               </label>
               <label className="contact-form__field">
                 <span>What are you building?</span>
-                <textarea name="message" rows={5} required placeholder="A few lines about the project..." />
+                <textarea
+                  name="message"
+                  rows={5}
+                  maxLength={5000}
+                  required
+                  placeholder="A few lines about the project..."
+                />
               </label>
               <button type="submit" className="contact-form__submit" disabled={status === "loading"}>
                 {status === "loading" ? "Sending..." : "Send Message"}
               </button>
-              {status === "error" && <p className="text-red-500 mt-4">Something went wrong. Please try again.</p>}
+              {status === "error" && (
+                <p className="text-red-500 mt-4" role="alert">
+                  Something went wrong. Please try again.
+                </p>
+              )}
             </form>
           )}
         </Reveal>
