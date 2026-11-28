@@ -3,7 +3,6 @@ import PageHeader from "../components/PageHeader";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
 import { projects } from "../data/content";
-import { getLenis } from "../hooks/useSmoothScroll";
 import { projectDetails } from "../data/projectDetails";
 import "./Work.css";
 
@@ -107,9 +106,8 @@ export default function Work() {
   }, []);
 
   const scrollToTop = () => {
-    const lenis = getLenis();
-    if (lenis) lenis.scrollTo(0, { duration: 1.1 });
-    else window.scrollTo({ top: 0, behavior: "smooth" });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
   };
 
   return (
