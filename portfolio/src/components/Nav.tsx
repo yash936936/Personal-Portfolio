@@ -34,8 +34,11 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = open ? "hidden" : previousOverflow;
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
   }, [open]);
   useEffect(() => {
     if (!open) {
@@ -50,11 +53,25 @@ export default function Nav() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") { event.preventDefault(); closeMenu(); return; }
       if (event.key !== "Tab") return;
-      const focusable = Array.from(overlayRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? []);
-      if (!focusable.length) return;
-      const first = focusable[0], last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      const focusable = Array.from(
+        overlayRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], area[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), iframe, object, embed, [contenteditable="true"], [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((element) => !element.hasAttribute("hidden") && element.getAttribute("aria-hidden") !== "true" && element.getClientRects().length > 0);
+      if (!focusable.length) {
+        event.preventDefault();
+        overlayRef.current?.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !overlayRef.current?.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !overlayRef.current?.contains(document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => { window.cancelAnimationFrame(frame); document.removeEventListener("keydown", onKeyDown); };
