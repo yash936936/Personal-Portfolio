@@ -61,7 +61,7 @@ function replaceTitle(html, title) {
 
 function setMeta(html, selector, attribute, value) {
   const safeValue = escapeAttribute(value);
-  const pattern = new RegExp(`<meta ${selector}="[^"]*" content="[^"]*"\\s*/?>`);
+  const pattern = new RegExp(`<meta ${selector}="${attribute}" content="[^"]*"\\s*/?>`);
   const tag = `<meta ${selector}="${attribute}" content="${safeValue}" />`;
   if (pattern.test(html)) return html.replace(pattern, tag);
   return html.replace("</head>", `    ${tag}\n  </head>`);
