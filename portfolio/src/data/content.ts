@@ -41,8 +41,8 @@ export const offers = [
   },
   {
     kicker: "Capability",
-    title: "Software development\nand testing",
-    desc: "Software development, test automation and quality checks that make applications dependable, maintainable and ready for real users.",
+    title: "Software development",
+    desc: "Building maintainable applications with clear architecture, thoughtful implementation and dependable delivery.",
     href: "/services/web",
   },
   {
@@ -56,15 +56,15 @@ export const offers = [
 export const faqs = [
   {
     q: "What kind of work do you take on?",
-    a: "My primary focus is AI: building autonomous agents, multi-agent workflows, model-driven applications and data pipelines. I also develop and test the software needed to deliver those systems reliably.",
+    a: "My primary focus is AI: building autonomous agents, multi-agent workflows, model-driven applications and data pipelines. I also develop the software needed to deliver those systems reliably.",
   },
   {
     q: "What makes your approach different?",
-    a: "I connect AI system design, data infrastructure, software implementation and testing. Each part is evaluated against the needs of the product, making the system easier to maintain and improve.",
+    a: "I connect AI system design, data infrastructure and software implementation. Each part is shaped around the needs of the product, making the system easier to maintain and improve.",
   },
   {
     q: "What does your typical tech stack look like?",
-    a: "For AI orchestration, I use frameworks like LangChain and LangGraph with LLM APIs. For software development and testing, I work with React, TypeScript, backend APIs and automated tests to keep applications reliable.",
+    a: "For AI orchestration, I use frameworks like LangChain and LangGraph with LLM APIs. For software development, I work with React, TypeScript and backend APIs to build maintainable applications.",
   },
 ];
 

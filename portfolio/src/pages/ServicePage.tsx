@@ -65,17 +65,7 @@ export default function ServicePage({
               <Link to={r.href} className="service-related__item" data-cursor="link">
                 <span className="service-related__dot" aria-hidden="true" />
                 {r.label}
-                <span className="service-related__arrow" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                    <path
-                      d="M4 14L14 4M14 4H6M14 4V12"
-                      stroke="currentColor"
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
+                
               </Link>
             </Reveal>
           ))}

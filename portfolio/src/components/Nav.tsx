@@ -5,7 +5,7 @@ import "./NavAccessibility.css";
 
 const offerLinks = [
   { title: "AI systems and agentic workflows", desc: "LLM applications, retrieval and model integration", href: "/services/ai" },
-  { title: "Software development and testing", desc: "Build, verify and ship dependable applications", href: "/services/web" },
+  { title: "Software development", desc: "Build and ship dependable applications", href: "/services/web" },
   { title: "Deployment and infrastructure", desc: "Backend services and cloud integration", href: "/services/infrastructure" },
 ];
 const primaryLinks = [
@@ -74,9 +74,7 @@ export default function Nav() {
             {primaryLinks.map((link) => <Link key={link.href} to={link.href} className="nav__pill" aria-current={location.pathname === link.href ? "page" : undefined}>{link.label}</Link>)}
             <span className="nav__divider" aria-hidden="true" />
             <Link to="/contact" className="nav__pill nav__pill--cta" aria-current={location.pathname === "/contact" ? "page" : undefined}>
-              <span className="nav__pill-arrow nav__pill-arrow--left" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M4 10h11M11 6l4 4-4 4" /></svg></span>
               <span className="nav__pill-cta-label">Contact</span>
-              <span className="nav__pill-arrow nav__pill-arrow--right" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M4 10h11M11 6l4 4-4 4" /></svg></span>
             </Link>
           </div>
         </nav>

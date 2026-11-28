@@ -96,10 +96,10 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
         </section>
 
         <div className="case-study__links">
-          <a href={workItem.github} target="_blank" rel="noopener noreferrer">Source repository ↗</a>
+          <a href={workItem.github} target="_blank" rel="noopener noreferrer">Source repository</a>
           {detail.references.map((reference) => (
             <a href={reference.href} target="_blank" rel="noopener noreferrer" key={reference.href}>
-              {reference.label} ↗
+              {reference.label}
             </a>
           ))}
         </div>

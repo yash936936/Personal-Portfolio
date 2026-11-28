@@ -14,9 +14,9 @@ export default function Home() {
       <Hero />
       <LogoMarquee />
       <FeaturedProjects />
+      <ApproachStrip />
       <Services />
       <SkillsRotator />
-      <ApproachStrip />
       <ResearchAndBlog />
       <Faq />
       <Press />
