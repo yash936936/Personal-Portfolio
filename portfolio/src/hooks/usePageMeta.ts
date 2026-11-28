@@ -69,5 +69,14 @@ export function usePageMeta() {
     setMeta('meta[name="twitter:title"]', 'name="twitter:title"', meta.title);
     setMeta('meta[name="twitter:description"]', 'name="twitter:description"', meta.description);
     setMeta('meta[name="robots"]', 'name="robots"', meta.noIndex ? "noindex, nofollow" : "index, follow");
+    setMeta('meta[property="og:url"]', 'property="og:url"', window.location.origin + pathname);
+    setMeta('meta[property="og:image"]', 'property="og:image"', window.location.origin + "/poster-showcase.jpg");
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = window.location.origin + pathname;
   }, [pathname]);
 }
