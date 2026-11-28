@@ -38,44 +38,43 @@ const CATEGORIES = [
 ] as const;
 
 const N = CATEGORIES.length;
-const INTERVAL = 2200;
+const INTERVAL = 4200;
 
 export default function SkillsRotator() {
   const [active, setActive] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  function advance(next: number) {
-    setAnimating(true);
-    setTimeout(() => {
-      setActive(next);
-      setAnimating(false);
-    }, 220);
-  }
-
-  function startTimer(from: number) {
-    if (timerRef.current) clearInterval(timerRef.current);
-    let cur = from;
-    timerRef.current = setInterval(() => {
-      cur = (cur + 1) % N;
-      advance(cur);
-    }, INTERVAL);
-  }
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    startTimer(0);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    const section = sectionRef.current;
+    if (!section || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: "100px" },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
-  const current = CATEGORIES[active];
+  useEffect(() => {
+    if (!isVisible || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    const interval = window.setInterval(() => {
+      setActive((current) => (current + 1) % N);
+    }, INTERVAL);
+
+    return () => window.clearInterval(interval);
+  }, [isVisible]);
+
+  const current = CATEGORIES[active];
   const strip = [-2, -1, 0, 1, 2].map((offset) => {
     const idx = ((active + offset) % N + N) % N;
     return { idx, offset, cat: CATEGORIES[idx] };
   });
 
   return (
-    <section className="skills-rotator">
+    <section className="skills-rotator" ref={sectionRef}>
       <div className="container">
         <div className="skills-rotator__top">
           <Reveal>
@@ -87,7 +86,7 @@ export default function SkillsRotator() {
           <div className="skills-rotator__right">
             <Reveal delay={80}>
               <p className="skills-rotator__copy">
-               A working model needs a working interface. My expertise lies in bridging that gap—fusing AI orchestration with robust full-stack development so that every project I ship is both intelligent under the hood and striking on the screen.
+                A working model needs a working interface. My expertise lies in bridging that gap, fusing AI orchestration with full-stack development so every product is intelligent under the hood and clear on the screen.
               </p>
             </Reveal>
 
@@ -98,13 +97,15 @@ export default function SkillsRotator() {
                 <div className="skills-rotator__strip">
                   {strip.map(({ idx, offset, cat }) => (
                     <button
+                      type="button"
                       key={`${idx}-${offset}`}
                       className={[
                         "skills-rotator__strip-item",
                         offset === 0 ? "skills-rotator__strip-item--active" : "",
                         Math.abs(offset) === 2 ? "skills-rotator__strip-item--far" : "",
                       ].filter(Boolean).join(" ")}
-                      onClick={() => { advance(idx); startTimer(idx); }}
+                      onClick={() => setActive(idx)}
+                      aria-pressed={active === idx}
                     >
                       <span className="skills-rotator__strip-text">{cat.label}</span>
                     </button>
@@ -115,7 +116,7 @@ export default function SkillsRotator() {
 
             <Reveal delay={140}>
               <p className="skills-rotator__eyebrow">What I've worked on</p>
-              <div className={`skills-rotator__pills ${animating ? "skills-rotator__pills--exit" : "skills-rotator__pills--enter"}`}>
+              <div className="skills-rotator__pills">
                 {current.skills.map((skill) => (
                   <span className="skills-rotator__pill" key={skill}>{skill}</span>
                 ))}
