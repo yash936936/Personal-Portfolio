@@ -350,3 +350,26 @@
     max-width: 92%;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__visual,
+  .hero__switch,
+  .hero__switch-control,
+  .hero__eyebrow,
+  .hero__headline-row > span,
+  .hero__sub {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .hero__visual,
+  .hero__eyebrow,
+  .hero__headline-row > span {
+    opacity: 1;
+  }
+
+  .hero__sub:not(.hero__sub--active) {
+    display: none;
+  }
+}
