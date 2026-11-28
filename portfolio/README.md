@@ -26,7 +26,7 @@ npm run preview
 
 ## Optional browser QA
 
-The desktop/mobile hero check uses Playwright. Install it only if you want to run this check:
+The responsive and navigation check uses Playwright. Install it only if you want to run this check:
 
 ```bash
 cd portfolio
@@ -38,10 +38,10 @@ npm run preview -- --host 127.0.0.1
 With the preview server running, open a second terminal in `portfolio/` and run:
 
 ```bash
-node qa-hero.mjs
+node qa-site.mjs
 ```
 
-The script checks the scroll-driven hero state, captures desktop and mobile screenshots, and fails if the mobile viewport has horizontal overflow.
+The script checks all app routes at six viewport widths, unique page titles, internal navigation targets, image alt attributes, and mobile menu open/close behavior. It fails on horizontal overflow.
 
 ## Run the contact Worker
 
