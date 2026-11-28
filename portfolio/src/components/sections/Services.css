@@ -150,8 +150,7 @@
 /* idle bob, independent of the cursor-driven transform on the parent —
    keeps the stage feeling alive even before anyone moves the mouse */
 .services__item-inner {
-  animation: services-float 7s ease-in-out infinite;
-  animation-delay: var(--float-delay, 0s);
+  animation: none;
 }
 
 .services__item--active .services__item-inner {
