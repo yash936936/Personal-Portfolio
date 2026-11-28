@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
@@ -14,18 +14,9 @@ const RESEARCH_THREADS = [
 ];
 
 export function FeaturedProjects() {
-  const heroRef = useRef<HTMLDivElement>(null);
   const featuredProjects = FEATURED
     .map((slug) => projects.find((item) => item.slug === slug))
     .filter((item): item is (typeof projects)[number] => Boolean(item));
-
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.fromTo(hero, { y: 28, rotate: -2, opacity: 0.7 }, {
-      y: 0, rotate: 0, opacity: 1, duration: 1.15, ease: "elastic.out(1, 0.72)", delay: 0.12,
-    });
-  }, []);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -60,13 +51,11 @@ export function FeaturedProjects() {
           <div><span className="home-section__eyebrow">Selected work</span><h2>Featured work</h2></div>
           <Link to="/work" className="home-section__text-link">All work</Link>
         </div>
+        <p className="home-featured__intro">
+          From architecture to working prototypes. Explore the engineering behind agent memory,
+          AI-assisted system design, multi-agent developer tooling and research automation.
+        </p>
         <div className="home-featured__layout">
-          <div className="home-featured__hero" ref={heroRef}>
-            <span className="home-featured__hero-kicker">A closer look at the systems</span>
-            <h3>From architecture to working prototypes.</h3>
-            <p>Explore the engineering behind agent memory, AI-assisted system design, multi-agent developer tooling and research automation.</p>
-            
-          </div>
           <div className="home-featured__stack" aria-label="Featured work case studies">
             {featuredProjects.map((item, index) => (
               <article className="home-project-card" key={item.slug} data-stack-index={index} style={{ "--stack-index": index, "--stack-rotation": index % 2 === 0 ? "-1.2deg" : "1deg" } as CSSProperties}>
