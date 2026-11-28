@@ -7,9 +7,6 @@ export interface ProjectDetailContent {
   architectureIntro: string;
   flow: ProjectFlowStep[];
   components: { heading: string; body: string; points: string[] }[];
-  designDecisions: string[];
-  evaluation: string[];
-  limitations: string[];
   references: { label: string; href: string }[];
 }
 
