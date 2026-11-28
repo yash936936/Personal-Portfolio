@@ -134,6 +134,43 @@ try {
     failures.push("mobile navigation did not return focus to its trigger");
   }
 
+  let mockedContactStatus = 200;
+  const siteOrigin = new URL(baseUrl).origin;
+  await page.route("**/*", (route) => {
+    const request = route.request();
+    if (request.method() === "POST" && new URL(request.url()).origin !== siteOrigin) {
+      return route.fulfill({
+        status: mockedContactStatus,
+        contentType: "application/json",
+        body: JSON.stringify(mockedContactStatus < 300 ? { success: true } : { error: "Test failure" }),
+      });
+    }
+    return route.continue();
+  });
+  await page.goto(new URL("/contact", baseUrl).toString(), { waitUntil: "domcontentloaded" });
+  if (await page.locator(".contact-form__captcha").count() === 0) {
+    await page.locator('input[name="name"]').fill("Portfolio Test");
+    await page.locator('input[name="email"]').fill("test@example.com");
+    await page.locator('textarea[name="message"]').fill("Automated contact form success-state check.");
+    await page.getByRole("button", { name: "Send Message" }).click();
+    await page.locator(".contact-success").waitFor({ timeout: 5_000 }).catch(() => undefined);
+    if (!(await page.locator(".contact-success").innerText().catch(() => "")).includes("Message sent.")) {
+      failures.push("contact form did not display its success message");
+    }
+
+    mockedContactStatus = 502;
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await page.locator('input[name="name"]').fill("Portfolio Test");
+    await page.locator('input[name="email"]').fill("test@example.com");
+    await page.locator('textarea[name="message"]').fill("Automated contact form error-state check.");
+    await page.getByRole("button", { name: "Send Message" }).click();
+    await page.getByRole("alert").waitFor({ timeout: 5_000 }).catch(() => undefined);
+    if (!(await page.getByRole("alert").innerText().catch(() => "")).includes("Something went wrong")) {
+      failures.push("contact form did not display its error message");
+    }
+  }
+  await page.unroute("**/*");
+
   await page.goto(new URL("/__portfolio_404_check__", baseUrl).toString(), {
     waitUntil: "domcontentloaded",
   });
