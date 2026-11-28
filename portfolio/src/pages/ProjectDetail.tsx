@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
+import ScrollProgress from "../components/ScrollProgress";
 import { projects } from "../data/content";
 import { projectDetails } from "../data/projectDetails";
 import "./ProjectDetail.css";
@@ -12,6 +13,7 @@ export default function ProjectDetail() {
 
   return (
     <div className="project-detail-page">
+      <ScrollProgress />
       <PageHeader eyebrow={project.category} title={project.title} sub={project.description} />
       <div className="container project-detail">
         <div className="project-detail__topline">
