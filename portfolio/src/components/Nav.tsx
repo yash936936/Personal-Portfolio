@@ -96,7 +96,7 @@ export default function Nav() {
       <div id="nav-overlay" className={`nav-overlay ${open ? "nav-overlay--open" : ""}`} aria-hidden={!open}>
         <div className="nav-overlay__inner container">
           <div className="nav-overlay__col">
-            <Link to="/services" className="eyebrow nav-overlay__eyebrow" onClick={closeMenu}>Services</Link>
+            <Link to="/services" className="eyebrow nav-overlay__eyebrow" onClick={closeMenu} aria-current={location.pathname.startsWith("/services") ? "page" : undefined}>Services</Link>
             <ul className="nav-overlay__offers">
               {offerLinks.map((o, i) => (
                 <li
