@@ -165,57 +165,8 @@
 
 
 /* Work page exploration cue and return control */
-.work-page__intro {
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  transition: min-height .45s ease;
-}
-.work-page__intro.has-scrolled {
-  min-height: 0;
-}
-.work-page__intro .page-header { flex: 0 0 auto; }
-.work-page__intro .prototype-picker { flex: 0 0 auto; margin-top: clamp(34px, 6vh, 64px); }
-.work-scroll-cue {
-  display: grid;
-  place-items: center;
-  margin-top: auto;
-  padding: 20px var(--container-pad) clamp(34px, 6vh, 64px);
-  text-align: center;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity .25s ease, padding .35s ease, visibility .25s ease;
-}
-.work-page__intro.has-scrolled .work-scroll-cue {
-  display: none;
-}
-.work-scroll-cue__content { display: grid; justify-items: center; gap: 12px; }
-.work-scroll-cue__content > span {
-  color: var(--color-muted);
-  font-family: var(--font-code);
-  font-size: 10px;
-  letter-spacing: 1.1px;
-  text-transform: uppercase;
-}
-.work-scroll-cue__content button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 16px;
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: var(--color-ink);
-  font-size: 12px;
-  transition: border-color .2s ease, color .2s ease, transform .2s ease;
-}
-.work-scroll-cue__content button:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary-active);
-  transform: translateY(2px);
-}
-.work-scroll-cue__content button span { color: var(--color-primary-active); font-size: 16px; line-height: 1; }
+.work-page__intro { display: block; }
+.work-page__intro .page-header { margin-bottom: 0; }
 .work-back-to-top {
   position: fixed;
   right: clamp(18px, 3vw, 34px);
@@ -251,5 +202,5 @@
   .work-back-to-top { right: 16px; bottom: 16px; min-height: 42px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .work-scroll-cue__content button, .work-back-to-top { transition: none; }
+  .work-back-to-top { transition: none; }
 }
