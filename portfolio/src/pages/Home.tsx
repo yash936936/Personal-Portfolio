@@ -5,7 +5,7 @@ import ApproachStrip from "../components/sections/ApproachStrip";
 import Faq from "../components/sections/Faq";
 import Press from "../components/sections/Press";
 import ContactBand from "../components/sections/ContactBand";
-import { FeaturedProjects, ResearchAndBlog } from "../components/sections/HomeSections";
+import { FeaturedProjects } from "../components/sections/HomeSections";
 
 export default function Home() {
   return (
@@ -15,7 +15,6 @@ export default function Home() {
       <FeaturedProjects />
       <ApproachStrip />
       <Services />
-      <ResearchAndBlog />
       <Faq />
       <Press />
       <ContactBand />
