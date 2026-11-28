@@ -80,5 +80,5 @@
   .blog-row__description p { padding: 16px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .blog-row__image { will-change: auto; }
+  .blog-row__description { will-change: auto; }
 }
