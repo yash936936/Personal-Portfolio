@@ -1,0 +1,29 @@
+.scroll-progress {
+  position: fixed;
+  z-index: 1200;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--color-ink) 9%, transparent);
+}
+
+.scroll-progress__bar {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-primary-active) 20%, transparent),
+    var(--color-primary-active) 75%,
+    var(--color-primary-active)
+  );
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress__bar { will-change: auto; }
+}
