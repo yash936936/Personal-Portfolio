@@ -66,7 +66,7 @@ export function FeaturedProjects() {
             <span className="home-featured__hero-kicker">A closer look at the systems</span>
             <h3>From architecture to working prototypes.</h3>
             <p>Explore the engineering behind agent memory, AI-assisted system design, multi-agent developer tooling and research automation.</p>
-            <div className="home-featured__hero-foot"><span>04 featured builds</span><span>Architecture · Decisions · Evidence</span></div>
+            
           </div>
           <div className="home-featured__stack" aria-label="Featured work case studies">
             {featuredProjects.map((item, index) => (
