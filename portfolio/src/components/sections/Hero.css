@@ -42,7 +42,6 @@
   background: transparent;
   transform: rotate(-43deg) scale(0.92);
   transition: transform 1.25s var(--ease-in-out-quart);
-  will-change: transform;
 }
 
 .hero--entered .hero__switch {
