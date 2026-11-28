@@ -3,24 +3,6 @@
   --service-on-accent: var(--color-on-primary);
 }
 
-/* Tint the page header eyebrow dot with the service's accent */
-.service-page .page-header__eyebrow {
-  position: relative;
-  padding-left: 18px;
-}
-
-.service-page .page-header__eyebrow::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--service-accent);
-  transform: translateY(-50%);
-}
-
 /* --- Steps --- */
 .service-steps {
   display: flex;
@@ -32,7 +14,7 @@
 .service-step {
   position: relative;
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 24px;
   padding: 30px 28px;
@@ -50,51 +32,6 @@
   background: var(--color-canvas);
   transform: translateY(-3px);
   box-shadow: 0 18px 40px -28px rgba(20, 20, 19, 0.35);
-}
-
-.service-step__ghost {
-  position: absolute;
-  right: 8px;
-  top: -22px;
-  z-index: 0;
-  font-family: var(--font-display);
-  font-size: 130px;
-  line-height: 1;
-  color: var(--color-ink);
-  opacity: 0.035;
-  pointer-events: none;
-  transition: opacity 0.35s var(--ease-out-quart), color 0.35s var(--ease-out-quart);
-}
-
-.service-step:hover .service-step__ghost {
-  opacity: 0.07;
-  color: var(--service-accent);
-}
-
-.service-step__num {
-  position: relative;
-  z-index: 1;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: 1px solid var(--color-hairline);
-  background: var(--color-canvas);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 18px;
-  color: var(--service-accent);
-  flex-shrink: 0;
-  transition: background-color 0.35s var(--ease-out-quart), color 0.35s var(--ease-out-quart),
-    box-shadow 0.35s var(--ease-out-quart), transform 0.35s var(--ease-out-quart);
-}
-
-.service-step:hover .service-step__num {
-  background: var(--service-accent);
-  color: var(--service-on-accent);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--service-accent) 16%, transparent);
-  transform: scale(1.06);
 }
 
 .service-step__body {
@@ -146,23 +83,9 @@
   border-bottom: 1px solid var(--color-hairline);
 }
 
-.service-related__dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--color-hairline);
-  flex-shrink: 0;
-  transition: background-color 0.3s, transform 0.3s var(--ease-out-quart);
-}
-
 .service-related__item:hover {
   color: var(--service-accent);
   gap: 22px;
-}
-
-.service-related__item:hover .service-related__dot {
-  background: var(--service-accent);
-  transform: scale(1.3);
 }
 
 .service-related__arrow {
@@ -192,13 +115,4 @@
     padding: 24px 20px;
   }
 
-  .service-step__num {
-    width: 44px;
-    height: 44px;
-  }
-
-  .service-step__ghost {
-    font-size: 90px;
-    top: -14px;
-  }
 }
