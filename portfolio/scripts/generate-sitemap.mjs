@@ -1,6 +1,14 @@
 import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
+for (const envFile of [".env", ".env.local"]) {
+  try {
+    process.loadEnvFile(envFile);
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+}
+
 const rawSiteUrl = process.env.VITE_SITE_URL;
 
 if (!rawSiteUrl) {
