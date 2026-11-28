@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
 import { projects } from "../data/content";
+import { getLenis } from "../hooks/useSmoothScroll";
 import { projectDetails } from "../data/projectDetails";
 import "./Work.css";
 
@@ -94,14 +95,41 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
 
 export default function Work() {
   const [selectedPrototype, setSelectedPrototype] = useState("agm");
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const updateScrollState = () => setShowBackToTop(window.scrollY > 420);
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrollState);
+  }, []);
+
+  const scrollToTop = () => {
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(0, { duration: 1.1 });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const scrollToProjects = () => {
+    document.getElementById("work-projects")?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "start",
+    });
+  };
 
   return (
     <div className="work-page">
       <PageHeader
-        eyebrow="Selected work"
+        eyebrow="WORK"
         title="AI systems, architecture and engineering."
       />
-      <section className="container prototype-picker" aria-label="Choose a prototype">
+      <section className="work-scroll-cue" aria-label="Explore the work">
+        <div className="work-scroll-cue__content">
+          <span>Systems, prototypes and engineering notes</span>
+          <button type="button" onClick={scrollToProjects}>Scroll to explore <span aria-hidden="true">↓</span></button>
+        </div>
+      </section>
+      <section className="container prototype-picker" id="work-projects" aria-label="Choose a prototype">
         <div className="prototype-picker__track" role="group" aria-label="Prototypes">
           {projects.map((item) => (
             <button
@@ -136,6 +164,17 @@ export default function Work() {
         ))}
       </section>
       <ContactBand />
+      <button
+        type="button"
+        className={"work-back-to-top" + (showBackToTop ? " is-visible" : "")}
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+        aria-hidden={!showBackToTop}
+        tabIndex={showBackToTop ? 0 : -1}
+      >
+        <span aria-hidden="true">↑</span>
+        <span>Back to top</span>
+      </button>
     </div>
   );
 }
