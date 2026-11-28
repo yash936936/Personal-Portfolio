@@ -326,7 +326,8 @@
     gap: 24px;
     padding-top: calc(var(--nav-height) + 8px);
     overflow-y: auto;
-    max-height: 100vh;
+    max-height: 100dvh;
+    overscroll-behavior: contain;
     padding-bottom: 40px;
   }
   .nav-overlay__offer-title {
