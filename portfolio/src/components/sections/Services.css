@@ -140,26 +140,10 @@
     calc(var(--my, 0) * var(--depth, 16px))
   );
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 }
 
 .services__item--active {
   z-index: 5;
-}
-
-/* idle bob, independent of the cursor-driven transform on the parent —
-   keeps the stage feeling alive even before anyone moves the mouse */
-.services__item-inner {
-  animation: none;
-}
-
-.services__item--active .services__item-inner {
-  animation-play-state: paused;
-}
-
-@keyframes services-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-9px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
