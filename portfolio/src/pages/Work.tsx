@@ -136,7 +136,13 @@ export default function Work() {
               key={item.slug}
               className={`prototype-picker__tab ${selectedPrototype === item.slug ? "is-active" : ""}`}
               aria-pressed={selectedPrototype === item.slug}
-              onClick={() => setSelectedPrototype(item.slug)}
+              onClick={() => {
+                setSelectedPrototype(item.slug);
+                document.getElementById("work-" + item.slug)?.scrollIntoView({
+                  behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+                  block: "start",
+                });
+              }}
             >
               {({
                 agm: "Adaptive Graph Memory",
