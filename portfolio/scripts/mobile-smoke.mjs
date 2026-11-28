@@ -181,7 +181,7 @@ try {
   ).catch(() => undefined);
 
   const notFoundTitle = await page.locator("main h1").first().innerText().catch(() => "");
-  if (!notFoundTitle.toLowerCase().includes("doesn't exist")) {
+  if (!notFoundTitle.toLowerCase().includes("crossed the event horizon")) {
     failures.push("unknown route did not display the custom 404 page");
   }
   const robots = await page.locator('meta[name="robots"]').getAttribute("content");
