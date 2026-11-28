@@ -9,6 +9,8 @@ export function getLenis() {
 
 export function useSmoothScroll() {
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -17,16 +19,18 @@ export function useSmoothScroll() {
     });
     lenisInstance = lenis;
 
-    function raf(time: number) {
+    let frameId = 0;
+    const raf = (time: number) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    const id = requestAnimationFrame(raf);
+      frameId = window.requestAnimationFrame(raf);
+    };
+
+    frameId = window.requestAnimationFrame(raf);
 
     return () => {
-      cancelAnimationFrame(id);
+      window.cancelAnimationFrame(frameId);
       lenis.destroy();
-      lenisInstance = null;
+      if (lenisInstance === lenis) lenisInstance = null;
     };
   }, []);
 }
