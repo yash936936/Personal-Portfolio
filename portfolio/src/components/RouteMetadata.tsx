@@ -48,6 +48,59 @@ function resolvePageMeta(pathname: string): PageMeta {
   if (workItem) return { title: workItem.title + " | Architecture Notes", description: workItem.description };
   return PAGE_META[pathname] ?? { title: "Page not found | Yash Malik", description: "The requested page could not be found. Browse work, blog or about." };
 }
+function upsertStructuredData(pathname: string, meta: PageMeta) {
+  const knownPath = Boolean(PAGE_META[pathname] || getBlogPost(pathname) || getWorkItem(pathname));
+  const article = getBlogPost(pathname);
+  const project = getWorkItem(pathname);
+  const pageUrl = new URL(pathname, SITE_URL).toString();
+  const data = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": SITE_URL + "/#person",
+        name: "Yash Malik",
+        url: SITE_URL + "/",
+        jobTitle: "AI Systems Engineer",
+        sameAs: ["https://github.com/yash936936", "https://www.linkedin.com/in/yashmalik-/"],
+      },
+      ...(knownPath ? [{
+        "@type": "WebPage",
+        "@id": pageUrl + "#webpage",
+        url: pageUrl,
+        name: meta.title,
+        description: meta.description,
+        isPartOf: { "@id": SITE_URL + "/#website" },
+        about: { "@id": SITE_URL + "/#person" },
+      }] : []),
+      ...(article ? [{
+        "@type": "Article",
+        headline: article.title,
+        description: article.excerpt,
+        mainEntityOfPage: pageUrl,
+        author: { "@id": SITE_URL + "/#person" },
+        publisher: { "@id": SITE_URL + "/#person" },
+      }] : []),
+      ...(project ? [{
+        "@type": "CreativeWork",
+        name: project.title,
+        description: project.description,
+        url: pageUrl,
+        creator: { "@id": SITE_URL + "/#person" },
+      }] : []),
+      ...(pathname === "/" ? [{
+        "@type": "WebSite",
+        "@id": SITE_URL + "/#website",
+        url: SITE_URL + "/",
+        name: "Yash Malik",
+        publisher: { "@id": SITE_URL + "/#person" },
+      }] : []),
+    ],
+  };
+  let script = document.getElementById("portfolio-structured-data") as HTMLScriptElement | null;
+  if (!script) { script = document.createElement("script"); script.id = "portfolio-structured-data"; script.type = "application/ld+json"; document.head.appendChild(script); }
+  script.textContent = JSON.stringify(data);
+}
 export default function RouteMetadata() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -57,7 +110,7 @@ export default function RouteMetadata() {
     document.title = meta.title;
     upsertMeta("name", "description", meta.description);
     upsertMeta("name", "robots", knownPath ? "index, follow" : "noindex, follow");
-    upsertMeta("property", "og:type", "website");
+    upsertMeta("property", "og:type", getBlogPost(pathname) ? "article" : "website");
     upsertMeta("property", "og:site_name", "Yash Malik");
     upsertMeta("property", "og:title", meta.title);
     upsertMeta("property", "og:description", meta.description);
@@ -72,6 +125,7 @@ export default function RouteMetadata() {
     upsertMeta("name", "twitter:image", SOCIAL_IMAGE);
     if (knownPath) { upsertMeta("property", "og:url", canonical); setCanonical(canonical); }
     else { removeMeta("property", "og:url"); removeCanonical(); }
+    upsertStructuredData(pathname, meta);
   }, [pathname]);
   return null;
 }
