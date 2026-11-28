@@ -34,12 +34,12 @@ export default function FeaturedWork() {
             >
               <div className="featured-work__lead-top">
                 <span className="featured-work__lead-label">Featured build</span>
-                <span className="featured-work__lead-mark" aria-hidden="true">↗</span>
+                <span className="featured-work__lead-mark" aria-hidden="true">+</span>
               </div>
               <div className="featured-work__lead-art" aria-hidden="true">
                 <span className="featured-work__orbit featured-work__orbit--outer" />
                 <span className="featured-work__orbit featured-work__orbit--inner" />
-                <span className="featured-work__lead-core">{featured.title.split(/\\s+/).map((word) => word[0]).slice(0, 2).join("")}</span>
+                <span className="featured-work__lead-core">{featured.title.split(/\s+/).map((word) => word[0]).slice(0, 2).join("")}</span>
               </div>
               <div className="featured-work__lead-bottom">
                 <div>
