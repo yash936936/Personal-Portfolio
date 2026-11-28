@@ -212,7 +212,7 @@
    to take its place */
 .services__item--active .services__icon--arrow {
   opacity: 0;
-  transform: translateX(10px);
+  transform: rotate(45deg);
 }
 
 .services__item--active .services__icon--close {
