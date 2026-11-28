@@ -6,38 +6,11 @@ import "./About.css";
 
 const SECTION_LABELS: Record<string, string> = {
   overview: "Overview",
-  "recent-work": "Recent work",
   research: "Research interests",
   arsenal: "Tech arsenal",
   connect: "Connect",
 };
 
-const RECENT_WORK = [
-  {
-    name: "AGM",
-    type: "Agent memory infrastructure",
-    summary: "A model-agnostic memory layer exploring event-sourced storage, hybrid retrieval, provenance and memory lifecycle controls.",
-    href: "/work/agm",
-  },
-  {
-    name: "SysDesign AI",
-    type: "AI-assisted system design",
-    summary: "A structured HLD and LLD workflow that clarifies requirements, retrieves design references and generates reviewable architecture artifacts.",
-    href: "/work/sysdesign-ai",
-  },
-  {
-    name: "Coding Harness",
-    type: "Multi-agent developer tooling",
-    summary: "A profile-governed coding harness combining model access, retrieval, memory, policy controls and sandbox workflow design.",
-    href: "/work/coding-harness",
-  },
-  {
-    name: "Fathom",
-    type: "Local research assistant",
-    summary: "A research workflow using hybrid retrieval, reranking and claim-level citation checks to make evidence visible.",
-    href: "/work/fathom",
-  },
-];
 
 const RESEARCH_INTERESTS = [
   {
@@ -108,7 +81,7 @@ export default function About() {
     <div className="about-page">
       <PageHeader
         eyebrow="About Me"
-        title="AI engineering, research and recent work."
+        title="AI engineering and research."
         sub="I design and explore intelligent systems through research-led prototypes, practical software engineering and careful evaluation."
       />
       <div className="container about__container">
@@ -152,22 +125,6 @@ export default function About() {
             </Reveal>
           </section>
 
-          <section id="recent-work" className="about__section">
-            <Reveal>
-              <h2 className="about__h2">Recent work</h2>
-              <div className="about__recent-grid">
-                {RECENT_WORK.map((item) => (
-                  <Link to={item.href} className="about__recent-card" key={item.name}>
-                    <span className="about__recent-type">{item.type}</span>
-                    <h3>{item.name}</h3>
-                    <p>{item.summary}</p>
-                    <span className="about__recent-link">Read the technical notes</span>
-                  </Link>
-                ))}
-              </div>
-              <Link className="about__inline-link" to="/work">Explore all work</Link>
-            </Reveal>
-          </section>
 
           <section id="research" className="about__section">
             <Reveal>
