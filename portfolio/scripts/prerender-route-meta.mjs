@@ -56,13 +56,13 @@ function setMeta(html, selector, attribute, value) {
   const pattern = new RegExp(`<meta ${selector}="[^"]*" content="[^"]*"\\s*\\/?>`);
   const tag = `<meta ${selector}="${attribute}" content="${safeValue}" />`;
   if (pattern.test(html)) return html.replace(pattern, tag);
-  return html.replace("</head>", `    ${tag}\\n  </head>`);
+  return html.replace("</head>", `    ${tag}\n  </head>`);
 }
 
 const template = await readFile(resolve("dist/index.html"), "utf8");
 
 for (const [route, meta] of Object.entries(pages)) {
-  let html = template.replace(/<title>[^<]*<\\/title>/, `<title>${escapeAttribute(meta.title)}</title>`);
+  let html = template.replace(/<title>[^<]*<\/title>/, `<title>${escapeAttribute(meta.title)}</title>`);
   html = setMeta(html, "name", "description", meta.description);
   html = setMeta(html, "property", "og:title", meta.title);
   html = setMeta(html, "property", "og:description", meta.description);
@@ -71,7 +71,7 @@ for (const [route, meta] of Object.entries(pages)) {
 
   if (siteUrl) {
     const canonical = `<link rel="canonical" href="${siteUrl}${route}" />`;
-    html = html.replace("</head>", `    ${canonical}\\n  </head>`);
+    html = html.replace("</head>", `    ${canonical}\n  </head>`);
     html = setMeta(html, "property", "og:url", `${siteUrl}${route}`);
     html = setMeta(html, "property", "og:image", `${siteUrl}/poster-showcase.jpg`);
   }
@@ -82,7 +82,7 @@ for (const [route, meta] of Object.entries(pages)) {
 }
 
 const notFound = template
-  .replace(/<title>[^<]*<\\/title>/, "<title>Page Not Found | Yash Malik</title>")
+  .replace(/<title>[^<]*<\/title>/, "<title>Page Not Found | Yash Malik</title>")
   .replace(/<meta name="robots" content="[^"]*"\\s*\\/?>/, '<meta name="robots" content="noindex, nofollow" />')
   .replace(/<meta name="description" content="[^"]*"\\s*\\/?>/, '<meta name="description" content="The page you requested could not be found." />');
 await writeFile(resolve("dist/404.html"), notFound, "utf8");
