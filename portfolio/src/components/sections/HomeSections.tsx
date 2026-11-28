@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
@@ -9,13 +9,14 @@ const FEATURED = ["agm", "sysdesign-ai", "coding-harness", "fathom"];
 
 
 export function FeaturedProjects() {
+  const stackRef = useRef<HTMLDivElement | null>(null);
   const featuredProjects = FEATURED
     .map((slug) => projects.find((item) => item.slug === slug))
     .filter((item): item is (typeof projects)[number] => Boolean(item));
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const cards = document.querySelectorAll<HTMLElement>(".home-project-card");
+    const cards = stackRef.current?.querySelectorAll<HTMLElement>(".home-project-card") ?? [];
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
@@ -51,7 +52,7 @@ export function FeaturedProjects() {
           AI-assisted system design, multi-agent developer tooling and research automation.
         </p>
         <div className="home-featured__layout">
-          <div className="home-featured__stack" aria-label="Featured work case studies">
+          <div ref={stackRef} className="home-featured__stack" aria-label="Featured work case studies">
             {featuredProjects.map((item, index) => (
               <article className="home-project-card" key={item.slug} data-stack-index={index} style={{ "--stack-index": index, "--stack-rotation": index % 2 === 0 ? "-1.2deg" : "1deg" } as CSSProperties}>
                 <div className="home-project-card__meta"><span>{item.category}</span><span>{item.status}</span></div>
