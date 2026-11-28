@@ -11,20 +11,18 @@ export default function Work() {
       <PageHeader
         eyebrow="Selected work"
         title="Models, pipelines, products."
-        sub="A running list of things I've trained, built, and shipped."
+        sub="A running list of systems and products I've trained, built, and shipped."
       />
 
-      <section className="container" style={{ paddingBottom: 64 }}>
+      <section className="container work-page__projects" aria-label="Project portfolio">
         <div className="project-row-list">
-          {projects.map((p, i) => (
-            <Reveal key={p.slug} delay={Math.min(i, 6) * 50}>
+          {projects.map((project, index) => (
+            <Reveal key={project.slug} delay={Math.min(index, 6) * 50}>
               <ProjectRow
-                title={p.title}
-                year={p.year}
-                category={p.category}
-                color={p.color}
-                href={p.github ?? "/work"}
-                github={p.github}
+                title={project.title}
+                year={project.year}
+                category={project.category}
+                github={project.github}
               />
             </Reveal>
           ))}
