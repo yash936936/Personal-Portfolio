@@ -8,9 +8,9 @@ import "./HomeSections.css";
 
 const FEATURED = ["agm", "sysdesign-ai", "coding-harness", "fathom"];
 const RESEARCH_THREADS = [
-  { title: "Persistent memory and agent context", text: "How can an agent keep useful context, preserve provenance, correct outdated facts and abstain when evidence is missing?", work: "AGM", slug: "agm" },
-  { title: "Bounded agents and execution safety", text: "How should profiles, tools, permissions, memory and workspaces fit together without granting unnecessary access?", work: "Coding Harness", slug: "coding-harness" },
-  { title: "Evidence and citation verification", text: "How can research systems trace claims to sources and identify answers that the retrieved evidence cannot support?", work: "Fathom", slug: "fathom" },
+  { title: "Persistent memory and agent context", work: "AGM", slug: "agm" },
+  { title: "Bounded agents and execution safety", work: "Coding Harness", slug: "coding-harness" },
+  { title: "Evidence and citation verification", work: "Fathom", slug: "fathom" },
 ];
 
 export function FeaturedProjects() {
@@ -77,29 +77,40 @@ export function ResearchAndBlog() {
   return (
     <section className="home-section research-writing">
       <div className="container">
-        <div className="home-section__heading">
-          <span className="home-section__eyebrow">Ideas and technical notes</span>
-          <h2>Research &amp; Blog</h2>
-          <p className="home-section__intro">Questions explored through working prototypes, technical articles and evaluation notes.</p>
+        <div className="home-section__heading home-section__heading--row">
+          <div>
+            <span className="home-section__eyebrow">Ideas and technical notes</span>
+            <h2>Research &amp; writing</h2>
+          </div>
+          <Link to="/blog" className="home-section__text-link">All articles</Link>
         </div>
         <div className="research-writing__layout">
-          <div className="research-writing__questions">
-            <h3>Research questions</h3>
-            {RESEARCH_THREADS.map((thread) => (
-              <article className="research-writing__question" key={thread.slug}>
-                <h4>{thread.title}</h4><p>{thread.text}</p>
-                <Link to={"/work/" + thread.slug}>Explore {thread.work}</Link>
-              </article>
-            ))}
+          <div className="research-writing__column">
+            <h3>Research areas</h3>
+            <div className="research-writing__list">
+              {RESEARCH_THREADS.map((thread) => (
+                <Link className="research-writing__item" to={"/work/" + thread.slug} key={thread.slug}>
+                  <span>{thread.work}</span>
+                  <strong>{thread.title}</strong>
+                  <span className="research-writing__arrow" aria-hidden="true">↗</span>
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="research-writing__articles">
-            <div className="research-writing__articles-heading"><h3>Recent writing</h3><Link to="/blog">Visit the blog</Link></div>
-            {blogPosts.map((post) => (
-              <article className="research-writing__article" key={post.slug}>
-                <span>{post.category} · {post.readingTime}</span><h4>{post.title}</h4><p>{post.excerpt}</p>
-                <Link to={"/blog/" + post.slug}>Read article</Link>
-              </article>
-            ))}
+          <div className="research-writing__column">
+            <div className="research-writing__column-heading">
+              <h3>Latest articles</h3>
+              <Link to="/blog">View blog</Link>
+            </div>
+            <div className="research-writing__list">
+              {blogPosts.slice(0, 3).map((post) => (
+                <Link className="research-writing__item research-writing__item--article" to={"/blog/" + post.slug} key={post.slug}>
+                  <span>{post.category} · {post.readingTime}</span>
+                  <strong>{post.title}</strong>
+                  <span className="research-writing__arrow" aria-hidden="true">↗</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
