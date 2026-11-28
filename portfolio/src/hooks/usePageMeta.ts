@@ -79,23 +79,5 @@ export function usePageMeta() {
     }
     canonical.href = window.location.origin + pathname;
 
-    let schema = document.getElementById("portfolio-person-schema") as HTMLScriptElement | null;
-    if (!schema) {
-      schema = document.createElement("script");
-      schema.id = "portfolio-person-schema";
-      schema.type = "application/ld+json";
-      document.head.appendChild(schema);
-    }
-    schema.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: "Yash Malik",
-      jobTitle: "AI & Full-Stack Engineer",
-      description: "Engineering AI systems, agentic workflows, and full-stack products.",
-      sameAs: [
-        "https://github.com/yash936936",
-        "https://www.linkedin.com/in/yashmalik-/"
-      ]
-    });
   }, [pathname]);
 }
