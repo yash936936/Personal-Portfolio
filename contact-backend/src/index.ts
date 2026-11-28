@@ -282,6 +282,9 @@ export default {
       '</div>',
     ].join("\n");
 
+    const resendController = new AbortController();
+    const resendTimeoutId = setTimeout(() => resendController.abort(), 8_000);
+
     try {
       const notifyAdmin = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -296,6 +299,7 @@ export default {
           html: emailHtml,
           reply_to: email,
         }),
+        signal: resendController.signal,
       });
 
       if (!notifyAdmin.ok) {
@@ -307,6 +311,8 @@ export default {
     } catch {
       console.error("Contact notification request failed");
       return jsonResponse({ error: "Unable to send your message right now" }, 502, origin, true);
+    } finally {
+      clearTimeout(resendTimeoutId);
     }
   },
 };
