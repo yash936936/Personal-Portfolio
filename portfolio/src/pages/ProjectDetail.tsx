@@ -25,9 +25,9 @@ export default function ProjectDetail() {
         <section className="project-detail__flow-section">
           <h3>System flow</h3>
           <div className="project-detail__flow">
-            {detail.flow.map((step, index) => (
+            {detail.flow.map((step) => (
               <article className="project-detail__flow-step" key={step.name}>
-                <span className="project-detail__flow-label">Component {index + 1}</span>
+                <span className="project-detail__flow-label">Architecture layer</span>
                 <h4>{step.name}</h4><p>{step.responsibility}</p>
               </article>
             ))}
