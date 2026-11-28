@@ -102,6 +102,14 @@ describe("portfolio contact worker", () => {
     expect(longMessage.status).toBe(400);
   });
 
+  it("rejects submissions that fill the honeypot field", async () => {
+    const response = await worker.fetch(
+      makeRequest({ ...validPayload, website: "https://spam.example" }),
+      testEnv,
+    );
+    expect(response.status).toBe(400);
+  });
+
   it("rejects oversized request bodies before contacting the email provider", async () => {
     const fetchMock = vi.fn<typeof fetch>();
     vi.stubGlobal("fetch", fetchMock);
