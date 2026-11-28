@@ -96,11 +96,9 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
 export default function Work() {
   const [selectedPrototype, setSelectedPrototype] = useState("agm");
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const updateScrollState = () => {
-      setHasScrolled(window.scrollY > 24);
       setShowBackToTop(window.scrollY > 420);
     };
     updateScrollState();
@@ -114,16 +112,9 @@ export default function Work() {
     else window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const scrollToProjects = () => {
-    document.getElementById("work-projects")?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "start",
-    });
-  };
-
   return (
     <div className="work-page">
-      <div className={"work-page__intro" + (hasScrolled ? " has-scrolled" : "")}>
+      <div className="work-page__intro">
         <PageHeader
           eyebrow="Selected work"
           title="AI systems, architecture and engineering."
@@ -157,14 +148,7 @@ export default function Work() {
           ))}
         </div>
       </section>
-        {!hasScrolled && (
-          <section className="work-scroll-cue" aria-label="Explore the work">
-            <div className="work-scroll-cue__content">
-              <span>Systems, prototypes and engineering notes</span>
-              <button type="button" onClick={scrollToProjects}>Scroll to explore <span aria-hidden="true">↓</span></button>
-            </div>
-          </section>
-        )}
+
       </div>
       <section className="container work-case-studies" aria-label="Architecture case studies">
         {projects.map((item, index) => (
