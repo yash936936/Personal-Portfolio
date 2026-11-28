@@ -51,6 +51,6 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 
 - [x] Run `npm ci && npm run lint && npm run build` in `portfolio/` (GitHub Actions passed).
 - [x] Run `npm ci && npm test` in `contact-backend/` (GitHub Actions passed).
-- [x] Run `npm audit --omit=dev` for production dependencies (GitHub Actions passed after the React Router patch).
-- [ ] Run `npm run qa:site` against the production preview (now included in GitHub Actions; current run is pending).
+- [x] Run `npm audit --omit=dev` for production dependencies (zero production vulnerabilities after upgrading React Router to 7.18.2).
+- [x] Run `npm run qa:site` against the production preview (GitHub Actions passed: nine routes across six viewport widths, internal links, titles, image alt attributes, and mobile menu open/Escape-close).
 - [ ] Verify the deployed contact form after setting the production allowed origin.
