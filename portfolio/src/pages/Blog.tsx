@@ -88,7 +88,7 @@ export default function Blog() {
                 <div className="blog-card__meta"><span>{post.category}</span><span>{post.readingTime}</span></div>
                 <h2><Link to={"/blog/" + post.slug}>{post.title}</Link></h2>
                 <p>{post.excerpt}</p>
-                <div className="blog-row__description" aria-hidden="true"><p>{post.introduction}</p></div>
+                <div className="blog-row__description"><p>{post.introduction}</p></div>
                 <div className="blog-card__related">{(RELATED_WORK[post.slug] ?? []).map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label}</Link>)}</div>
               </div>
             </article>
