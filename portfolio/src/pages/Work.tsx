@@ -117,7 +117,7 @@ export default function Work() {
       <ScrollProgress />
       <div className="work-page__intro">
         <PageHeader
-          eyebrow="Selected work"
+          eyebrow="Work"
           title="AI systems, architecture and engineering."
         />
       <section className="container prototype-picker" id="work-projects" aria-label="Choose a prototype">
