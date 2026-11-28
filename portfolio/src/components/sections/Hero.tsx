@@ -18,22 +18,32 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    let ticking = false;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    let frame = 0;
     const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
         const currentY = window.scrollY;
         const delta = currentY - lastScrollY.current;
-        if (Math.abs(delta) > 4) {
-          setTilt(delta > 0 ? "bottom" : "top");
+
+        // Ignore tiny wheel/touch fluctuations so the hero does not flicker
+        // when the user pauses or changes scroll direction slightly.
+        if (Math.abs(delta) >= 16) {
+          const nextTilt: Tilt = delta > 0 ? "bottom" : "top";
+          setTilt((currentTilt) => currentTilt === nextTilt ? currentTilt : nextTilt);
           lastScrollY.current = currentY;
         }
-        ticking = false;
+        frame = 0;
       });
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
