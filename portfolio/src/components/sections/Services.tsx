@@ -44,51 +44,53 @@ export default function Services() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    return () => { if (closeTimerRef.current) clearTimeout(closeTimerRef.current); };
+    return () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    };
   }, []);
 
-  function open(i: number) {
+  function open(index: number) {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    setActive(i);
+    setActive(index);
   }
 
   function close() {
     closeTimerRef.current = setTimeout(() => setActive(null), 300);
   }
 
-  function toggle(i: number) {
+  function toggle(index: number) {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    if (active === i) {
-      navigate(offers[i].href);
+    if (active === index) {
+      navigate(offers[index].href);
     } else {
-      setActive(i);
+      setActive(index);
     }
   }
 
-  function handleStageMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const el = stageRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const mx = (e.clientX - rect.left) / rect.width - 0.5;
-    const my = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.setProperty("--mx", mx.toFixed(3));
-    el.style.setProperty("--my", my.toFixed(3));
+  function handleStageMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    const element = stageRef.current;
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const mx = (event.clientX - rect.left) / rect.width - 0.5;
+    const my = (event.clientY - rect.top) / rect.height - 0.5;
+    element.style.setProperty("--mx", mx.toFixed(3));
+    element.style.setProperty("--my", my.toFixed(3));
   }
 
   function handleStageMouseLeave() {
-    const el = stageRef.current;
-    if (!el) return;
-    el.style.setProperty("--mx", "0");
-    el.style.setProperty("--my", "0");
+    const element = stageRef.current;
+    if (!element) return;
+    element.style.setProperty("--mx", "0");
+    element.style.setProperty("--my", "0");
   }
 
   return (
-    <section className="services">
+    <section className="services" aria-labelledby="services-heading">
       <div className="container">
         <div className="services__intro">
           <Reveal>
             <span className="services__eyebrow">Be precise. Be fast. Be bold.</span>
-            <h2 className="services__heading">
+            <h2 id="services-heading" className="services__heading">
               Turning ambition <br /> into shipped systems
             </h2>
           </Reveal>
@@ -114,9 +116,9 @@ export default function Services() {
             <span className="services__ring services__ring--a" aria-hidden="true" />
             <span className="services__ring services__ring--b" aria-hidden="true" />
 
-            {offers.map((offer, i) => {
-              const meta = META[i];
-              const isActive = active === i;
+            {offers.map((offer, index) => {
+              const meta = META[index];
+              const isActive = active === index;
               return (
                 <div
                   key={offer.href}
@@ -129,26 +131,25 @@ export default function Services() {
                   style={
                     { ...meta.style, "--depth": `${meta.depth}px` } as unknown as React.CSSProperties
                   }
-                  onMouseEnter={() => open(i)}
+                  onMouseEnter={() => open(index)}
                   onMouseLeave={close}
                 >
                   <div
                     className="services__item-inner"
-                    style={
-                      { "--float-delay": meta.floatDelay } as unknown as React.CSSProperties
-                    }
+                    style={{ "--float-delay": meta.floatDelay } as unknown as React.CSSProperties}
                   >
                     <button
                       type="button"
                       className="services__pill"
                       style={{ background: meta.bg, color: meta.fg }}
-                      onClick={() => toggle(i)}
+                      onClick={() => toggle(index)}
                       aria-expanded={isActive}
+                      aria-controls={`service-card-${index}`}
                     >
                       {meta.label}
                       <span className="services__pill-icon" aria-hidden="true">
-                        <svg className="services__icon services__icon--arrow" viewBox="0 0 20 20" focusable="false">
-                          <path d="M4 10h11M11 6l4 4-4 4" />
+                        <svg className="services__icon services__icon--plus" viewBox="0 0 20 20" focusable="false">
+                          <path d="M10 4v12M4 10h12" />
                         </svg>
                         <svg className="services__icon services__icon--close" viewBox="0 0 20 20" focusable="false">
                           <path d="M5 5l10 10M15 5L5 15" />
@@ -156,11 +157,14 @@ export default function Services() {
                       </span>
                     </button>
 
-                    <div className="services__card" aria-hidden={!isActive}>
-                      <span className="services__card-kicker">{offer.kicker}</span>
+                    <div
+                      id={`service-card-${index}`}
+                      className="services__card"
+                      aria-hidden={!isActive}
+                    >
                       <h3 className="services__card-title">
-                        {offer.title.split("\n").map((line, li) => (
-                          <span key={li} className="services__card-title-row">
+                        {offer.title.split("\n").map((line, lineIndex) => (
+                          <span key={lineIndex} className="services__card-title-row">
                             {line}
                           </span>
                         ))}
@@ -172,18 +176,7 @@ export default function Services() {
                         data-cursor="link"
                         tabIndex={isActive ? 0 : -1}
                       >
-                        <span>{offer.desc}</span>
-                        <span className="services__card-arrow" aria-hidden="true">
-                          <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                            <path
-                              d="M4 14L14 4M14 4H6M14 4V12"
-                              stroke="currentColor"
-                              strokeWidth="1.4"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </span>
+                        {offer.desc}
                       </Link>
                     </div>
                   </div>
