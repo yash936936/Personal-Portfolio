@@ -1,20 +1,35 @@
 .work-page {
-  --color-bg: #0c0c0a;
-  --color-surface-dark: #050504;
-  --color-surface-card: #18181480;
-  --color-ink: #f4f1ec;
-  --color-body: #cfcac0;
-  --color-muted: #a39d92;
-  --color-muted-soft: #726c61;
-  --color-hairline: rgba(255, 255, 255, 0.1);
-  --color-primary: #8fd9a8;
+  --color-bg: #181715;
+  --color-surface-card: #252320;
+  --color-ink: #faf9f5;
+  --color-body: #d2cec5;
+  --color-muted: #a09d96;
+  --color-muted-soft: #8a857b;
+  --color-hairline: rgba(250, 249, 245, 0.13);
+  --color-primary: #cc785c;
+  --color-primary-active: #e09175;
+  --color-on-primary: #ffffff;
 
+  min-height: 100svh;
+  color: var(--color-ink);
   background: var(--color-bg);
   background-image: radial-gradient(
     circle at 8% 0%,
-    rgba(143, 217, 168, 0.12),
-    transparent 45%
+    rgba(204, 120, 92, 0.14),
+    transparent 42%
   );
+}
+
+.work-page .page-header__title {
+  color: var(--color-ink);
+}
+
+.work-page .page-header__sub {
+  color: var(--color-muted);
+}
+
+.work-page__projects {
+  padding-bottom: 72px;
 }
 
 .work-page .project-row-list {
@@ -22,4 +37,8 @@
   flex-direction: column;
   gap: 14px;
   padding-top: 8px;
+}
+
+.work-page .project-pill {
+  --color-surface-card: #252320;
 }
