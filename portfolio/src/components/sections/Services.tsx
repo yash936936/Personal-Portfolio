@@ -90,9 +90,11 @@ export default function Services() {
         <div className="services__intro">
           <Reveal>
             <span className="services__eyebrow">Be precise. Be fast. Be bold.</span>
-            <h2 id="services-heading" className="services__heading">
-              Turning ambition <br /> into shipped systems
-            </h2>
+            <Link to="/services" className="services__heading-link">
+              <h2 id="services-heading" className="services__heading">
+                Engineering Capabilities
+              </h2>
+            </Link>
           </Reveal>
 
           <Reveal delay={100} className="services__intro-right">
