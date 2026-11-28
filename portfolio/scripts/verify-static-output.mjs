@@ -5,6 +5,10 @@ import { resolve } from "node:path";
 const pages = [
   ["/", "Yash Malik | AI & Full-Stack Engineer"],
   ["/work", "Selected Work | Yash Malik"],
+  ["/work/agm", "AGM — Adaptive Graph Memory | Yash Malik"],
+  ["/work/sysdesign-ai", "SysDesign AI | Yash Malik"],
+  ["/work/coding-harness", "Coding Harness | Yash Malik"],
+  ["/work/fathom", "Fathom Research Assistant | Yash Malik"],
   ["/services", "Engineering Capabilities | Yash Malik"],
   ["/services/ai", "AI & Agentic Systems | Yash Malik"],
   ["/services/web", "Full-Stack Development | Yash Malik"],
