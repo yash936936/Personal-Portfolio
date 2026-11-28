@@ -10,6 +10,7 @@ import { usePageMeta } from "./hooks/usePageMeta";
 
 const Home = lazy(() => import("./pages/Home"));
 const Work = lazy(() => import("./pages/Work"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const ServiceAI = lazy(() => import("./pages/ServiceAI"));
 const ServiceWeb = lazy(() => import("./pages/ServiceWeb"));
 const ServiceInfrastructure = lazy(() => import("./pages/ServiceInfrastructure"));
@@ -28,6 +29,7 @@ function Shell() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/work/:slug" element={<ProjectDetail />} />
         <Route path="/services" element={<ServicesIndex />} />
         <Route path="/services/ai" element={<ServiceAI />} />
         <Route path="/services/web" element={<ServiceWeb />} />
