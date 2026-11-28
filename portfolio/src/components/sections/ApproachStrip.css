@@ -46,13 +46,14 @@
   gap: 16px;
 }
 
-/* ── "See the work" pill, distinct from the plain contact pill ── */
 .approach__cta--work {
-  height: auto;
-  padding: 10px 12px 10px 22px;
-  gap: 14px;
+  min-width: 190px;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 6px 8px 6px 22px;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  color: var(--color-on-primary);
 }
 
 .approach__cta--work:hover {
@@ -67,17 +68,29 @@
   letter-spacing: -0.2px;
 }
 
-.approach__cta-arrow {
-  display: flex;
+.approach__switch {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: var(--color-primary);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  background: var(--color-canvas);
-  padding: 8px 16px;
+  width: 48px;
+  height: 28px;
+  padding: 3px;
   border-radius: var(--radius-pill);
+  background: var(--color-canvas);
+  flex: 0 0 auto;
+}
+
+.approach__switch-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-surface-dark);
+  box-shadow: 0 1px 4px rgba(20, 20, 19, 0.2);
+  transition: transform 0.45s var(--ease-out-expo), background-color 0.3s;
+}
+
+.approach__cta--work:hover .approach__switch-thumb {
+  transform: translateX(20px);
+  background: var(--color-primary-active);
 }
 
 @media (max-width: 640px) {
