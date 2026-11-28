@@ -76,7 +76,7 @@ function AppleSwitch({ size = "md", tone = "light" }: AppleSwitchProps) {
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      if (!isOn) settle(true);
+      settle(!isOn);
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
       if (!isOn) settle(true);
@@ -98,7 +98,11 @@ function AppleSwitch({ size = "md", tone = "light" }: AppleSwitchProps) {
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={finish}
-      onPointerCancel={finish}
+      onPointerCancel={(event) => {
+        if (dragRef.current.pointerId !== event.pointerId) return;
+        dragRef.current.pointerId = -1;
+        gsap.to(thumbRef.current, { x: isOn ? getTravel() : 0, scaleX: 1, scaleY: 1, duration: 0.5, ease: "elastic.out(1, 0.55)" });
+      }}
       onKeyDown={onKeyDown}
     >
       <span className="apple-switch__thumb" ref={thumbRef} aria-hidden="true"><span /></span>
