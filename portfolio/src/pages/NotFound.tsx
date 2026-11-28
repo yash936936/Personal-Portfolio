@@ -1,21 +1,27 @@
 import { Link } from "react-router-dom";
-import PageHeader from "../components/PageHeader";
+import BlackHole from "../components/ui/black-hole";
 import "./NotFound.css";
 
 export default function NotFound() {
   return (
-    <div className="not-found-page">
-      <PageHeader
-        eyebrow="404 · Page not found"
-        title="This page doesn't exist."
-        sub="The link may be outdated, or the page may have moved. Use one of the routes below to continue."
-      />
-      <section className="container not-found__actions" aria-label="Suggested destinations">
-        <Link to="/" className="not-found__link">Home</Link>
-        <Link to="/work" className="not-found__link">Selected work</Link>
-        <Link to="/blog" className="not-found__link">Blog</Link>
-        <Link to="/contact" className="not-found__link">Contact</Link>
-      </section>
-    </div>
+    <main className="not-found-page">
+      <BlackHole />
+      <div className="not-found__content container">
+        <span className="not-found__eyebrow">ERROR 404 · LOST IN SPACE</span>
+        <p className="not-found__code">404</p>
+        <h1>This page has crossed the event horizon.</h1>
+        <p className="not-found__message">
+          The page you’re looking for may have moved, disappeared, or never existed.
+          Let’s get you back to familiar ground.
+        </p>
+        <nav className="not-found__actions" aria-label="Suggested destinations">
+          <Link to="/" className="not-found__link not-found__link--primary">Back to home <span aria-hidden="true">↗</span></Link>
+          <Link to="/work" className="not-found__link">Selected work</Link>
+          <Link to="/blog" className="not-found__link">Blog</Link>
+          <Link to="/contact" className="not-found__link">Contact</Link>
+        </nav>
+      </div>
+      <span className="not-found__coordinates" aria-hidden="true">SIGNAL LOST / ROUTE 000</span>
+    </main>
   );
 }
