@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
@@ -92,6 +93,8 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
 }
 
 export default function Work() {
+  const [selectedPrototype, setSelectedPrototype] = useState("agm");
+
   return (
     <div className="work-page">
       <PageHeader
@@ -104,8 +107,10 @@ export default function Work() {
             <button
               type="button"
               key={item.slug}
-              className="prototype-picker__tab"
+              className={`prototype-picker__tab ${selectedPrototype === item.slug ? "is-active" : ""}`}
+              aria-pressed={selectedPrototype === item.slug}
               onClick={() => {
+                setSelectedPrototype(item.slug);
                 document.getElementById("work-" + item.slug)?.scrollIntoView({
                   behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
                   block: "start",
