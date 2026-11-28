@@ -17,8 +17,8 @@ const META = [
   },
   {
     label: "Full-stack Web Apps",
-    bg: "#4f6f8a",
-    fg: "#fdfaf5",
+    bg: "var(--color-surface-dark)",
+    fg: "var(--color-on-dark)",
     style: { top: "42%", right: "6%" },
     side: "right" as const,
     vAnchor: "top" as const,
@@ -27,7 +27,7 @@ const META = [
   },
   {
     label: "Deployment & Infra",
-    bg: "var(--color-accent-teal)",
+    bg: "var(--color-surface-card)",
     fg: "var(--color-ink)",
     style: { top: "76%", left: "5%" },
     side: "left" as const,
