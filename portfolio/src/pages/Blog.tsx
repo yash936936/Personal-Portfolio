@@ -2,6 +2,7 @@ import { useState } from "react";
 import { gsap } from "gsap";
 import { Link, Navigate, useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
+import ScrollProgress from "../components/ScrollProgress";
 import Reveal from "../components/Reveal";
 import { blogPosts } from "../data/editorial";
 import "./Blog.css";
@@ -25,6 +26,7 @@ export default function Blog() {
   if (article) {
     const related = RELATED_WORK[article.slug] ?? [];
     return <div className="blog-page">
+      <ScrollProgress />
       <PageHeader eyebrow={article.category} title={article.title} sub={article.excerpt} />
       <article className="container blog-article">
         <p className="blog-article__label">Blog · {article.readingTime}</p>
@@ -49,6 +51,7 @@ export default function Blog() {
   const categories = ["All", ...Array.from(new Set(blogPosts.map((post) => post.category)))];
   const visiblePosts = activeCategory === "All" ? blogPosts : blogPosts.filter((post) => post.category === activeCategory);
   return <div className="blog-page">
+    <ScrollProgress />
     <PageHeader eyebrow="Blog" title="Notes on AI systems and engineering." sub="Technical articles, build breakdowns and research notes from practical engineering work." />
     <section className="container blog-list" aria-label="Blog articles">
       <div className="blog-list__intro"><Reveal><p>Browse by topic, then follow each article into the work or architecture it explains. The articles focus on design choices, implementation and evaluation.</p></Reveal></div>
