@@ -78,7 +78,7 @@ For production, configure `ALLOWED_ORIGIN` in Cloudflare Worker settings to the 
 
 The Worker accepts JSON `POST` requests with a name, email address, and message. It validates field types and lengths, caps request bodies at 24 KB, escapes user input before rendering the notification email, and returns generic provider errors.
 
-The Worker requires an exact `ALLOWED_ORIGIN` match and rejects unconfigured or foreign browser origins. Set `ALLOWED_ORIGIN` in Cloudflare Worker variables to the production portfolio origin before deployment. The endpoint also uses a hidden honeypot, field validation, a 24 KB request cap, and HTML escaping.
+The Worker requires an exact `ALLOWED_ORIGIN` match and rejects unconfigured or foreign browser origins. The production `ALLOWED_ORIGIN` is configured in `contact-backend/wrangler.jsonc`; update it if the portfolio domain changes. For local development, `.dev.vars` overrides it. The endpoint also uses a hidden honeypot, field validation, a 24 KB request cap, and HTML escaping.
 
 CORS and a honeypot are not rate limiting or database authorization. The current Worker has no database binding, so row-level security (RLS) does not apply. If a database is added later, enable RLS on every exposed table and keep service-role credentials server-side. Add a Cloudflare WAF rate-limit rule or Turnstile before opening the form to high-volume public traffic.
 
