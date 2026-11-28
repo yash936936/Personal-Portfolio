@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import LegalNotice from "./pages/LegalNotice";
 import NotFound from "./pages/NotFound";
+import ServicesIndex from "./pages/ServicesIndex";
 
 function Shell() {
   useScrollToTop();
@@ -21,6 +22,7 @@ function Shell() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/work" element={<Work />} />
+      <Route path="/services" element={<ServicesIndex />} />
       <Route path="/services/ai" element={<ServiceAI />} />
       <Route path="/services/web" element={<ServiceWeb />} />
       <Route path="/services/infrastructure" element={<ServiceInfrastructure />} />
