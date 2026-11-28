@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { projects } from "../data/content";
 
 const PAGE_META: Record<string, { title: string; description: string; noIndex?: boolean }> = {
   "/": {
@@ -61,7 +62,9 @@ export function usePageMeta() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const meta = PAGE_META[pathname] ?? DEFAULT_META;
+    const projectSlug = pathname.startsWith("/work/") ? pathname.slice("/work/".length) : "";
+    const project = projects.find((item) => item.slug === projectSlug);
+    const meta = project ? { title: `${project.title} | Selected Work | Yash Malik`, description: project.description } : PAGE_META[pathname] ?? DEFAULT_META;
     document.title = meta.title;
     setMeta('meta[name="description"]', 'name="description"', meta.description);
     setMeta('meta[property="og:title"]', 'property="og:title"', meta.title);
