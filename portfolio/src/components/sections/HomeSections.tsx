@@ -3,15 +3,10 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { projects } from "../../data/content";
-import { blogPosts } from "../../data/editorial";
 import "./HomeSections.css";
 
 const FEATURED = ["agm", "sysdesign-ai", "coding-harness", "fathom"];
-const RESEARCH_THREADS = [
-  { title: "Persistent memory and agent context", work: "AGM", slug: "agm" },
-  { title: "Bounded agents and execution safety", work: "Coding Harness", slug: "coding-harness" },
-  { title: "Evidence and citation verification", work: "Fathom", slug: "fathom" },
-];
+
 
 export function FeaturedProjects() {
   const featuredProjects = FEATURED
@@ -74,47 +69,3 @@ export function FeaturedProjects() {
   );
 }
 
-export function ResearchAndBlog() {
-  return (
-    <section className="home-section research-writing">
-      <div className="container">
-        <div className="home-section__heading home-section__heading--row">
-          <div>
-            <span className="home-section__eyebrow">Ideas and technical notes</span>
-            <h2>Research &amp; writing</h2>
-          </div>
-          <Link to="/blog" className="home-section__text-link">All articles</Link>
-        </div>
-        <div className="research-writing__layout">
-          <div className="research-writing__column">
-            <h3>Research areas</h3>
-            <div className="research-writing__list">
-              {RESEARCH_THREADS.map((thread) => (
-                <Link className="research-writing__item" to={"/work/" + thread.slug} key={thread.slug}>
-                  <span>{thread.work}</span>
-                  <strong>{thread.title}</strong>
-                  <span className="research-writing__arrow" aria-hidden="true">↗</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="research-writing__column">
-            <div className="research-writing__column-heading">
-              <h3>Latest articles</h3>
-              <Link to="/blog">View blog</Link>
-            </div>
-            <div className="research-writing__list">
-              {blogPosts.slice(0, 3).map((post) => (
-                <Link className="research-writing__item research-writing__item--article" to={"/blog/" + post.slug} key={post.slug}>
-                  <span>{post.category} · {post.readingTime}</span>
-                  <strong>{post.title}</strong>
-                  <span className="research-writing__arrow" aria-hidden="true">↗</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
