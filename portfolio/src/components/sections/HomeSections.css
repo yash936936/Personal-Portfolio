@@ -24,7 +24,7 @@
   border: 1px solid rgba(209,132,104,.38); border-radius: 50%; box-shadow: 0 0 0 34px rgba(209,132,104,.045), 0 0 0 70px rgba(209,132,104,.025);
   pointer-events: none;
 }
-.home-featured__hero-kicker { position: relative; z-index: 1; color: #d99579; font-family: var(--font-code); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.home-featured__hero-kicker { position: relative; z-index: 1; color: var(--color-primary); font-family: var(--font-code); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
 .home-featured__hero h3 { position: relative; z-index: 1; max-width: 480px; margin: auto 0 24px; color: var(--color-primary); font-family: var(--font-display); font-size: clamp(34px, 4vw, 52px); font-weight: 400; line-height: 1.06; letter-spacing: -.04em; }
 .home-featured__hero p { position: relative; z-index: 1; max-width: 430px; color: rgba(248,243,236,.72); font-size: 14px; line-height: 1.8; }
 
