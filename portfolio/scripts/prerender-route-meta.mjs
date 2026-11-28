@@ -35,6 +35,18 @@ const pages = {
     title: "Fathom Research Assistant | Yash Malik",
     description: "Fathom is a local research assistant with hybrid retrieval, reranking and per-claim citation checks."
   },
+  "/work/legal-ai": {
+    title: "Legal AI Assistant | Yash Malik",
+    description: "A Streamlit legal information assistant with LangGraph routing and hybrid retrieval over a local corpus."
+  },
+  "/work/document-analysis": {
+    title: "AI Document Analysis API | Yash Malik",
+    description: "A document intelligence API for PDF, DOCX and image extraction with asynchronous processing."
+  },
+  "/work/lora-pipeline": {
+    title: "LoRA Fine-Tuning Pipeline | Yash Malik",
+    description: "A configuration-driven pipeline for adapting Hugging Face language models with LoRA and QLoRA."
+  },
   "/services": {
     title: "Engineering Capabilities | Yash Malik",
     description: "AI and agentic systems, full-stack product development, and cloud deployment capabilities.",
