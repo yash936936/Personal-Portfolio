@@ -50,11 +50,6 @@ export default function Nav() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
-  // Close menu on route change
-  useEffect(() => {
-    setOpen(false);
-  }, [location.pathname]);
-
   return (
     <>
       <header className={`nav ${scrolled ? "nav--scrolled" : ""} ${isDarkPage ? "nav--dark-page" : ""}`}>
