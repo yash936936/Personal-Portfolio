@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
@@ -109,6 +110,9 @@ function ProjectCaseStudy({ slug, index }: { slug: string; index: number }) {
 }
 
 export default function Work() {
+  const [selectedPrototype, setSelectedPrototype] = useState("agm");
+  const selectedProject = projects.find((item) => item.slug === selectedPrototype) ?? projects[0];
+
   return (
     <div className="work-page">
       <PageHeader
@@ -123,6 +127,25 @@ export default function Work() {
           evidence available for its current state. Prototype limits and unfinished validation
           are stated where relevant.
         </p>
+      </section>
+      <section className="container prototype-picker" aria-label="Choose a prototype description">
+        <div className="prototype-picker__track" role="group" aria-label="Prototypes">
+          {projects.map((item) => (
+            <button
+              type="button"
+              key={item.slug}
+              className={`prototype-picker__tab ${selectedPrototype === item.slug ? "is-active" : ""}`}
+              aria-pressed={selectedPrototype === item.slug}
+              onClick={() => setSelectedPrototype(item.slug)}
+            >
+              {item.title}
+            </button>
+          ))}
+        </div>
+        <div className="prototype-picker__description" aria-live="polite">
+          <h2>{selectedProject.title}</h2>
+          <p>{selectedProject.description}</p>
+        </div>
       </section>
       <section className="container work-case-studies" aria-label="Architecture case studies">
         {projects.map((item, index) => (
