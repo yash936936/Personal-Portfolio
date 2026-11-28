@@ -40,6 +40,15 @@ export default function Nav() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMenu();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
+
   // Close menu on route change
   useEffect(() => {
     closeMenu();
@@ -58,7 +67,8 @@ export default function Nav() {
             className={`nav__trigger ${open ? "nav__trigger--open" : ""}`}
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            aria-label="Toggle menu"
+            aria-controls="nav-overlay"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           >
             <span className="nav__trigger-label">{open ? "Close" : "Menu"}</span>
             <span className="nav__trigger-icon">
@@ -70,7 +80,7 @@ export default function Nav() {
           <nav className="nav__primary" aria-label="Primary">
             <div className="nav__track">
               {primaryLinks.map((l) => (
-                <Link key={l.href} to={l.href} className="nav__pill">
+                <Link key={l.href} to={l.href} className="nav__pill" aria-current={location.pathname === l.href ? "page" : undefined}>
                   {l.label}
                 </Link>
               ))}
@@ -93,7 +103,7 @@ export default function Nav() {
         </div>
       </header>
 
-      <div className={`nav-overlay ${open ? "nav-overlay--open" : ""}`}>
+      <div id="nav-overlay" className={`nav-overlay ${open ? "nav-overlay--open" : ""}`} aria-hidden={!open}>
         <div className="nav-overlay__inner container">
           <div className="nav-overlay__col">
             <span className="eyebrow nav-overlay__eyebrow">Services</span>
@@ -127,7 +137,7 @@ export default function Nav() {
                   style={{ transitionDelay: open ? `${180 + i * 70}ms` : "0ms" }}
                   className="nav-overlay__link-item"
                 >
-                  <Link to={l.href} className="nav-overlay__link" onClick={closeMenu}>
+                  <Link to={l.href} className="nav-overlay__link" onClick={closeMenu} aria-current={location.pathname === l.href ? "page" : undefined}>
                     {l.label}
                   </Link>
                 </li>
