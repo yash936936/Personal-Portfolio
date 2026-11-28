@@ -20,3 +20,26 @@
   color: var(--color-muted);
   max-width: 560px;
 }
+.page-header__breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 28px;
+  color: var(--color-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.page-header__breadcrumbs a {
+  color: var(--color-primary-active);
+  text-underline-offset: 3px;
+}
+.page-header__breadcrumbs a:hover { color: var(--color-ink); }
+.page-header__breadcrumbs [aria-current="page"] {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .page-header { padding-top: calc(var(--nav-height) + 44px); }
+  .page-header__breadcrumbs { margin-bottom: 22px; }
+}
