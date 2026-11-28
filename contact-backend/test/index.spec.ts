@@ -56,13 +56,28 @@ describe("portfolio contact worker", () => {
 
   it("rejects malformed JSON and invalid contact fields", async () => {
     const malformed = await worker.fetch(makeRequest("{invalid"), testEnv);
-    const invalid = await worker.fetch(
+    const invalidEmail = await worker.fetch(
       makeRequest({ ...validPayload, email: "not-an-email" }),
+      testEnv,
+    );
+    const injectedEmail = await worker.fetch(
+      makeRequest({ ...validPayload, email: "hello@example.com\\r\\nBcc:other@example.com" }),
+      testEnv,
+    );
+    const longName = await worker.fetch(
+      makeRequest({ ...validPayload, name: "n".repeat(121) }),
+      testEnv,
+    );
+    const longMessage = await worker.fetch(
+      makeRequest({ ...validPayload, message: "m".repeat(5_001) }),
       testEnv,
     );
 
     expect(malformed.status).toBe(400);
-    expect(invalid.status).toBe(400);
+    expect(invalidEmail.status).toBe(400);
+    expect(injectedEmail.status).toBe(400);
+    expect(longName.status).toBe(400);
+    expect(longMessage.status).toBe(400);
   });
 
   it("rejects oversized request bodies before contacting the email provider", async () => {
@@ -97,6 +112,8 @@ describe("portfolio contact worker", () => {
     expect(email.html).toContain("&lt;img src=x onerror=&quot;alert(1)&quot;&gt;");
     expect(email.html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
     expect(email.html).not.toContain("<script>");
+    expect(email.reply_to).toBe("hello@example.com");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it("returns a generic provider error without leaking provider details", async () => {
