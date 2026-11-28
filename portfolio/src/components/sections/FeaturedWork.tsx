@@ -39,7 +39,7 @@ export default function FeaturedWork() {
               <div className="featured-work__lead-art" aria-hidden="true">
                 <span className="featured-work__orbit featured-work__orbit--outer" />
                 <span className="featured-work__orbit featured-work__orbit--inner" />
-                <span className="featured-work__lead-core">AG</span>
+                <span className="featured-work__lead-core">{featured.title.split(/\\s+/).map((word) => word[0]).slice(0, 2).join("")}</span>
               </div>
               <div className="featured-work__lead-bottom">
                 <div>
@@ -65,7 +65,7 @@ export default function FeaturedWork() {
                   target="_blank"
                   rel="noreferrer"
                   key={project.slug}
-                  style={{ "--stack-index": index, "--stack-tilt": index % 2 === 0 ? "-0.8deg" : "0.8deg" } as React.CSSProperties}
+                  style={{ "--stack-offset": `${index * 13}px`, "--stack-tilt": index % 2 === 0 ? "-0.8deg" : "0.8deg" } as React.CSSProperties}
                   aria-label={`Explore ${project.title} on GitHub`}
                 >
                   <span className="featured-work__card-top">
