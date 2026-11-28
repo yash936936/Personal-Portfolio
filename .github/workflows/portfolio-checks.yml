@@ -34,6 +34,23 @@ jobs:
         working-directory: portfolio
         env:
           VITE_SITE_URL: https://portfolio.example.com
+      - name: Install isolated browser-test dependency
+        run: npm install --no-save --no-package-lock playwright
+        working-directory: portfolio
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: portfolio
+      - name: Test responsive routes and navigation
+        run: |
+          npm run preview -- --host 127.0.0.1 > /tmp/portfolio-preview.log 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill "$PREVIEW_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/dev/null; then break; fi
+            sleep 1
+          done
+          PORTFOLIO_URL=http://127.0.0.1:4173 npm run qa:site
+        working-directory: portfolio
 
   contact-worker:
     name: Contact Worker tests
