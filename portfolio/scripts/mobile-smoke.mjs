@@ -43,6 +43,21 @@ try {
         documentWidth: document.documentElement.scrollWidth,
         bodyWidth: document.body.scrollWidth,
         headingCount: document.querySelectorAll("main h1").length,
+        overflowElements: [...document.querySelectorAll("body *")]
+          .map((element) => {
+            const rect = element.getBoundingClientRect();
+            return {
+              tag: element.tagName.toLowerCase(),
+              className: typeof element.className === "string" ? element.className : "",
+              text: (element.textContent ?? "").trim().replace(/\\s+/g, " ").slice(0, 70),
+              left: Math.round(rect.left),
+              right: Math.round(rect.right),
+              width: Math.round(rect.width),
+            };
+          })
+          .filter((element) => element.right > window.innerWidth + 1 || element.left < -1)
+          .sort((a, b) => b.right - a.right)
+          .slice(0, 8),
       }));
 
       if (!response?.ok()) {
@@ -52,7 +67,8 @@ try {
         failures.push(
           route + " at " + width + "px overflows horizontally (" +
           Math.max(result.documentWidth, result.bodyWidth) + "px / " +
-          result.viewportWidth + "px viewport)",
+          result.viewportWidth + "px viewport). Offenders: " +
+          JSON.stringify(result.overflowElements),
         );
       }
       if (result.headingCount < 1) {
