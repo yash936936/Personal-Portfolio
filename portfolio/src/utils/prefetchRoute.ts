@@ -1,4 +1,5 @@
 const routeImports: Record<string, () => Promise<unknown>> = {
+  "/": () => import("../pages/Home"),
   "/work": () => import("../pages/Work"),
   "/services": () => import("../pages/ServicesIndex"),
   "/services/ai": () => import("../pages/ServiceAI"),
