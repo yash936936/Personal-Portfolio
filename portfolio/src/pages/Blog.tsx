@@ -27,10 +27,6 @@ export default function Blog() {
     return <div className="blog-page">
       <PageHeader eyebrow={article.category} title={article.title} sub={article.excerpt} />
       <article className="container blog-article">
-        <nav className="blog-breadcrumbs" aria-label="Breadcrumb">
-          <Link to="/">Home</Link><span aria-hidden="true">/</span><Link to="/blog">Blog</Link>
-          <span aria-hidden="true">/</span><span aria-current="page">{article.title}</span>
-        </nav>
         <p className="blog-article__label">Blog · {article.readingTime}</p>
         <p className="blog-article__intro">{article.introduction}</p>
         {article.sections.map((section) => <section className="blog-article__section" key={section.heading}>
