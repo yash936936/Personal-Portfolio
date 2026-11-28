@@ -24,6 +24,12 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const article = blogPosts.find((post) => post.slug === slug);
+  const categories = ["All", ...Array.from(new Set(blogPosts.map((post) => post.category)))];
+  const visiblePosts = useMemo(() => blogPosts.filter((post) =>
+    (activeCategory === "All" || post.category === activeCategory) &&
+    (searchTerm.trim() === "" || [post.title, post.excerpt, post.category].join(" ").toLowerCase().includes(searchTerm.trim().toLowerCase()))
+  ), [activeCategory, searchTerm]);
+
   if (slug && !article) return <Navigate to="/blog" replace />;
 
   if (article) {
@@ -52,11 +58,6 @@ export default function Blog() {
     </div>;
   }
 
-  const categories = ["All", ...Array.from(new Set(blogPosts.map((post) => post.category)))];
-  const visiblePosts = useMemo(() => blogPosts.filter((post) =>
-    (activeCategory === "All" || post.category === activeCategory) &&
-    (searchTerm.trim() === "" || [post.title, post.excerpt, post.category].join(" ").toLowerCase().includes(searchTerm.trim().toLowerCase()))
-  ), [activeCategory, searchTerm]);
   return <div className="blog-page">
     <ScrollProgress />
     <PageHeader eyebrow="Blog" title="Notes on AI systems and engineering." sub="Technical articles, build breakdowns and research notes from practical engineering work." />
