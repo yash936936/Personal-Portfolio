@@ -1,10 +1,8 @@
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import CustomCursor from "./components/CustomCursor";
 import RouteMetadata from "./components/RouteMetadata";
 import SiteAnalytics from "./components/SiteAnalytics";
-import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { useScrollToTop } from "./hooks/useScrollToTop";
 import Home from "./pages/Home";
 import Work from "./pages/Work";
@@ -45,10 +43,8 @@ function Shell() {
   </>;
 }
 export default function App() {
-  useSmoothScroll();
   return <>
     <a className="skip-link" href="#main-content">Skip to main content</a>
-    <CustomCursor />
     <SiteAnalytics />
     <Nav />
     <main id="main-content" tabIndex={-1}><Shell /></main>
