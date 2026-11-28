@@ -28,13 +28,11 @@ export const offers = [
     href: "/services/ai",
   },
   {
-    kicker: "Service",
     title: "Full-stack\nweb apps",
     desc: "Bold, high-performance product experiences powered by scalable databases, putting complex models seamlessly in front of real users.",
     href: "/services/web",
   },
   {
-    kicker: "Service",
     title: "Deployment\n& infra",
     desc: "Robust cloud architecture and secure data pipelines built for speed, reliability, and the people who will actually rely on them.",
     href: "/services/infrastructure",
