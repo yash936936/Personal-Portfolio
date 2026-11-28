@@ -1,0 +1,46 @@
+name: Portfolio checks
+
+on:
+  push:
+    branches:
+      - main
+      - portfolio/v2-engineering-refinement
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  portfolio:
+    name: Portfolio lint and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: portfolio/package-lock.json
+      - run: npm ci
+        working-directory: portfolio
+      - run: npm run lint
+        working-directory: portfolio
+      - run: npm run build
+        working-directory: portfolio
+
+  contact-worker:
+    name: Contact Worker tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: contact-backend/package-lock.json
+      - run: npm ci
+        working-directory: contact-backend
+      - run: npm test
+        working-directory: contact-backend
