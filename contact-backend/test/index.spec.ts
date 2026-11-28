@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import worker from "../src/index";
 
-const testEnv = { RESEND_API_KEY: "test-resend-key" };
+const testEnv = { RESEND_API_KEY: "test-resend-key", ALLOWED_ORIGIN: "https://portfolio.example.com" };
 const validPayload = {
   name: "Yash",
   email: "hello@example.com",
@@ -14,9 +14,12 @@ function makeRequest(
 ): Request {
   return new Request("https://contact.example.com", {
     method: options.method ?? "POST",
-    headers: options.contentType === undefined
-      ? { "Content-Type": "application/json" }
-      : { "Content-Type": options.contentType },
+    headers: {
+      Origin: "https://portfolio.example.com",
+      ...(options.contentType === undefined
+        ? { "Content-Type": "application/json" }
+        : { "Content-Type": options.contentType }),
+    },
     body: options.method === "GET" || options.method === "HEAD"
       ? undefined
       : typeof body === "string" ? body : JSON.stringify(body),
@@ -30,12 +33,31 @@ afterEach(() => {
 describe("portfolio contact worker", () => {
   it("allows CORS preflight requests", async () => {
     const response = await worker.fetch(
-      new Request("https://contact.example.com", { method: "OPTIONS" }),
+      new Request("https://contact.example.com", { method: "OPTIONS", headers: { Origin: "https://portfolio.example.com" } }),
       testEnv,
     );
 
     expect(response.status).toBe(204);
     expect(response.headers.get("Access-Control-Allow-Methods")).toBe("POST, OPTIONS");
+  });
+
+  it("rejects requests from origins other than the configured portfolio", async () => {
+    const request = makeRequest(validPayload);
+    const foreignRequest = new Request(request, {
+      headers: { Origin: "https://attacker.example" },
+    });
+    const response = await worker.fetch(foreignRequest, testEnv);
+
+    expect(response.status).toBe(403);
+  });
+
+  it("fails closed when the allowed origin is not configured", async () => {
+    const response = await worker.fetch(makeRequest(validPayload), {
+      RESEND_API_KEY: "test-resend-key",
+      ALLOWED_ORIGIN: "",
+    });
+
+    expect(response.status).toBe(503);
   });
 
   it("rejects methods other than POST", async () => {
