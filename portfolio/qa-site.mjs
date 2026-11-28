@@ -5,7 +5,6 @@ const routes = [
   "/", "/work", "/services", "/services/ai", "/services/web",
   "/services/infrastructure", "/about", "/contact", "/mentions-legales",
 ];
-const routeSet = new Set(routes);
 const widths = [320, 360, 390, 768, 1024, 1440];
 const browser = await chromium.launch({ headless: true });
 const failures = [];
