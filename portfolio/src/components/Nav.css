@@ -125,7 +125,7 @@
 }
 
 .nav__pill--cta {
-  padding: 4px;
+  padding: 0 22px;
   gap: 0;
   background: var(--color-primary);
   color: var(--color-ink);
@@ -142,64 +142,8 @@
   white-space: nowrap;
 }
 
-.nav__pill-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: width 0.4s var(--ease-out-quart), opacity 0.3s ease, margin 0.4s var(--ease-out-quart), transform 0.4s var(--ease-out-quart), background-color 0.35s ease, color 0.35s ease;
-}
-
-.nav__pill-arrow svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* Default state: icon sits to the left of the label */
-.nav__pill-arrow--left {
-  width: 28px;
-  opacity: 1;
-  margin-right: 6px;
-  transform: scale(1);
-  background: var(--color-surface-dark);
-  color: var(--color-on-dark);
-}
-
-.nav__pill-arrow--right {
-  width: 0;
-  opacity: 0;
-  margin-left: 0;
-  transform: scale(0.4);
-  background: var(--color-surface-dark);
-  color: var(--color-on-primary);
-}
-
-
-/* On hover, the icon slides across: it shrinks away on the left
-   while a fresh icon grows in on the right, in a new color. */
-.nav__pill--cta:hover .nav__pill-arrow--left {
-  width: 0;
-  opacity: 0;
-  margin-right: 0;
-  transform: scale(0.4);
-}
-
-.nav__pill--cta:hover .nav__pill-arrow--right {
-  width: 32px;
-  height: 32px;
-  opacity: 1;
-  margin-left: 6px;
-  transform: scale(1);
+.nav__pill-cta-label {
+  white-space: nowrap;
 }
 
 .nav__trigger {
