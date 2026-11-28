@@ -89,7 +89,7 @@ export default function About() {
           current = section.getAttribute("id") || current;
         }
       });
-      setActiveSection(current);
+      setActiveSection((previous) => previous === current ? previous : current);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
