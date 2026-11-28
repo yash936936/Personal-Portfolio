@@ -56,15 +56,15 @@ export const offers = [
 export const faqs = [
   {
     q: "What kind of work do you take on?",
-    a: "My primary focus is AI: building autonomous agents, multi-agent workflows, model-driven applications and data pipelines. I also develop the software needed to deliver those systems reliably.",
+    a: "I focus on AI engineering: agentic systems, LLM applications, retrieval and memory workflows, model fine-tuning, applied machine learning and research automation. I also build the interfaces, APIs and backend systems that make these ideas usable as complete applications.",
   },
   {
     q: "What makes your approach different?",
-    a: "I connect AI system design, data infrastructure and software implementation. Each part is shaped around the needs of the product, making the system easier to maintain and improve.",
+    a: "I start with the problem and the system requirements, not a framework or model. I work across AI architecture, data flow and software implementation, then pay attention to evaluation, traceability and practical limits so the result can be tested, understood and improved.",
   },
   {
     q: "What does your typical tech stack look like?",
-    a: "For AI orchestration, I use frameworks like LangChain and LangGraph with LLM APIs. For software development, I work with React, TypeScript and backend APIs to build maintainable applications.",
+    a: "It depends on the problem. I commonly use Python, TypeScript and React, with FastAPI for backend services. For AI workflows, I work with LangGraph, LangChain and model APIs; retrieval and storage may use ChromaDB, SQLite, PostgreSQL or Redis. I choose the components around the system's needs rather than forcing one stack onto every project.",
   },
 ];
 
