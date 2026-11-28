@@ -211,7 +211,7 @@
 
 .featured-work__card {
   position: sticky;
-  top: calc(112px + var(--stack-index) * 13px);
+  top: calc(112px + var(--stack-offset));
   display: flex;
   min-height: 218px;
   flex-direction: column;
