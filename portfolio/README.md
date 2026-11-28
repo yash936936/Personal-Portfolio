@@ -56,6 +56,7 @@ For local Worker development, create a `.dev.vars` file inside `contact-backend/
 
 ```dotenv
 RESEND_API_KEY=your_resend_api_key
+ALLOWED_ORIGIN=http://localhost:5173
 ```
 
 The `.dev.vars` file is ignored by Git. For deployment, add the key as a Cloudflare Worker secret:
@@ -67,11 +68,15 @@ npm run deploy
 
 Do not commit API keys or other secrets.
 
+For production, configure `ALLOWED_ORIGIN` in Cloudflare Worker settings to the exact HTTPS origin serving the portfolio. Do not use a wildcard. Set `VITE_CF_WEB_ANALYTICS_TOKEN` in the portfolio build environment to enable Cloudflare Web Analytics. Analytics remains disabled when the token is absent.
+
 ## Contact request limits
 
 The Worker accepts JSON `POST` requests with a name, email address, and message. It validates field types and lengths, caps request bodies at 24 KB, escapes user input before rendering the notification email, and returns generic provider errors.
 
-The endpoint currently allows cross-origin requests because the portfolio's production origin is not configured as an environment-specific allowlist. CORS is not spam protection; add Cloudflare rate limiting or Turnstile before relying on the form for high-volume public traffic.
+The Worker requires an exact `ALLOWED_ORIGIN` match and rejects unconfigured or foreign browser origins. Set `ALLOWED_ORIGIN` in Cloudflare Worker variables to the production portfolio origin before deployment. The endpoint also uses a hidden honeypot, field validation, a 24 KB request cap, and HTML escaping.
+
+CORS and a honeypot are not rate limiting or database authorization. The current Worker has no database binding, so row-level security (RLS) does not apply. If a database is added later, enable RLS on every exposed table and keep service-role credentials server-side. Add a Cloudflare WAF rate-limit rule or Turnstile before opening the form to high-volume public traffic.
 
 ## Motion and accessibility
 
