@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import Analytics from "./components/Analytics";
 import CustomCursor from "./components/CustomCursor";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { useScrollToTop } from "./hooks/useScrollToTop";
@@ -44,6 +45,7 @@ export default function App() {
   useSmoothScroll();
   return (
     <>
+      <Analytics />
       <CustomCursor />
       <Nav />
       <main>
