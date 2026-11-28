@@ -28,8 +28,6 @@ export default function FeaturedWork() {
             <Link
               className="featured-work__lead"
               to={`/work/${featured.slug}`}
-              onMouseEnter={() => prefetchRoute(`/work/${featured.slug}`)}
-              onFocus={() => prefetchRoute(`/work/${featured.slug}`)}
               aria-label={`Read the ${featured.title} case study`}
             >
               <div className="featured-work__lead-top">
@@ -62,8 +60,6 @@ export default function FeaturedWork() {
                 <Link
                   className="featured-work__card"
                   to={`/work/${project.slug}`}
-                  onMouseEnter={() => prefetchRoute(`/work/${project.slug}`)}
-                  onFocus={() => prefetchRoute(`/work/${project.slug}`)}
                   key={project.slug}
                   style={{ "--stack-offset": `${index * 13}px`, "--stack-tilt": index % 2 === 0 ? "-0.8deg" : "0.8deg" } as React.CSSProperties}
                   aria-label={`Read the ${project.title} case study`}
