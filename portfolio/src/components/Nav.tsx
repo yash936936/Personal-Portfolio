@@ -74,7 +74,13 @@ export default function Nav() {
             {primaryLinks.map((link) => <Link key={link.href} to={link.href} className="nav__pill" aria-current={location.pathname === link.href ? "page" : undefined}>{link.label}</Link>)}
             <span className="nav__divider" aria-hidden="true" />
             <Link to="/contact" className="nav__pill nav__pill--cta" aria-current={location.pathname === "/contact" ? "page" : undefined}>
+              <span className="nav__pill-arrow nav__pill-arrow--left" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
               <span className="nav__pill-cta-label">Contact</span>
+              <span className="nav__pill-arrow nav__pill-arrow--right" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
             </Link>
           </div>
         </nav>
