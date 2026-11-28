@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
+import ScrollProgress from "../components/ScrollProgress";
 import ContactBand from "../components/sections/ContactBand";
 import Reveal from "../components/Reveal";
 import { projects } from "../data/content";
@@ -113,6 +114,7 @@ export default function Work() {
 
   return (
     <div className="work-page">
+      <ScrollProgress />
       <div className="work-page__intro">
         <PageHeader
           eyebrow="Selected work"
