@@ -9,7 +9,7 @@ A React portfolio for presenting AI engineering, full-stack development, selecte
 
 ## Environment configuration
 
-Copy `.env.example` to `.env.local` and set `VITE_CF_WEB_ANALYTICS_TOKEN` to the token from Cloudflare Web Analytics. Leave it empty to keep analytics disabled. The token is public configuration, not a secret.
+Copy `.env.example` to `.env.local`. Set `VITE_SITE_URL` to the production HTTPS origin so the build can generate an absolute sitemap and matching robots.txt entry. Set `VITE_CF_WEB_ANALYTICS_TOKEN` to the Cloudflare Web Analytics token to enable analytics. Leave the token empty to keep analytics disabled. These are public build-time settings, not secrets.
 
 ## Run the portfolio
 
