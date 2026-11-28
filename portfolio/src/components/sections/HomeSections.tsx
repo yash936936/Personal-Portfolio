@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
-import Reveal from "../Reveal";
 import { projects } from "../../data/content";
 import { blogPosts } from "../../data/editorial";
 import "./HomeSections.css";
