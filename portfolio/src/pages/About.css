@@ -31,24 +31,13 @@
   flex-direction: column;
   gap: 4px;
   position: relative;
-  padding-left: 14px;
-}
-
-.about__nav-list::before {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 10px;
-  bottom: 10px;
-  width: 1px;
-  background: var(--color-hairline);
 }
 
 .about__nav-btn {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
   width: 100%;
   background: none;
   border: none;
@@ -58,25 +47,6 @@
   font-size: 15px;
   color: var(--color-muted-soft);
   cursor: pointer;
-  transition: color 0.3s, transform 0.3s;
-}
-
-.about__nav-dot {
-  position: absolute;
-  left: -14px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--color-hairline);
-  flex-shrink: 0;
-  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-
-.about__nav-index {
-  font-family: var(--font-code);
-  font-size: 11px;
-  color: var(--color-muted-soft);
-  letter-spacing: 0.5px;
   transition: color 0.3s;
 }
 
@@ -87,17 +57,6 @@
 .about__nav-btn.active {
   color: var(--color-primary);
   font-weight: 500;
-  transform: translateX(8px);
-}
-
-.about__nav-btn.active .about__nav-dot {
-  background: var(--color-primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
-  transform: scale(1.2);
-}
-
-.about__nav-btn.active .about__nav-index {
-  color: var(--color-primary);
 }
 
 /* --- Content --- */
