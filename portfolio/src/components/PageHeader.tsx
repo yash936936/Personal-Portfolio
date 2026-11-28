@@ -31,7 +31,7 @@ export default function PageHeader({ eyebrow, title, sub }: PageHeaderProps) {
             {parent && segments.length > 1 && (
               <>
                 <span aria-hidden="true">/</span>
-                <span aria-current="page">{title.replace(/\\n/g, " ")}</span>
+                <span aria-current="page">{title.replace(/\n/g, " ")}</span>
               </>
             )}
             {!parent && (
