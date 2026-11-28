@@ -4,9 +4,7 @@ interface ProjectRowProps {
   title: string;
   year: string;
   category: string;
-  color: string;
-  href: string;
-  github?: string;
+  github: string;
 }
 
 function GithubMark() {
@@ -24,66 +22,24 @@ function GithubMark() {
   );
 }
 
-function ArrowIcon() {
+export default function ProjectRow({ title, year, category, github }: ProjectRowProps) {
   return (
-    <svg
-      viewBox="0 0 16 16"
-      width="14"
-      height="14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
+    <a
+      href={github}
+      target="_blank"
+      rel="noreferrer"
+      className="project-pill"
+      aria-label={`View ${title} on GitHub`}
+      data-cursor="link"
     >
-      <path d="M3 8h10M9 4l4 4-4 4" />
-    </svg>
-  );
-}
-
-export default function ProjectRow({
-  title,
-  year,
-  category,
-  color,
-  github,
-}: ProjectRowProps) {
-  return (
-    <div className="project-pill" style={{ "--row-color": color } as React.CSSProperties}>
-      <span className="project-pill__fill" aria-hidden="true" />
-
-      <a
-        href={github ?? "#"}
-        target="_blank"
-        rel="noreferrer"
-        className="project-pill__link"
-        data-cursor="link"
-      >
-        <span className="project-pill__badge" aria-hidden="true">
-          <ArrowIcon />
-        </span>
-        <span className="project-pill__text">
-          <span className="project-pill__title">{title}</span>
-          <span className="project-pill__sub">
-            {category} · {year}
-          </span>
-        </span>
-      </a>
-
-      {github && (
-        <a
-          href={github}
-          target="_blank"
-          rel="noreferrer"
-          className="project-pill__cta"
-          aria-label={`View ${title} on GitHub`}
-          data-cursor="link"
-        >
-          <GithubMark />
-          <ArrowIcon />
-        </a>
-      )}
-    </div>
+      <span className="project-pill__text">
+        <span className="project-pill__title">{title}</span>
+        <span className="project-pill__sub">{category} · {year}</span>
+      </span>
+      <span className="project-pill__cta">
+        <GithubMark />
+        <span>View on GitHub</span>
+      </span>
+    </a>
   );
 }
