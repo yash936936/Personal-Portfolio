@@ -48,4 +48,6 @@ function Badge({
   })
 }
 
+// The variant helper is intentionally exported for consistent styling outside this component.
+// eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants }
