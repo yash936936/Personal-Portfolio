@@ -17,7 +17,7 @@
     "cn": "^0.5.2",
     "gsap": "^3.15.0",
     "lucide-react": "^1.82.0",
-    "react": "^19.2.6",
+    "react": "^19.3.1",
     "react-dom": "^19.2.6",
     "react-router-dom": "^7.18.0",
     "shadcn": "^4.23.1",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.19.4",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.3.2",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.3.0",
     "eslint": "^10.3.0",
