@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { heroLines, heroTag } from "../../data/content";
 import "./Hero.css";
+import { prefetchRoute } from "../../utils/prefetchRoute";
 
 type Tilt = "top" | "bottom";
 
@@ -101,13 +102,10 @@ export default function Hero() {
             </div>
 
             <div className="hero__actions">
-              <Link to="/contact" className="hero__cta">
+              <Link to="/contact" className="hero__cta" onMouseEnter={() => prefetchRoute("/contact")} onFocus={() => prefetchRoute("/contact")}>
                 Let&apos;s talk
-                <svg viewBox="0 0 20 20" aria-hidden="true">
-                  <path d="M4 10h11M11 6l4 4-4 4" />
-                </svg>
               </Link>
-              <Link to="/work" className="hero__work-link">
+              <Link to="/work" className="hero__work-link" onMouseEnter={() => prefetchRoute("/work")} onFocus={() => prefetchRoute("/work")}>
                 See the work
               </Link>
             </div>
