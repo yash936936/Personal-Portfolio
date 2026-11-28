@@ -352,3 +352,21 @@
     transition: none;
   }
 }
+
+
+@media (max-width: 420px) {
+  .featured-work__lead {
+    min-height: 370px;
+    padding: 20px;
+  }
+
+  .featured-work__card {
+    padding: 20px;
+  }
+
+  .featured-work__lead-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
