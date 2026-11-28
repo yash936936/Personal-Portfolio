@@ -26,10 +26,11 @@ export function useSmoothScroll() {
       if (preference.matches) return;
 
       instance = new Lenis({
-        duration: 1.1,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        duration: 0.9,
+        easing: (t: number) => 1 - Math.pow(1 - t, 4),
         smoothWheel: true,
-        touchMultiplier: 1.2,
+        wheelMultiplier: 0.9,
+        touchMultiplier: 1.05,
       });
       lenisInstance = instance;
 
