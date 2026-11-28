@@ -29,6 +29,11 @@ function AppleSwitch({ size = "md", tone = "light" }: AppleSwitchProps) {
 
   const settle = (next: boolean) => {
     setIsOn(next);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(thumbRef.current, { x: next ? getTravel() : 0, scaleX: 1, scaleY: 1 });
+      if (next) navigate("/work");
+      return;
+    }
     gsap.to(thumbRef.current, {
       x: next ? getTravel() : 0,
       scaleX: 1,
@@ -48,6 +53,7 @@ function AppleSwitch({ size = "md", tone = "light" }: AppleSwitchProps) {
       startThumb: isOn ? getTravel() : 0,
       moved: false,
     };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.to(thumbRef.current, {
       scaleX: 1.12,
       scaleY: 0.88,
