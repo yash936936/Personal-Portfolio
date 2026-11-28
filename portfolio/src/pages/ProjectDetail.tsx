@@ -22,6 +22,21 @@ export default function ProjectDetail() {
           <div><span className="project-detail__eyebrow">Architecture notes</span><h2>{detail.architectureTitle}</h2></div>
           <p>{detail.architectureIntro}</p>
         </section>
+        <section className="project-detail__diagram-section" aria-labelledby="project-architecture-heading">
+          <h3 id="project-architecture-heading">Architecture at a glance</h3>
+          <figure className="project-detail__diagram">
+            <img
+              src={"/architecture/" + project.slug + ".svg"}
+              alt={"Simplified architecture diagram: " + detail.architectureTitle}
+              width="1440"
+              height={project.slug === "agm" ? "790" : "700"}
+              loading="lazy"
+            />
+            <figcaption>
+              A plain-language view of the main system flow and its core components.
+            </figcaption>
+          </figure>
+        </section>
         <section className="project-detail__flow-section">
           <h3>System flow</h3>
           <div className="project-detail__flow">
@@ -44,9 +59,6 @@ export default function ProjectDetail() {
             ))}
           </div>
         </section>
-        <section className="project-detail__decisions"><h3>Design decisions</h3><ul>{detail.designDecisions.map((item) => <li key={item}>{item}</li>)}</ul></section>
-        <section className="project-detail__evidence"><h3>Implementation and evidence</h3><ul>{detail.evaluation.map((item) => <li key={item}>{item}</li>)}</ul></section>
-        <section className="project-detail__limits"><h3>Current limits and validation</h3><ul>{detail.limitations.map((item) => <li key={item}>{item}</li>)}</ul></section>
         <section className="project-detail__stack"><h3>Technology stack</h3><div>{project.stack.map((item) => <span key={item}>{item}</span>)}</div></section>
         <section className="project-detail__references">
           <h3>Source material</h3>
