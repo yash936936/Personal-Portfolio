@@ -69,7 +69,7 @@ describe("portfolio contact worker", () => {
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
     const response = await worker.fetch(
-      makeRequest({ ...validPayload, message: "x".repeat(9_000) }),
+      makeRequest({ ...validPayload, message: "x".repeat(30_000) }),
       testEnv,
     );
 
