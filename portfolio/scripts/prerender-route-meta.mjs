@@ -59,6 +59,13 @@ function setMeta(html, selector, attribute, value) {
   return html.replace("</head>", `    ${tag}\n  </head>`);
 }
 
+function replaceTitle(html, title) {
+  const start = html.indexOf("<title>");
+  const end = html.indexOf("</title>", start);
+  if (start < 0 || end < 0) return html;
+  return html.slice(0, start) + `<title>${escapeAttribute(title)}</title>` + html.slice(end + 8);
+}
+
 const template = await readFile(resolve("dist/index.html"), "utf8");
 
 for (const [route, meta] of Object.entries(pages)) {
