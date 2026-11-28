@@ -20,3 +20,11 @@
   color: var(--color-muted);
   max-width: 560px;
 }
+.breadcrumbs { margin-bottom: 22px; }
+.breadcrumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--color-muted-soft); font-size: 11px; }
+.breadcrumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.breadcrumbs li + li::before { content: "/"; color: var(--color-muted-soft); opacity: .7; }
+.breadcrumbs a { transition: color .2s; }
+.breadcrumbs a:hover { color: var(--color-primary-active); }
+.breadcrumbs [aria-current="page"] { color: var(--color-body); }
+@media (max-width: 640px) { .breadcrumbs { margin-bottom: 18px; } }
