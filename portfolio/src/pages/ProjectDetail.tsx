@@ -3,7 +3,7 @@ import PageHeader from "../components/PageHeader";
 import { projects } from "../data/content";
 import { projectDetails } from "../data/projectDetails";
 import "./ProjectDetail.css";
-const diagramSlugs = new Set(["agm", "sysdesign-ai", "coding-harness", "fathom"]);
+const diagramSlugs = new Set(["agm", "sysdesign-ai", "coding-harness", "fathom", "legal-ai", "document-analysis", "lora-pipeline"]);
 export default function ProjectDetail() {
  const { slug } = useParams();
  const project = projects.find((item) => item.slug === slug);
