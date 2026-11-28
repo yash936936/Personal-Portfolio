@@ -47,9 +47,10 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 - [ ] Add Cloudflare rate limiting or Turnstile: this requires a Cloudflare dashboard rule or site/secret keys.
 - [x] Review RLS applicability: the current Worker has no database binding or database-backed endpoint, so row-level security does not apply. If a database is added later, enable RLS on its exposed tables.
 
-## Validation still required
+## Validation status
 
-- [ ] Run `npm ci && npm run lint && npm run build` in `portfolio/`.
+- [x] Run `npm ci && npm run lint && npm run build` in `portfolio/` (GitHub Actions passed).
 - [x] Run `npm ci && npm test` in `contact-backend/` (GitHub Actions passed).
-- [ ] Run `npm run qa:site` against a local production preview.
+- [x] Run `npm audit --omit=dev` for production dependencies (GitHub Actions passed after the React Router patch).
+- [ ] Run `npm run qa:site` against the production preview (now included in GitHub Actions; current run is pending).
 - [ ] Verify the deployed contact form after setting the production allowed origin.
