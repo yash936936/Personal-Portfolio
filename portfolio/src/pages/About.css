@@ -464,3 +464,29 @@
     margin-top: 6px;
   }
 }
+
+.about__container,
+.about__content,
+.about__work-card,
+.about__skill-card,
+.about__reveal-cards {
+  min-width: 0;
+}
+
+.about__work-card strong {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 420px) {
+  .about__content {
+    gap: 56px;
+  }
+
+  .about__text {
+    font-size: 15px;
+  }
+
+  .about__work-year {
+    white-space: nowrap;
+  }
+}
