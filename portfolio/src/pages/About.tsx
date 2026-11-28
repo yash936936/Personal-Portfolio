@@ -161,11 +161,11 @@ export default function About() {
                     <span className="about__recent-type">{item.type}</span>
                     <h3>{item.name}</h3>
                     <p>{item.summary}</p>
-                    <span className="about__recent-link">Read the technical notes ↗</span>
+                    <span className="about__recent-link">Read the technical notes</span>
                   </Link>
                 ))}
               </div>
-              <Link className="about__inline-link" to="/work">Explore all work ↗</Link>
+              <Link className="about__inline-link" to="/work">Explore all work</Link>
             </Reveal>
           </section>
 
@@ -209,15 +209,15 @@ export default function About() {
               <div className="about__reveal-cards">
                 <a href="https://github.com/yash936936" target="_blank" rel="noopener noreferrer" className="reveal-card">
                   <div className="reveal-card__cover"><span className="reveal-card__title">GitHub</span></div>
-                  <div className="reveal-card__content"><p>Browse source code ↗</p></div>
+                  <div className="reveal-card__content"><p>Browse source code</p></div>
                 </a>
                 <a href="https://linkedin.com/in/yashmalik-/" target="_blank" rel="noopener noreferrer" className="reveal-card" style={{ "--hover-color": "#0077b5" } as CSSProperties}>
                   <div className="reveal-card__cover"><span className="reveal-card__title">LinkedIn</span></div>
-                  <div className="reveal-card__content"><p>Connect professionally ↗</p></div>
+                  <div className="reveal-card__content"><p>Connect professionally</p></div>
                 </a>
                 <a href="https://drive.google.com/drive/folders/1as0o0p7JRGXrWlpTwC9ZlgsXRN7WeX2F?usp=sharing" target="_blank" rel="noopener noreferrer" className="reveal-card" style={{ "--hover-color": "var(--color-primary)" } as CSSProperties}>
                   <div className="reveal-card__cover"><span className="reveal-card__title">Certifications</span></div>
-                  <div className="reveal-card__content"><p>View credentials ↗</p></div>
+                  <div className="reveal-card__content"><p>View credentials</p></div>
                 </a>
               </div>
             </Reveal>
