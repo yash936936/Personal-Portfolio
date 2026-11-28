@@ -22,6 +22,8 @@ const routes = [
 const viewports = [320, 360, 390, 768, 1024, 1440];
 const browser = await chromium.launch({ headless: true });
 const failures = [];
+const internalLinks = new Set();
+const pageTitles = new Map();
 
 try {
   const page = await browser.newPage();
@@ -43,6 +45,12 @@ try {
         documentWidth: document.documentElement.scrollWidth,
         bodyWidth: document.body.scrollWidth,
         headingCount: document.querySelectorAll("main h1").length,
+        title: document.title.trim(),
+        description: document.querySelector('meta[name="description"]')?.getAttribute("content")?.trim() ?? "",
+        internalLinks: [...document.querySelectorAll('a[href^="/"]')].map((link) => link.getAttribute("href")).filter(Boolean),
+        brokenAnchors: [...document.querySelectorAll('a[href="#"], a:not([href])')].length,
+        imagesMissingAlt: [...document.querySelectorAll("img")].filter((image) => !image.hasAttribute("alt")).length,
+        unnamedButtons: [...document.querySelectorAll("button")].filter((button) => !(button.innerText.trim() || button.getAttribute("aria-label") || button.getAttribute("title"))).length,
         overflowElements: [...document.querySelectorAll("body *")]
           .map((element) => {
             const rect = element.getBoundingClientRect();
@@ -63,6 +71,20 @@ try {
       if (!response?.ok()) {
         failures.push(route + " at " + width + "px returned " + response?.status());
       }
+      if (result.title) {
+        const previousTitle = pageTitles.get(route);
+        if (previousTitle && previousTitle !== result.title) failures.push(route + " produced inconsistent page titles across viewports");
+        pageTitles.set(route, result.title);
+      } else {
+        failures.push(route + " at " + width + "px has no document title");
+      }
+      if (!result.description) failures.push(route + " at " + width + "px has no meta description");
+      if (result.brokenAnchors) failures.push(route + " at " + width + "px contains " + result.brokenAnchors + " empty or placeholder anchors");
+      if (result.imagesMissingAlt) failures.push(route + " at " + width + "px contains images without alt attributes");
+      if (result.unnamedButtons) failures.push(route + " at " + width + "px contains " + result.unnamedButtons + " buttons without accessible names");
+      for (const href of result.internalLinks) {
+        try { internalLinks.add(new URL(href, baseUrl).pathname); } catch { failures.push(route + " contains an invalid internal link: " + href); }
+      }
       if (Math.max(result.documentWidth, result.bodyWidth) > result.viewportWidth + 1) {
         failures.push(
           route + " at " + width + "px overflows horizontally (" +
@@ -74,6 +96,24 @@ try {
       if (result.headingCount < 1) {
         failures.push(route + " at " + width + "px did not render a page heading");
       }
+    }
+  }
+
+  const titles = [...pageTitles.entries()];
+  const duplicateTitles = titles.filter(([route, title]) => titles.some(([otherRoute, otherTitle]) => otherRoute !== route && otherTitle === title));
+  for (const [route, title] of duplicateTitles) failures.push(route + " shares a non-unique title: " + title);
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const path of internalLinks) {
+    const response = await page.goto(new URL(path, baseUrl).toString(), { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => document.querySelector("main h1") !== null, null, { timeout: 5_000 }).catch(() => undefined);
+    const routeState = await page.evaluate(() => ({
+      title: document.title,
+      robots: document.querySelector('meta[name="robots"]')?.getAttribute("content"),
+      heading: document.querySelector("main h1")?.textContent?.trim() ?? "",
+    }));
+    if (!response?.ok() || !routeState.heading || routeState.robots === "noindex, follow") {
+      failures.push("internal link does not resolve to an indexable page: " + path);
     }
   }
 
