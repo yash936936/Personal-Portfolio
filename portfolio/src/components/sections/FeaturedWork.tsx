@@ -70,7 +70,7 @@ export default function FeaturedWork() {
                 >
                   <span className="featured-work__card-top">
                     <span>{project.category}</span>
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true">+</span>
                   </span>
                   <span className="featured-work__card-title">{project.title}</span>
                   <span className="featured-work__card-bottom">
