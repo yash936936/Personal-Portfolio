@@ -75,7 +75,15 @@ export default function Hero() {
               ))}
             </div>
             <div className="hero__actions">
-              <Link to="/contact" className="hero__cta">Let&apos;s talk</Link>
+              <Link to="/contact" className="hero__cta">
+                <span className="nav__pill-arrow nav__pill-arrow--left" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </span>
+                <span className="hero__cta-label">Let&apos;s talk</span>
+                <span className="nav__pill-arrow nav__pill-arrow--right" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </span>
+              </Link>
               <Link to="/work" className="hero__work-link">See the work</Link>
             </div>
           </div>
