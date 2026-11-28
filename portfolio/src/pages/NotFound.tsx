@@ -4,7 +4,7 @@ import "./NotFound.css";
 
 export default function NotFound() {
   return (
-    <main className="not-found-page">
+    <div className="not-found-page">
       <BlackHole />
       <div className="not-found__content container">
         <span className="not-found__eyebrow">ERROR 404 · LOST IN SPACE</span>
@@ -22,6 +22,6 @@ export default function NotFound() {
         </nav>
       </div>
       <span className="not-found__coordinates" aria-hidden="true">SIGNAL LOST / ROUTE 000</span>
-    </main>
+    </div>
   );
 }
