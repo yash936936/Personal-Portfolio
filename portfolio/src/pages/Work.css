@@ -163,3 +163,76 @@
   .prototype-picker__tab { min-height: 34px; padding: 0 13px; font-size: 12px; }
 }
 
+
+/* Work page exploration cue and return control */
+.work-scroll-cue {
+  min-height: clamp(150px, 24vh, 250px);
+  display: grid;
+  place-items: center;
+  padding: 22px var(--container-pad) 34px;
+  text-align: center;
+}
+.work-scroll-cue__content { display: grid; justify-items: center; gap: 12px; }
+.work-scroll-cue__content > span {
+  color: var(--color-muted);
+  font-family: var(--font-code);
+  font-size: 10px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+.work-scroll-cue__content button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink);
+  font-size: 12px;
+  transition: border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.work-scroll-cue__content button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-active);
+  transform: translateY(2px);
+}
+.work-scroll-cue__content button span { color: var(--color-primary-active); font-size: 16px; line-height: 1; }
+.work-back-to-top {
+  position: fixed;
+  right: clamp(18px, 3vw, 34px);
+  bottom: clamp(18px, 3vw, 34px);
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(245,235,224,.22);
+  border-radius: var(--radius-pill);
+  background: #d18468;
+  color: #181715;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 10px 28px rgba(0,0,0,.28);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity .22s ease, visibility .22s ease, transform .22s ease, background .22s ease;
+}
+.work-back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.work-back-to-top:hover { background: #e09a7e; }
+.work-back-to-top > span:first-child { font-size: 18px; line-height: 1; }
+@media (max-width: 600px) {
+  .work-scroll-cue { min-height: 145px; }
+  .work-back-to-top { right: 16px; bottom: 16px; min-height: 42px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-scroll-cue__content button, .work-back-to-top { transition: none; }
+}
