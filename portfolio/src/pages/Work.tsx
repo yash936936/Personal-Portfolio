@@ -98,7 +98,8 @@ export default function Work() {
 
   useEffect(() => {
     const updateScrollState = () => {
-      setShowBackToTop(window.scrollY > 420);
+      const next = window.scrollY > 420;
+      setShowBackToTop((current) => current === next ? current : next);
     };
     updateScrollState();
     window.addEventListener("scroll", updateScrollState, { passive: true });
