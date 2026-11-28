@@ -59,7 +59,14 @@
   --space-lg: 24px;
   --space-xl: 32px;
   --space-xxl: 48px;
-  --space-section: 96px;
+  --space-section: clamp(64px, 8vw, 96px);
+
+  /* Shared type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.35rem, 2.2vw, 1.75rem);
 
   /* Easing — matched to 13g.fr's smooth, slightly slow-out motion */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -78,6 +85,7 @@
 html {
   background: var(--color-canvas);
   scroll-behavior: auto;
+  overflow-x: clip;
 }
 
 html.lenis,
@@ -98,10 +106,12 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
+  min-width: 320px;
 }
 
 h1, h2, h3, h4 {
+  text-wrap: balance;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
@@ -110,6 +120,13 @@ h1, h2, h3, h4 {
 
 p {
   margin: 0;
+  text-wrap: pretty;
+}
+
+#root,
+main {
+  min-width: 0;
+  width: 100%;
 }
 
 a {
@@ -186,10 +203,32 @@ button:focus-visible,
   z-index: 9999;
   mix-blend-mode: difference;
   transform: translate(-50%, -50%);
-  will-change: transform, width, height;
   transition: width 0.3s var(--ease-out-quart), height 0.3s var(--ease-out-quart), background-color 0.3s, opacity 0.4s ease;
 }
 
 @media (hover: none) {
   .cursor-dot { display: none; }
 }
+
+/* Prevent intrinsic content widths from forcing a horizontal viewport scroll. */
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+a,
+button,
+input,
+textarea {
+  min-width: 0;
+}
+
+@media (max-width: 420px) {
+  :root {
+    --container-pad: 18px;
+    --nav-height: 72px;
+  }
+}
+
