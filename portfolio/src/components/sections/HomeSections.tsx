@@ -60,10 +60,11 @@ export function FeaturedProjects() {
             {featuredProjects.map((item, index) => (
               <article className="home-project-card" key={item.slug} data-stack-index={index} style={{ "--stack-index": index, "--stack-rotation": index % 2 === 0 ? "-1.2deg" : "1deg" } as CSSProperties}>
                 <div className="home-project-card__meta"><span>{item.category}</span><span>{item.status}</span></div>
-                <h3>{item.title}</h3>
+                <h3 className="home-project-card__title">
+                  <Link to={"/work/" + item.slug}>{item.title}</Link>
+                </h3>
                 <p>{item.description}</p>
                 <div className="home-project-card__stack">{item.stack.slice(0, 4).map((skill) => <span key={skill}>{skill}</span>)}</div>
-                <Link to={"/work/" + item.slug} className="home-project-card__link">Read architecture notes</Link>
               </article>
             ))}
           </div>
