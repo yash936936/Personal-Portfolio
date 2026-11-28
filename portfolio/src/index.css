@@ -341,3 +341,37 @@ button:focus-visible,
     @apply font-sans;
   }
 }
+/* Prevent layout-level horizontal overflow while keeping diagnostics visible in tests. */
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+body {
+  overflow-x: clip;
+}
+#root,
+#root > main,
+#root > header,
+#root > footer,
+main > * {
+  min-width: 0;
+}
+p,
+a,
+button,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: anywhere;
+}
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
