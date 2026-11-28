@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import BlackHole from "../components/ui/black-hole";
+import BlackHole from "../components/ui/optimized-black-hole";
 import "./NotFound.css";
 
 export default function NotFound() {
