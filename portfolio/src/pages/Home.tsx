@@ -5,14 +5,14 @@ import ApproachStrip from "../components/sections/ApproachStrip";
 import Faq from "../components/sections/Faq";
 import Press from "../components/sections/Press";
 import ContactBand from "../components/sections/ContactBand";
-import { FeaturedProjects } from "../components/sections/HomeSections";
+import FeaturedWork from "../components/sections/FeaturedWork";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <LogoMarquee />
-      <FeaturedProjects />
+      <FeaturedWork />
       <ApproachStrip />
       <Services />
       <Faq />
