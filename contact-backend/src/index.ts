@@ -27,6 +27,7 @@ type ContactPayload = {
   name: string;
   email: string;
   message: string;
+  website?: string;
 };
 
 function jsonResponse(body: Record<string, unknown>, status: number, origin: string): Response {
@@ -53,6 +54,7 @@ function isContactPayload(value: unknown): value is ContactPayload {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
 
   const payload = value as Record<string, unknown>;
+  if (typeof payload.website === "string" && payload.website.trim().length > 0) return false;
   if (
     typeof payload.name !== "string" ||
     typeof payload.email !== "string" ||
