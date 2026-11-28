@@ -13,6 +13,7 @@ import ServiceInfrastructure from "./pages/ServiceInfrastructure";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import LegalNotice from "./pages/LegalNotice";
+import NotFound from "./pages/NotFound";
 
 function Shell() {
   useScrollToTop();
@@ -26,6 +27,7 @@ function Shell() {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/mentions-legales" element={<LegalNotice />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
