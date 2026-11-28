@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { projects } from "../../data/content";
 import Reveal from "../Reveal";
 import "./FeaturedWork.css";
+import { prefetchRoute } from "../../utils/prefetchRoute";
 
 export default function FeaturedWork() {
   const [featured, ...recent] = projects;
@@ -80,7 +81,7 @@ export default function FeaturedWork() {
                 </a>
               ))}
             </div>
-            <Link to="/work" className="featured-work__all-link">
+            <Link to="/work" className="featured-work__all-link" onMouseEnter={() => prefetchRoute("/work")} onFocus={() => prefetchRoute("/work")}>
               Explore all work
             </Link>
           </div>
