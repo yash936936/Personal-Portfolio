@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import type { CSSProperties } from "react";
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
+import { projects } from "../data/content";
 import "./About.css";
 
 const SKILLS = [
@@ -65,7 +67,7 @@ export default function About() {
           <div className="about__sticky-nav">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
-              {["overview", "skills", "connect"].map((id) => (
+              {["overview", "work", "research", "skills", "connect"].map((id) => (
                 <li key={id}>
                   <button
                     className={`about__nav-btn ${activeSection === id ? "active" : ""}`}
@@ -94,6 +96,48 @@ export default function About() {
             </Reveal>
           </section>
 
+
+
+          <section id="work" className="about__section">
+            <Reveal>
+              <h2 className="about__h2">Recent Work</h2>
+              <p className="about__text">
+                Current builds across agentic systems, research tooling, document workflows, and applied machine learning.
+              </p>
+              <div className="about__work-list">
+                {projects.slice(0, 3).map((project) => (
+                  <a
+                    className="about__work-card"
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    key={project.slug}
+                  >
+                    <span>
+                      <span className="about__work-category">{project.category}</span>
+                      <strong>{project.title}</strong>
+                    </span>
+                    <span className="about__work-year">{project.year}</span>
+                  </a>
+                ))}
+              </div>
+              <Link to="/work" className="about__more-link">View all work</Link>
+            </Reveal>
+          </section>
+
+          <section id="research" className="about__section">
+            <Reveal>
+              <h2 className="about__h2">Research Interests</h2>
+              <p className="about__text">
+                I am interested in how language models can retrieve, reason, coordinate, and act reliably inside larger software systems.
+              </p>
+              <div className="about__interest-list">
+                {["Large Language Models", "Natural Language Processing", "Agentic AI", "Multi-agent Systems", "Retrieval-Augmented Generation", "Model Evaluation"].map((interest) => (
+                  <span className="about__interest" key={interest}>{interest}</span>
+                ))}
+              </div>
+            </Reveal>
+          </section>
 
           <section id="skills" className="about__section">
             <Reveal>
