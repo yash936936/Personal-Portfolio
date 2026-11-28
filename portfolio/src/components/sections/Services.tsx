@@ -29,7 +29,8 @@ export default function Services() {
         overwrite: "auto",
       });
     });
-    return () => detailRefs.current.forEach((element) => element && gsap.killTweensOf(element));
+    const elements = detailRefs.current;
+    return () => elements.forEach((element) => element && gsap.killTweensOf(element));
   }, [activeIndex]);
 
   return (
