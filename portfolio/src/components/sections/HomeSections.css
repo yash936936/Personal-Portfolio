@@ -16,17 +16,17 @@
 .home-featured__hero {
   position: sticky; top: 124px; min-height: 420px; display: flex; flex-direction: column; justify-content: space-between;
   padding: clamp(28px, 4vw, 48px); border-radius: 24px; overflow: hidden;
-  color: #f8f3ec; background: #171614; border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 28px 70px -45px rgba(20,18,16,.65); transform-origin: 50% 20%;
+  color: #fff6ef; background: #d18468; border: 1px solid rgba(92,48,34,.22);
+  box-shadow: 0 28px 70px -45px rgba(112,58,39,.42); transform-origin: 50% 20%;
 }
 .home-featured__hero::after {
   content: ""; position: absolute; width: 300px; height: 300px; right: -110px; top: -90px;
-  border: 1px solid rgba(209,132,104,.38); border-radius: 50%; box-shadow: 0 0 0 34px rgba(209,132,104,.045), 0 0 0 70px rgba(209,132,104,.025);
+  border: 1px solid rgba(255,246,239,.42); border-radius: 50%; box-shadow: 0 0 0 34px rgba(255,246,239,.08), 0 0 0 70px rgba(255,246,239,.045);
   pointer-events: none;
 }
-.home-featured__hero-kicker { position: relative; z-index: 1; color: var(--color-primary); font-family: var(--font-code); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
-.home-featured__hero h3 { position: relative; z-index: 1; max-width: 480px; margin: auto 0 24px; color: var(--color-primary); font-family: var(--font-display); font-size: clamp(34px, 4vw, 52px); font-weight: 400; line-height: 1.06; letter-spacing: -.04em; }
-.home-featured__hero p { position: relative; z-index: 1; max-width: 430px; color: rgba(248,243,236,.72); font-size: 14px; line-height: 1.8; }
+.home-featured__hero-kicker { position: relative; z-index: 1; color: rgba(255,246,239,.82); font-family: var(--font-code); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.home-featured__hero h3 { position: relative; z-index: 1; max-width: 480px; margin: auto 0 24px; color: #fff6ef; font-family: var(--font-display); font-size: clamp(34px, 4vw, 52px); font-weight: 400; line-height: 1.06; letter-spacing: -.04em; }
+.home-featured__hero p { position: relative; z-index: 1; max-width: 430px; color: rgba(255,246,239,.9); font-size: 14px; line-height: 1.8; }
 
 .home-featured__stack { display: grid; gap: 18px; padding-bottom: 12px; }
 .home-project-card {
