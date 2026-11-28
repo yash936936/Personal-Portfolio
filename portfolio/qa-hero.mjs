@@ -1,32 +1,41 @@
-import { chromium } from "file:///C:/Users/seema/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs";
+import { chromium } from "playwright";
 
-const browser = await chromium.launch({
-  executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
-  headless: true,
-});
+const browser = await chromium.launch({ headless: true });
 
-const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
-await page.goto("http://127.0.0.1:4173", { waitUntil: "networkidle" });
-await page.screenshot({ path: "hero-desktop.png", fullPage: false });
+try {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+    deviceScaleFactor: 1,
+  });
 
-const initialTitle = await page.locator("h1[aria-hidden='false']").innerText();
-await page.locator(".hero__switch-control").click({ force: true });
-await page.waitForTimeout(1100);
-const switchTitle = await page.locator("h1[aria-hidden='false']").innerText();
-await page.locator(".hero__progress-item").nth(1).click();
-await page.waitForTimeout(1100);
-const changedTitle = await page.locator("h1[aria-hidden='false']").innerText();
-await page.screenshot({ path: "hero-desktop-state-2.png", fullPage: false });
+  await page.goto("http://127.0.0.1:4173", { waitUntil: "domcontentloaded" });
+  await page.screenshot({ path: "qa-hero-desktop.png", fullPage: false });
 
-await page.setViewportSize({ width: 390, height: 844 });
-await page.reload({ waitUntil: "networkidle" });
-await page.screenshot({ path: "hero-mobile.png", fullPage: false });
+  const initialTitle = await page.locator("h1[aria-hidden='false']").first().innerText();
 
-const metrics = await page.evaluate(() => ({
-  scrollWidth: document.documentElement.scrollWidth,
-  clientWidth: document.documentElement.clientWidth,
-  heroHeight: document.querySelector(".hero")?.getBoundingClientRect().height,
-}));
+  // The hero changes state from scroll direction; its visual switch is not a button.
+  await page.mouse.wheel(0, 360);
+  await page.waitForTimeout(1400);
+  const scrolledTitle = await page.locator("h1[aria-hidden='false']").first().innerText();
+  await page.screenshot({ path: "qa-hero-desktop-scrolled.png", fullPage: false });
 
-console.log(JSON.stringify({ initialTitle, switchTitle, changedTitle, metrics }, null, 2));
-await browser.close();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.screenshot({ path: "qa-hero-mobile.png", fullPage: false });
+
+  const metrics = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+    heroHeight: document.querySelector(".hero")?.getBoundingClientRect().height,
+  }));
+
+  const report = { initialTitle, scrolledTitle, metrics };
+  console.log(JSON.stringify(report, null, 2));
+
+  if (metrics.scrollWidth > metrics.clientWidth) {
+    throw new Error("Horizontal overflow detected at the mobile viewport.");
+  }
+} finally {
+  await browser.close();
+}
