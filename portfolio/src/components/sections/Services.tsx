@@ -7,9 +7,9 @@ import Reveal from "../Reveal";
 import "./Services.css";
 
 const CAPABILITY_META = [
-  { label: "AI & agentic systems", number: "01", accent: "var(--color-primary)" },
-  { label: "Software development", number: "02", accent: "#58768d" },
-  { label: "Deployment & infrastructure", number: "03", accent: "var(--color-accent-teal)" },
+  { label: "AI & agentic systems", number: "", accent: "var(--color-primary)" },
+  { label: "Software development", number: "", accent: "var(--color-primary)" },
+  { label: "Deployment & infrastructure", number: "", accent: "var(--color-primary)" },
 ] as const;
 
 export default function Services() {
@@ -63,7 +63,7 @@ export default function Services() {
                 onMouseEnter={() => setActiveIndex(index)}
               >
                 <div className="services__row-trigger">
-                  <span className="services__row-number">{meta.number}</span>
+                  
                   <Link to={offer.href} className="services__row-title" onFocus={() => setActiveIndex(index)}>
                     {offer.title.replace(/\n/g, " ")}
                   </Link>
