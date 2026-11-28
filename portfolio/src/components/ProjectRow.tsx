@@ -24,24 +24,6 @@ function GithubMark() {
   );
 }
 
-function ArrowIcon() {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      width="14"
-      height="14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 8h10M9 4l4 4-4 4" />
-    </svg>
-  );
-}
-
 export default function ProjectRow({
   title,
   year,
@@ -56,7 +38,6 @@ export default function ProjectRow({
   return (
     <div className="project-pill" style={{ "--row-color": color } as React.CSSProperties}>
       <span className="project-pill__fill" aria-hidden="true" />
-
       {destination ? (
         <a
           href={destination}
@@ -65,9 +46,7 @@ export default function ProjectRow({
           className="project-pill__link"
           data-cursor="link"
         >
-          <span className="project-pill__badge" aria-hidden="true">
-            <ArrowIcon />
-          </span>
+          <span className="project-pill__badge" aria-hidden="true" />
           <span className="project-pill__text">
             <span className="project-pill__title">{title}</span>
             <span className="project-pill__sub">{category} · {year}</span>
@@ -75,16 +54,13 @@ export default function ProjectRow({
         </a>
       ) : (
         <div className="project-pill__link" aria-disabled="true">
-          <span className="project-pill__badge" aria-hidden="true">
-            <ArrowIcon />
-          </span>
+          <span className="project-pill__badge" aria-hidden="true" />
           <span className="project-pill__text">
             <span className="project-pill__title">{title}</span>
             <span className="project-pill__sub">{category} · {year}</span>
           </span>
         </div>
       )}
-
       {github && (
         <a
           href={github}
@@ -95,7 +71,6 @@ export default function ProjectRow({
           data-cursor="link"
         >
           <GithubMark />
-          <ArrowIcon />
         </a>
       )}
     </div>
