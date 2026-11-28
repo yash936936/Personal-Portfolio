@@ -414,3 +414,46 @@
 .nav--dark-page .nav__logo {
   color: var(--color-on-dark);
 }
+
+/* Shared contact/hero CTA arrow transition */
+.nav__pill--cta .nav__pill-arrow--left,
+.hero__cta .nav__pill-arrow--left {
+  width: 0;
+  height: 28px;
+  opacity: 0;
+  margin-right: 0;
+  transform: scale(.4);
+}
+.nav__pill--cta .nav__pill-arrow--right,
+.hero__cta .nav__pill-arrow--right {
+  width: 28px;
+  height: 28px;
+  opacity: 1;
+  margin-left: 6px;
+  transform: scale(1);
+}
+.nav__pill--cta:hover .nav__pill-arrow--left,
+.hero__cta:hover .nav__pill-arrow--left {
+  width: 28px;
+  opacity: 1;
+  margin-right: 6px;
+  transform: scale(1);
+}
+.nav__pill--cta:hover .nav__pill-arrow--right,
+.hero__cta:hover .nav__pill-arrow--right {
+  width: 0;
+  opacity: 0;
+  margin-left: 0;
+  transform: scale(.4);
+}
+.hero__cta .nav__pill-arrow {
+  transition-duration: .38s;
+}
+.hero__cta .nav__pill-arrow--left,
+.hero__cta .nav__pill-arrow--right {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav__pill-arrow { transition: none !important; }
+}
