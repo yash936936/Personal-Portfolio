@@ -7,6 +7,10 @@ A React portfolio for presenting AI engineering, full-stack development, selecte
 - `portfolio/`: React application, pages, reusable components, visual assets, and styling.
 - `contact-backend/`: Cloudflare Worker that validates contact submissions and sends notifications through Resend.
 
+## Environment configuration
+
+Copy `.env.example` to `.env.local` and set `VITE_CF_WEB_ANALYTICS_TOKEN` to the token from Cloudflare Web Analytics. Leave it empty to keep analytics disabled. The token is public configuration, not a secret.
+
 ## Run the portfolio
 
 ```bash
