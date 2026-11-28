@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { gsap } from "gsap";
 import { Link, Navigate, useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
@@ -58,15 +59,47 @@ export default function Blog() {
       <div className="writing-filters" aria-label="Filter blog articles by topic">
         {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? "writing-filter writing-filter--active" : "writing-filter"} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}</button>)}
       </div>
-      <div className="blog-list__grid">
-        {visiblePosts.map((post, index) => <Reveal key={post.slug} delay={index * 60}>
-          <article className="blog-card">
-            <div className="blog-card__meta"><span>{post.category}</span><span>{post.readingTime}</span></div>
-            <h2>{post.title}</h2><p>{post.excerpt}</p>
-            <div className="blog-card__related">{(RELATED_WORK[post.slug] ?? []).map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label}</Link>)}</div>
-            <Link to={"/blog/" + post.slug}>Read article</Link>
-          </article>
-        </Reveal>)}
+      <div className="blog-list__rows">
+        {visiblePosts.map((post, index) => {
+          const images = [
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=85",
+            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=85",
+            "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1800&q=85",
+          ];
+          const animateImage = (row: HTMLElement, expanded: boolean) => {
+            const image = row.querySelector<HTMLElement>(".blog-row__image");
+            if (!image) return;
+            gsap.killTweensOf(image);
+            gsap.to(image, {
+              height: expanded ? 230 : 0,
+              opacity: expanded ? 1 : 0,
+              duration: expanded ? 0.72 : 0.42,
+              ease: expanded ? "elastic.out(1, 0.72)" : "power3.inOut",
+              overwrite: true,
+            });
+          };
+          return <Reveal key={post.slug} delay={index * 60}>
+            <article
+              className="blog-row"
+              onMouseEnter={(event) => animateImage(event.currentTarget, true)}
+              onMouseLeave={(event) => animateImage(event.currentTarget, false)}
+              onFocusCapture={(event) => animateImage(event.currentTarget, true)}
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) animateImage(event.currentTarget, false);
+              }}
+            >
+              <div className="blog-row__content">
+                <div className="blog-card__meta"><span>{post.category}</span><span>{post.readingTime}</span></div>
+                <h2><Link to={"/blog/" + post.slug}>{post.title}</Link></h2>
+                <p>{post.excerpt}</p>
+                <div className="blog-card__related">{(RELATED_WORK[post.slug] ?? []).map((item) => <Link key={item.slug} to={"/work/" + item.slug}>{item.label}</Link>)}</div>
+              </div>
+              <div className="blog-row__image" aria-hidden="true">
+                <img src={images[index % images.length]} alt="" loading="lazy" />
+              </div>
+            </article>
+          </Reveal>;
+        })}
       </div>
     </section>
   </div>;
