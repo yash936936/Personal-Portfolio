@@ -77,16 +77,14 @@ export const projects = [
     slug: "AI Researcher", 
     title: "Local CLI Researcher", 
     year: "2026", 
-    category: "Research Agent", 
-    color: "#ea580c", // Deep orange accent
+    category: "Research Agent",
     github: "https://github.com/yash936936/Fathom" 
   },
   { 
     slug: "ai-document-analysis", 
     title: "AI Document Analysis", 
     year: "2026", 
-    category: "AI Orchestration", 
-    color: "#f59e0b", // Amber-500 alignment
+    category: "AI Orchestration",
     github: "https://github.com/yash936936/AI-Powered_Document_Analysis_And_Extraction" 
   },
   { 
