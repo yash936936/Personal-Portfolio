@@ -66,7 +66,7 @@ describe("portfolio contact worker", () => {
   });
 
   it("rejects oversized request bodies before contacting the email provider", async () => {
-    const fetchMock = vi.fn();
+    const fetchMock = vi.fn<typeof fetch>();
     vi.stubGlobal("fetch", fetchMock);
     const response = await worker.fetch(
       makeRequest({ ...validPayload, message: "x".repeat(30_000) }),
@@ -78,7 +78,7 @@ describe("portfolio contact worker", () => {
   });
 
   it("escapes user input before inserting it into the email HTML", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(new Response("{}", { status: 200 }));
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(new Response("{}", { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
 
     const response = await worker.fetch(
@@ -91,15 +91,16 @@ describe("portfolio contact worker", () => {
     );
 
     expect(response.status).toBe(200);
-    const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
-    const email = JSON.parse(String(init.body));
+    const init = fetchMock.mock.calls[0]?.[1];
+    expect(init).toBeDefined();
+    const email = JSON.parse(String(init?.body));
     expect(email.html).toContain("&lt;img src=x onerror=&quot;alert(1)&quot;&gt;");
     expect(email.html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
     expect(email.html).not.toContain("<script>");
   });
 
   it("returns a generic provider error without leaking provider details", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
       new Response("private provider diagnostic", { status: 429 }),
     );
     vi.stubGlobal("fetch", fetchMock);
