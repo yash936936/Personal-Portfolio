@@ -52,3 +52,10 @@
     padding: 0 22px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+    transform: none;
+  }
+}
