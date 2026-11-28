@@ -26,12 +26,12 @@ export default function FeaturedWork() {
 
         <div className="featured-work__layout">
           <Reveal className="featured-work__lead-wrap">
-            <a
+            <Link
               className="featured-work__lead"
-              href={featured.github}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Explore ${featured.title} on GitHub`}
+              to={`/work/${featured.slug}`}
+              onMouseEnter={() => prefetchRoute(`/work/${featured.slug}`)}
+              onFocus={() => prefetchRoute(`/work/${featured.slug}`)}
+              aria-label={`Read the ${featured.title} case study`}
             >
               <div className="featured-work__lead-top">
                 <span className="featured-work__lead-label">Featured build</span>
@@ -50,7 +50,7 @@ export default function FeaturedWork() {
                 <span className="featured-work__year">{featured.year}</span>
               </div>
               <span className="featured-work__lead-cta">Explore project</span>
-            </a>
+            </Link>
           </Reveal>
 
           <div className="featured-work__recent">
@@ -60,14 +60,14 @@ export default function FeaturedWork() {
             </div>
             <div className="featured-work__stack">
               {recent.map((project, index) => (
-                <a
+                <Link
                   className="featured-work__card"
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
+                  to={`/work/${project.slug}`}
+                  onMouseEnter={() => prefetchRoute(`/work/${project.slug}`)}
+                  onFocus={() => prefetchRoute(`/work/${project.slug}`)}
                   key={project.slug}
                   style={{ "--stack-offset": `${index * 13}px`, "--stack-tilt": index % 2 === 0 ? "-0.8deg" : "0.8deg" } as React.CSSProperties}
-                  aria-label={`Explore ${project.title} on GitHub`}
+                  aria-label={`Read the ${project.title} case study`}
                 >
                   <span className="featured-work__card-top">
                     <span>{project.category}</span>
@@ -78,7 +78,7 @@ export default function FeaturedWork() {
                     <span>{project.year}</span>
                     <span className="featured-work__card-link">View project</span>
                   </span>
-                </a>
+                </Link>
               ))}
             </div>
             <Link to="/work" className="featured-work__all-link" onMouseEnter={() => prefetchRoute("/work")} onFocus={() => prefetchRoute("/work")}>
