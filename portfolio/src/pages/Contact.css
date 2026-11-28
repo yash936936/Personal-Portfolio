@@ -194,3 +194,11 @@ a.contact-info__value:hover {
     padding: 22px;
   }
 }
+
+
+.contact-error {
+  margin-top: 4px;
+  color: #ff9a8f;
+  font-size: 14px;
+  line-height: 1.5;
+}
