@@ -43,7 +43,7 @@ export default function Nav() {
   useEffect(() => {
     if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeMenu();
+      if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -51,7 +51,7 @@ export default function Nav() {
 
   // Close menu on route change
   useEffect(() => {
-    closeMenu();
+    setOpen(false);
   }, [location.pathname]);
 
   return (
@@ -86,17 +86,7 @@ export default function Nav() {
               ))}
               <span className="nav__divider" aria-hidden="true" />
               <Link to="/contact" className="nav__pill nav__pill--cta">
-                <span className="nav__pill-arrow nav__pill-arrow--left" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" focusable="false">
-                    <path d="M4 10h11M11 6l4 4-4 4" />
-                  </svg>
-                </span>
                 <span className="nav__pill-cta-label">Contact</span>
-                <span className="nav__pill-arrow nav__pill-arrow--right" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" focusable="false">
-                    <path d="M4 10h11M11 6l4 4-4 4" />
-                  </svg>
-                </span>
               </Link>
             </div>
           </nav>
@@ -106,7 +96,7 @@ export default function Nav() {
       <div id="nav-overlay" className={`nav-overlay ${open ? "nav-overlay--open" : ""}`} aria-hidden={!open}>
         <div className="nav-overlay__inner container">
           <div className="nav-overlay__col">
-            <span className="eyebrow nav-overlay__eyebrow">Services</span>
+            <Link to="/services" className="eyebrow nav-overlay__eyebrow" onClick={closeMenu}>Services</Link>
             <ul className="nav-overlay__offers">
               {offerLinks.map((o, i) => (
                 <li
