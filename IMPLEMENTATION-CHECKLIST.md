@@ -19,7 +19,8 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 - [x] Add a portfolio-branded SVG favicon, replacing the previous purple starter icon.
 - [x] Add unique route-specific page titles and meta descriptions.
 - [x] Add canonical URLs, Open Graph and Twitter metadata, Person structured data, and a crawler access policy.
-- [ ] Add a sitemap: the production website hostname is not defined in the repository. A sitemap with a guessed host would be incorrect.
+- [x] Add build-time sitemap generation and a matching robots.txt Sitemap directive when `VITE_SITE_URL` is configured.
+- [ ] Set `VITE_SITE_URL` to the real production hostname before deployment.
 - [x] Remove form placeholder copy; visible labels now carry the field instructions.
 - [x] Add contact success and error states with live-region announcements.
 - [x] Add alt attributes to image elements; decorative technology icons use empty alt text and are hidden from assistive technology.
@@ -49,6 +50,6 @@ Status reflects code changes on `portfolio/v2-engineering-refinement`. Browser a
 ## Validation still required
 
 - [ ] Run `npm ci && npm run lint && npm run build` in `portfolio/`.
-- [ ] Run `npm ci && npm test` in `contact-backend/`.
+- [x] Run `npm ci && npm test` in `contact-backend/` (GitHub Actions passed).
 - [ ] Run `npm run qa:site` against a local production preview.
 - [ ] Verify the deployed contact form after setting the production allowed origin.
