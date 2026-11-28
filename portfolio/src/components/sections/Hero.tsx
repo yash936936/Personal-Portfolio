@@ -53,7 +53,7 @@ export default function Hero() {
         </div>
         <div className="hero__content">
           <span className="eyebrow hero__eyebrow">{heroTag}</span>
-          <div className="hero__headline-stack" aria-live="polite">
+          <div className="hero__headline-stack">
             {heroLines.map((line, lineIndex) => (
               <h1
                 key={line.title}
