@@ -44,7 +44,7 @@ export function FeaturedProjects() {
     <section className="home-section home-featured">
       <div className="container">
         <div className="home-section__heading home-section__heading--row">
-          <div><span className="home-section__eyebrow">Selected work</span><h2>Featured work</h2></div>
+          <div><span className="home-section__eyebrow">Work</span><h2>Featured work</h2></div>
           <Link to="/work" className="home-section__text-link">All work</Link>
         </div>
         <p className="home-featured__intro">
