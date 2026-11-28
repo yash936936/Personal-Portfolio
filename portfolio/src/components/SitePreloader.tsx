@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./SitePreloader.css";
 
-const MINIMUM_DISPLAY_MS = 1500;
-const MAXIMUM_DISPLAY_MS = 4500;
+const MINIMUM_DISPLAY_MS = 4000;
+const MAXIMUM_DISPLAY_MS = 5000;
 
 export default function SitePreloader() {
   const [visible, setVisible] = useState(true);
@@ -88,7 +88,6 @@ export default function SitePreloader() {
         <span className="site-preloader__orb" />
         <span className="site-preloader__reflection" />
       </div>
-      <span className="site-preloader__wordmark">YASH MALIK</span>
     </div>
   );
 }
