@@ -165,11 +165,18 @@
 
 
 /* Work page exploration cue and return control */
+.work-page__intro {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+.work-page__intro .page-header { flex: 0 0 auto; }
 .work-scroll-cue {
-  min-height: clamp(150px, 24vh, 250px);
   display: grid;
   place-items: center;
-  padding: 22px var(--container-pad) 34px;
+  margin-top: auto;
+  padding: 20px var(--container-pad) clamp(34px, 6vh, 64px);
   text-align: center;
 }
 .work-scroll-cue__content { display: grid; justify-items: center; gap: 12px; }
@@ -230,7 +237,6 @@
 .work-back-to-top:hover { background: #e09a7e; }
 .work-back-to-top > span:first-child { font-size: 18px; line-height: 1; }
 @media (max-width: 600px) {
-  .work-scroll-cue { min-height: 145px; }
   .work-back-to-top { right: 16px; bottom: 16px; min-height: 42px; }
 }
 @media (prefers-reduced-motion: reduce) {
