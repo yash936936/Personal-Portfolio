@@ -157,12 +157,14 @@ export default function Work() {
           ))}
         </div>
       </section>
-        <section className="work-scroll-cue" aria-label="Explore the work">
-          <div className="work-scroll-cue__content">
-            <span>Systems, prototypes and engineering notes</span>
-            <button type="button" onClick={scrollToProjects}>Scroll to explore <span aria-hidden="true">↓</span></button>
-          </div>
-        </section>
+        {!hasScrolled && (
+          <section className="work-scroll-cue" aria-label="Explore the work">
+            <div className="work-scroll-cue__content">
+              <span>Systems, prototypes and engineering notes</span>
+              <button type="button" onClick={scrollToProjects}>Scroll to explore <span aria-hidden="true">↓</span></button>
+            </div>
+          </section>
+        )}
       </div>
       <section className="container work-case-studies" aria-label="Architecture case studies">
         {projects.map((item, index) => (
