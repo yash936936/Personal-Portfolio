@@ -20,7 +20,8 @@ const seenTitles = new Set();
 for (const [route, expectedTitle] of pages) {
   const file = route === "/" ? "dist/index.html" : `dist/${route.slice(1)}/index.html`;
   const html = await readFile(resolve(file), "utf8");
-  assert.ok(html.includes(`<title>${expectedTitle}</title>`), `Missing route title for ${route}`);
+  const encodedTitle = expectedTitle.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
+  assert.ok(html.includes(`<title>${encodedTitle}</title>`), `Missing route title for ${route}`);
   assert.ok(html.includes('name="description"'), `Missing meta description for ${route}`);
   assert.ok(!seenTitles.has(expectedTitle), `Duplicate page title: ${expectedTitle}`);
   seenTitles.add(expectedTitle);
