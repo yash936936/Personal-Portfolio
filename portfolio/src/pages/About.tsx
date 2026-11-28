@@ -76,12 +76,15 @@ export default function About() {
       <div className="container about__container">
         {/* Left Sidebar Menu */}
         <aside className="about__sidebar">
-          <div className="about__sticky-nav">
+          <nav className="about__sticky-nav" aria-label="About sections">
             <span className="eyebrow">Contents</span>
             <ul className="about__nav-list">
               {["overview", "work", "research", "skills", "connect"].map((id) => (
                 <li key={id}>
                   <button
+                    type="button"
+                    aria-controls={id}
+                    aria-current={activeSection === id ? "location" : undefined}
                     className={`about__nav-btn ${activeSection === id ? "active" : ""}`}
                     onClick={() => scrollToSection(id)}
                   >
@@ -90,7 +93,7 @@ export default function About() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
         </aside>
 
         {/* Right Content Area */}
