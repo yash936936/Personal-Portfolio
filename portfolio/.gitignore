@@ -1,3 +1,6 @@
 node_modules
 dist
 .DS_Store
+
+# Optional Playwright hero QA screenshots
+qa-hero-*.png
