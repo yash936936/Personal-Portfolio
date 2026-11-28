@@ -23,7 +23,6 @@ export const sectors = [
 
 export const offers = [
   {
-    kicker: "Service",
     title: "Model Training,\nFine-Tuning & Agentic AI",
     desc: "Orchestrating autonomous agents and fine-tuning models to deliver intelligent systems that solve real-world problems, not just benchmarks.",
     href: "/services/ai",
@@ -55,10 +54,6 @@ export const faqs = [
     q: "What does your typical tech stack look like?",
     a: "For AI orchestration, I rely on frameworks like LangChain and LangGraph integrated with top-tier LLM APIs. For full-stack development, I build highly responsive frontends backed by Firebase and Supabase to guarantee scalable, real-time performance.",
   },
-];
-
-export const press = [
-  "GitHub", "LinkedIn", "X", "Reddit", 
 ];
 
 export const projects = [
