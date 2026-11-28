@@ -78,8 +78,13 @@
 
 .project-pill:hover .project-pill__cta,
 .project-pill:focus-visible .project-pill__cta {
-  color: var(--color-ink);
+  color: #14130f;
   transform: translateX(2px);
+}
+
+.project-pill:hover .project-pill__title,
+.project-pill:focus-visible .project-pill__title {
+  color: #14130f;
 }
 
 .project-pill:hover .project-pill__sub,
