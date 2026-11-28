@@ -19,7 +19,6 @@ function corsHeaders(origin: string) {
 }
 
 const jsonHeaders = {
-  ...corsHeaders,
   "Content-Type": "application/json; charset=utf-8",
   "Cache-Control": "no-store",
 };
@@ -132,6 +131,7 @@ export default {
             "Provide a valid name, email address, and message. Name must be at most 120 characters and message at most 5000 characters.",
         },
         400,
+        origin,
       );
     }
 
