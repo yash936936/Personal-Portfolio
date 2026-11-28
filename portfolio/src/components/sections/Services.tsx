@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { offers } from "../../data/content";
 import Reveal from "../Reveal";
 import "./Services.css";
+import { prefetchRoute } from "../../utils/prefetchRoute";
 
 const META = [
   {
@@ -90,7 +91,7 @@ export default function Services() {
         <div className="services__intro">
           <Reveal>
             <span className="services__eyebrow">Be precise. Be fast. Be bold.</span>
-            <Link to="/services" className="services__heading-link">
+            <Link to="/services" className="services__heading-link" onMouseEnter={() => prefetchRoute("/services")} onFocus={() => prefetchRoute("/services")}>
               <h2 id="services-heading" className="services__heading">
                 Engineering Capabilities
               </h2>
@@ -102,7 +103,7 @@ export default function Services() {
               I combine strategy, engineering, and design to build the thing you actually
               need — and make sure it reaches production.
             </p>
-            <Link to="/contact" className="services__cta">
+            <Link to="/contact" className="services__cta" onMouseEnter={() => prefetchRoute("/contact")} onFocus={() => prefetchRoute("/contact")}>
               Book a call
             </Link>
           </Reveal>
