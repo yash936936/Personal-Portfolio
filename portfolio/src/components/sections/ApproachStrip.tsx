@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Reveal from "../Reveal";
 import "./ApproachStrip.css";
+import { prefetchRoute } from "../../utils/prefetchRoute";
 
 export default function ApproachStrip() {
   return (
@@ -13,10 +14,10 @@ export default function ApproachStrip() {
               hold. I'll make you trust an engineer again.
             </p>
             <div className="approach__row">
-              <Link to="/contact" className="approach__cta">
+              <Link to="/contact" className="approach__cta" onMouseEnter={() => prefetchRoute("/contact")} onFocus={() => prefetchRoute("/contact")}>
                 Let's take the time to talk
               </Link>
-              <Link to="/work" className="approach__cta approach__cta--work" data-cursor="link">
+              <Link to="/work" className="approach__cta approach__cta--work" data-cursor="link" onMouseEnter={() => prefetchRoute("/work")} onFocus={() => prefetchRoute("/work")}>
                 <span className="approach__cta-title">Explore Work</span>
                 <span className="approach__switch" aria-hidden="true">
                   <span className="approach__switch-thumb" />
