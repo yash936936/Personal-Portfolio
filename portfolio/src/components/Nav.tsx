@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Nav.css";
+import { prefetchRoute } from "../utils/prefetchRoute";
 
 const offerLinks = [
   { title: "Model design & training", desc: "For a model that actually solves the problem", href: "/services/ai" },
@@ -58,7 +59,7 @@ export default function Nav() {
     <>
       <header className={`nav ${scrolled ? "nav--scrolled" : ""} ${isDarkPage ? "nav--dark-page" : ""}`}>
         <div className="nav__inner container">
-          <Link to="/" className="nav__logo" aria-label="Home" onClick={closeMenu}>
+          <Link to="/" className="nav__logo" aria-label="Home" onClick={closeMenu} onMouseEnter={() => prefetchRoute("/")} onFocus={() => prefetchRoute("/")}>
             <span className="nav__logo-mark">Y</span>
             <span className="nav__logo-word">Yash</span>
           </Link>
@@ -80,12 +81,12 @@ export default function Nav() {
           <nav className="nav__primary" aria-label="Primary">
             <div className="nav__track">
               {primaryLinks.map((l) => (
-                <Link key={l.href} to={l.href} className="nav__pill" aria-current={location.pathname === l.href ? "page" : undefined}>
+                <Link key={l.href} to={l.href} className="nav__pill" aria-current={location.pathname === l.href ? "page" : undefined} onMouseEnter={() => prefetchRoute(l.href)} onFocus={() => prefetchRoute(l.href)}>
                   {l.label}
                 </Link>
               ))}
               <span className="nav__divider" aria-hidden="true" />
-              <Link to="/contact" className="nav__pill nav__pill--cta">
+              <Link to="/contact" className="nav__pill nav__pill--cta" onMouseEnter={() => prefetchRoute("/contact")} onFocus={() => prefetchRoute("/contact")}>
                 <span className="nav__pill-cta-label">Contact</span>
               </Link>
             </div>
@@ -93,10 +94,10 @@ export default function Nav() {
         </div>
       </header>
 
-      <div id="nav-overlay" className={`nav-overlay ${open ? "nav-overlay--open" : ""}`} aria-hidden={!open}>
+      <div id="nav-overlay" className={`nav-overlay ${open ? "nav-overlay--open" : ""}`} aria-hidden={!open} inert={!open}>
         <div className="nav-overlay__inner container">
           <div className="nav-overlay__col">
-            <Link to="/services" className="eyebrow nav-overlay__eyebrow" onClick={closeMenu} aria-current={location.pathname.startsWith("/services") ? "page" : undefined}>Services</Link>
+            <Link to="/services" className="eyebrow nav-overlay__eyebrow" onClick={closeMenu} onMouseEnter={() => prefetchRoute("/services")} onFocus={() => prefetchRoute("/services")} aria-current={location.pathname.startsWith("/services") ? "page" : undefined}>Services</Link>
             <ul className="nav-overlay__offers">
               {offerLinks.map((o, i) => (
                 <li
@@ -104,7 +105,7 @@ export default function Nav() {
                   style={{ transitionDelay: open ? `${120 + i * 70}ms` : "0ms" }}
                   className="nav-overlay__offer-item"
                 >
-                  <Link to={o.href} className="nav-overlay__offer" onClick={closeMenu}>
+                  <Link to={o.href} className="nav-overlay__offer" onClick={closeMenu} onMouseEnter={() => prefetchRoute(o.href)} onFocus={() => prefetchRoute(o.href)}>
                     <span className="nav-overlay__offer-title">{o.title}</span>
                     <span className="nav-overlay__offer-desc">{o.desc}</span>
                   </Link>
@@ -127,7 +128,7 @@ export default function Nav() {
                   style={{ transitionDelay: open ? `${180 + i * 70}ms` : "0ms" }}
                   className="nav-overlay__link-item"
                 >
-                  <Link to={l.href} className="nav-overlay__link" onClick={closeMenu} aria-current={location.pathname === l.href ? "page" : undefined}>
+                  <Link to={l.href} className="nav-overlay__link" onClick={closeMenu} onMouseEnter={() => prefetchRoute(l.href)} onFocus={() => prefetchRoute(l.href)} aria-current={location.pathname === l.href ? "page" : undefined}>
                     {l.label}
                   </Link>
                 </li>
