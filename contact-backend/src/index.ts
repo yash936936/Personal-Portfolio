@@ -1,5 +1,6 @@
 export interface Env {
   RESEND_API_KEY: string;
+  ALLOWED_ORIGIN: string;
 }
 
 const MAX_BODY_BYTES = 24 * 1024;
@@ -7,12 +8,15 @@ const MAX_NAME_LENGTH = 120;
 const MAX_EMAIL_LENGTH = 254;
 const MAX_MESSAGE_LENGTH = 5_000;
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Access-Control-Max-Age": "86400",
-};
+function corsHeaders(origin: string) {
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    "Vary": "Origin",
+  };
+}
 
 const jsonHeaders = {
   ...corsHeaders,
@@ -26,8 +30,11 @@ type ContactPayload = {
   message: string;
 };
 
-function jsonResponse(body: Record<string, unknown>, status: number): Response {
-  return new Response(JSON.stringify(body), { status, headers: jsonHeaders });
+function jsonResponse(body: Record<string, unknown>, status: number, origin: string): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...jsonHeaders, ...corsHeaders(origin) },
+  });
 }
 
 function escapeHtml(value: string): string {
@@ -74,40 +81,48 @@ function isContactPayload(value: unknown): value is ContactPayload {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    const origin = request.headers.get("Origin");
+    if (!env.ALLOWED_ORIGIN) {
+      return new Response("Contact endpoint is not configured", { status: 503 });
+    }
+    if (!origin || origin !== env.ALLOWED_ORIGIN) {
+      return new Response("Origin not allowed", { status: 403 });
+    }
+
     if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: corsHeaders });
+      return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
     if (request.method !== "POST") {
-      return jsonResponse({ error: "Method not allowed" }, 405);
+      return jsonResponse({ error: "Method not allowed" }, 405, origin);
     }
 
     const contentType = request.headers.get("Content-Type") ?? "";
     if (contentType.toLowerCase().split(";")[0].trim() !== "application/json") {
-      return jsonResponse({ error: "Content-Type must be application/json" }, 415);
+      return jsonResponse({ error: "Content-Type must be application/json" }, 415, origin);
     }
 
     const contentLength = Number(request.headers.get("Content-Length") ?? 0);
     if (contentLength > MAX_BODY_BYTES) {
-      return jsonResponse({ error: "Request body is too large" }, 413);
+      return jsonResponse({ error: "Request body is too large" }, 413, origin);
     }
 
     let rawBody: string;
     try {
       rawBody = await request.text();
     } catch {
-      return jsonResponse({ error: "Unable to read request body" }, 400);
+      return jsonResponse({ error: "Unable to read request body" }, 400, origin);
     }
 
     if (new TextEncoder().encode(rawBody).byteLength > MAX_BODY_BYTES) {
-      return jsonResponse({ error: "Request body is too large" }, 413);
+      return jsonResponse({ error: "Request body is too large" }, 413, origin);
     }
 
     let parsedBody: unknown;
     try {
       parsedBody = JSON.parse(rawBody);
     } catch {
-      return jsonResponse({ error: "Invalid or missing JSON body" }, 400);
+      return jsonResponse({ error: "Invalid or missing JSON body" }, 400, origin);
     }
 
     if (!isContactPayload(parsedBody)) {
@@ -121,7 +136,7 @@ export default {
     }
 
     if (!env.RESEND_API_KEY) {
-      return jsonResponse({ error: "Email service is not configured" }, 503);
+      return jsonResponse({ error: "Email service is not configured" }, 503, origin);
     }
 
     const name = parsedBody.name.trim();
@@ -183,12 +198,12 @@ export default {
       });
 
       if (!notifyAdmin.ok) {
-        return jsonResponse({ error: "Email delivery failed. Please try again later." }, 502);
+        return jsonResponse({ error: "Email delivery failed. Please try again later." }, 502, origin);
       }
 
-      return jsonResponse({ success: true }, 200);
+      return jsonResponse({ success: true }, 200, origin);
     } catch {
-      return jsonResponse({ error: "Email delivery failed. Please try again later." }, 502);
+      return jsonResponse({ error: "Email delivery failed. Please try again later." }, 502, origin);
     }
   },
 };
